@@ -63,7 +63,7 @@ Feature: Categories operations
 			And there is a "ETag" Response Header
 			
 	Scenario: Cadastrar Categoria com ID
-		When an attempt to create a category with ID is made 
+		When an attempt to create an entity with ID is made 
 		Then server responds "400"
 		
 	Scenario: Listar Segunda Pagina

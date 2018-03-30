@@ -30,8 +30,9 @@ public class GenericBaseSteps<T> {
 	@SuppressWarnings("rawtypes")
 	private ResponseEntity responseEntity; 
 	
-	protected UUID uuid;
-	protected T dto;
+	private UUID uuid;
+	private String etag;
+	private T dto;
 	private List<T> dtos;
 	
 	@SuppressWarnings("rawtypes")
@@ -70,5 +71,25 @@ public class GenericBaseSteps<T> {
 	
 	public ObjectMapper mapper(){
 		return objectMapper;
+	}
+	
+	public UUID uuid(){
+		return uuid;
+	}
+	
+	public T dto(){
+		return dto;
+	}
+	
+	public void exportDto(T dto){
+		this.dto = dto;
+	}
+	
+	public void exportEtag(String eTag){
+		this.etag = eTag;
+	}
+	
+	public String etag(){
+		return etag;
 	}
 }
