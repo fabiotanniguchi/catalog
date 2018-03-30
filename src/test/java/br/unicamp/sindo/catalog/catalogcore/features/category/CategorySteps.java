@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;
@@ -14,6 +15,7 @@ import br.unicamp.sindo.catalog.catalogcore.features.GenericBaseSteps;
 import br.unicamp.sindo.catalog.category.Category;
 import br.unicamp.sindo.catalog.category.CategoryEntity;
 import br.unicamp.sindo.catalog.category.CategoryRepository;
+import br.unicamp.sindo.catalog.category.Status;
 
 public class CategorySteps extends GenericBaseSteps<Category> implements CrudSteps<Category> {
 
@@ -25,8 +27,16 @@ public class CategorySteps extends GenericBaseSteps<Category> implements CrudSte
 	public CategorySteps(){
 		commonSteps();
 		
+		Given("\"(\\w+)\" existing entities", (String quantity) -> {
+			IntStream.range(0, Integer.parseInt(quantity)).forEach(i -> setUpEntity(Status.ACTIVE));
+		});
+		
 		Given("an existing category", () -> {
-			setUpEntity();
+			setUpEntity(Status.ACTIVE);
+		});
+		
+		Given("a deleted category", () -> {
+			setUpEntity(Status.DISABLED);
 		});
 
 		When("a category is created", () -> {
@@ -51,6 +61,22 @@ public class CategorySteps extends GenericBaseSteps<Category> implements CrudSte
 		
 		When("there is a get operation for an existing resource", () -> {
 			get(uuid, Category.class);
+		});
+		
+		When("there is a delete operation for an existing resource", () -> {
+			delete(uuid);
+		});
+		
+		When("there is an undelete operation for an existing resource", () -> {
+			undelete(uuid);
+		});
+		
+		When("there is an undelete operation for a non existing resource", () -> {
+			undelete(UUID.randomUUID());
+		});
+		
+		When("there is a delete operation for a non existing resource", () -> {
+			delete(UUID.randomUUID());
 		});
 		
 		When("there is a get operation for a non existing resource", () -> {
@@ -93,10 +119,11 @@ public class CategorySteps extends GenericBaseSteps<Category> implements CrudSte
 
 	}
 
-	public void setUpEntity(){
+	public void setUpEntity(Status status){
 		CategoryEntity category = CategoryEntity.fromDTO(Category.builder()
 				.name("Name")
 				.description("Description")
+				.status(status)
 				.build());
 		
 		category = repository.save(category);
