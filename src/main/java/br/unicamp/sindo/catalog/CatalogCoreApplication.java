@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CatalogCoreApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CatalogCoreApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CatalogCoreApplication.class, args);
+    }
 }
