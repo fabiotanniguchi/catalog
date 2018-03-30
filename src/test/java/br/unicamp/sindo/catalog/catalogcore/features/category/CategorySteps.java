@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import br.unicamp.sindo.catalog.catalogcore.features.BaseSteps;
+import br.unicamp.sindo.catalog.catalogcore.features.CrudSteps;
 import br.unicamp.sindo.catalog.catalogcore.features.GenericBaseSteps;
 import br.unicamp.sindo.catalog.category.Category;
 import br.unicamp.sindo.catalog.category.CategoryEntity;
 import br.unicamp.sindo.catalog.category.CategoryRepository;
 
-public class CategorySteps extends GenericBaseSteps<Category> implements BaseSteps<Category> {
+public class CategorySteps extends GenericBaseSteps<Category> implements CrudSteps<Category> {
 
 	@Autowired
 	CategoryRepository repository;
