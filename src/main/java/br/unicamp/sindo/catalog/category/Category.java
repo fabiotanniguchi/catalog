@@ -17,21 +17,50 @@ import lombok.ToString;
 @ToString
 public class Category extends VersionableDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	private UUID id;
-	private String name;
-	private String description;
-	private UUID parentId;
-	private Map<String, String> additionalInfo;
-	private Status status;
-	
-	@JsonIgnore
-	public String version(){
-		return MD5.hash(this.toString());
-	}
-	
+    private UUID id;
+    private String name;
+    private String description;
+    private UUID parentId;
+    private Map<String, String> additionalInfo;
+    private Status status;
+
+    @JsonIgnore
+    public String version() {
+        return MD5.hash(this.toString());
+    }
+
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public UUID getParentId() {
+        return parentId;
+    }
+
+    public Map<String, String> getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
 }
