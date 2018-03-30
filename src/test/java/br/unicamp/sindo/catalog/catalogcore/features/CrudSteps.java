@@ -129,7 +129,7 @@ public interface CrudSteps<T> extends En {
 		exportResponseEntity(template().exchange(path(),
 				HttpMethod.POST,
 				new HttpEntity<T>(dto),
-				new ParameterizedTypeReference<T>() {}))
+				new ParameterizedTypeReference<T>() {}));
 	}
 	
 	default void update(T dto, UUID uuid){
@@ -137,7 +137,6 @@ public interface CrudSteps<T> extends En {
 				HttpMethod.PUT,
 				new HttpEntity<T>(dto),
 				new ParameterizedTypeReference<T>() {}));
-				Void.class));
 	}
 	
 	default void get(UUID uuid){
