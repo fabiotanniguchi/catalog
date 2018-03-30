@@ -72,3 +72,20 @@ Feature: Categories operations
 		Then server responds "200"
 			And there is a "Previous-Page" Response Header
 
+	Scenario: Deletar Categoria
+		Given an existing category
+		When there is a delete operation for an existing resource
+		Then server responds "204"
+		
+	Scenario: Deletar Categoria inexistente
+		When there is a delete operation for a non existing resource
+		Then server responds "404"
+		
+	Scenario: Cancelar Delete Categoria
+		Given a deleted category
+		When there is an undelete operation for an existing resource
+		Then server responds "204"
+		
+	Scenario: Cancelar Delete Categoria inexistente
+		When there is an undelete operation for a non existing resource
+		Then server responds "404"
