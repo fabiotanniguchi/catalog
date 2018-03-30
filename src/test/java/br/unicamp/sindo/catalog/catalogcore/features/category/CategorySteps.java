@@ -16,7 +16,9 @@ import br.unicamp.sindo.catalog.category.Category;
 import br.unicamp.sindo.catalog.category.CategoryEntity;
 import br.unicamp.sindo.catalog.category.CategoryRepository;
 import br.unicamp.sindo.catalog.category.Status;
+import cucumber.api.CucumberOptions;
 
+@CucumberOptions(features = "src/test/resources/features/categories.feature", plugin = { "pretty", "html:target/cucumber"})
 public class CategorySteps extends GenericBaseSteps<Category> implements CrudSteps<Category> {
 
 	@Autowired

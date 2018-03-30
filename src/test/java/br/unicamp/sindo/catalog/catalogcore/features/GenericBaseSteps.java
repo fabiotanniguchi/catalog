@@ -3,6 +3,7 @@ package br.unicamp.sindo.catalog.catalogcore.features;
 import java.util.List;
 import java.util.UUID;
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import cucumber.api.junit.Cucumber;
+
 @ContextConfiguration(loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("it")
+@RunWith(Cucumber.class)
 public class GenericBaseSteps<T> {
 
 	@Autowired
