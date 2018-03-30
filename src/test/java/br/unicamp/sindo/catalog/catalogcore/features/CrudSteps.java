@@ -32,7 +32,6 @@ public interface CrudSteps<T> extends En {
 	
 	@SuppressWarnings("rawtypes")
 	ResponseEntity responseEntity();
-	@SuppressWarnings("rawtypes")
 	void exportResponseEntity(ResponseEntity entity);
 	
 	HttpHeaders headers();
@@ -44,8 +43,7 @@ public interface CrudSteps<T> extends En {
 	List<T> dtos();
 	UUID uuid();
 	ObjectMapper mapper();
-	String etag();
-	
+	String etag();	
 	String path();
 
 	@SuppressWarnings("unchecked")
@@ -65,7 +63,6 @@ public interface CrudSteps<T> extends En {
 			if("Location".equals(headerName)){
 				exportUUID(UUID.fromString(values.get(0)));
 			}
-			
 			if("ETag".equals(headerName)){
 				exportEtag(values.get(0));
 			}
@@ -132,7 +129,7 @@ public interface CrudSteps<T> extends En {
 		exportResponseEntity(template().exchange(path(),
 				HttpMethod.POST,
 				new HttpEntity<T>(dto),
-				new ParameterizedTypeReference<T>() {}));
+				new ParameterizedTypeReference<T>() {}))
 	}
 	
 	default void update(T dto, UUID uuid){
@@ -140,12 +137,13 @@ public interface CrudSteps<T> extends En {
 				HttpMethod.PUT,
 				new HttpEntity<T>(dto),
 				new ParameterizedTypeReference<T>() {}));
+				Void.class));
 	}
 	
 	default void get(UUID uuid){
 		exportResponseEntity(template().exchange(path()+"/"+uuid,
 				HttpMethod.GET,
-				null, 
+				null,
 				new ParameterizedTypeReference<T>() {}));
 	}
 	

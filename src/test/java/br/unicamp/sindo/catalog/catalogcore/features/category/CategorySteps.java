@@ -16,6 +16,7 @@ import br.unicamp.sindo.catalog.category.Category;
 import br.unicamp.sindo.catalog.category.CategoryEntity;
 import br.unicamp.sindo.catalog.category.CategoryRepository;
 import br.unicamp.sindo.catalog.category.Status;
+
 import cucumber.api.CucumberOptions;
 
 @CucumberOptions(features = "src/test/resources/features/categories.feature", plugin = { "pretty", "html:target/cucumber"})
@@ -60,7 +61,7 @@ public class CategorySteps extends GenericBaseSteps<Category> implements CrudSte
 		When("there is an inconsistent update operation", () -> {
 			update(Category.builder().id(UUID.randomUUID()).name(expectedName).build(), UUID.randomUUID());
 		});
-		
+    
 		When("there is a matching list operation by name", () -> {
 			MultiValueMap<String, String> parameter = new LinkedMultiValueMap<>();
 			parameter.add("name", dto().getName());
