@@ -8,10 +8,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.IntStream;
 
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
@@ -29,7 +27,7 @@ import br.unicamp.sindo.catalog.category.Category;
 import br.unicamp.sindo.catalog.utils.web.HeaderBuilder;
 import cucumber.api.java8.En;
 
-public interface BaseSteps<T> extends En {
+public interface CrudSteps<T> extends En {
 	
 	ResponseEntity responseEntity();
 	void exportResponseEntity(ResponseEntity entity);
@@ -42,15 +40,10 @@ public interface BaseSteps<T> extends En {
 	List<T> dtos();
 	ObjectMapper mapper();
 	
-	void setUpEntity();
-	
 	String path();
 
 	@SuppressWarnings("unchecked")
 	default void commonSteps() {
-		Given("\"(\\w+)\" existing entities", (String quantity) -> {
-			IntStream.range(0, Integer.parseInt(quantity)).forEach(i -> setUpEntity());
-		});
 		
 		Then("server responds \"(\\w+)\"", (String statusCode) -> {
 			HttpStatus expectedStatus = HttpStatus.valueOf(Integer.parseInt(statusCode));
@@ -116,6 +109,13 @@ public interface BaseSteps<T> extends En {
 				Void.class));
 	}
 	
+	default void delete(UUID uuid){
+		exportResponseEntity(template().exchange(path()+"/"+uuid,
+				HttpMethod.DELETE,
+				null,
+				Void.class));
+	}
+	
 	default void get(UUID uuid, String eTag, Class<T> clazz){
 		HttpEntity<Category> entity = new HttpEntity<>(HeaderBuilder.init().eTag(eTag).assemble());
 		exportResponseEntity(template().exchange(path()+"/"+uuid,
@@ -130,6 +130,13 @@ public interface BaseSteps<T> extends En {
 				HttpMethod.GET,
 				null,
 				new ParameterizedTypeReference<List<T>>() {}));
+	}
+	
+	default void undelete(UUID uuid){
+		exportResponseEntity(template().exchange(path()+"/"+uuid+":undelete",
+				HttpMethod.POST,
+				null,
+				new ParameterizedTypeReference<T>() {}));
 	}
 
 }
