@@ -1,69 +1,69 @@
 @txn
-Feature: Categories operations
+Feature: Products operations
 
-	Scenario: Recuperar Categoria
-		Given an existing category
+	Scenario: Recuperar Produto
+		Given an existing product
 		When there is a get operation for an existing resource
 		Then server responds "200"
 			And there is a "ETag" Response Header
-			And the category was gotten
+			And the product was gotten
 	
-	Scenario: Recuperar Categoria não existente
+	Scenario: Recuperar Produto não existente
 		When there is a get operation for a non existing resource
 		Then server responds "404"
 			
-	Scenario: Recuperar Categoria mesma versão
-		Given an existing category
+	Scenario: Recuperar Produto mesma versão
+		Given an existing product
 		When there is a latest-version-etagged get operation
 		Then server responds "304"
 			And there is a "ETag" Response Header
 			
-	Scenario: Recuperar Categoria versão distinta
-		Given an existing category
+	Scenario: Recuperar Produto versão distinta
+		Given an existing product
 		When there is a older-version-etagged get operation
 		Then server responds "200"
 			And there is a "ETag" Response Header
-			And the category was gotten
+			And the product was gotten
 			
-	Scenario: Atualizar categoria
-		Given an existing category
+	Scenario: Atualizar Produto
+		Given an existing product
 		When there is an update operation for an existing entity
 		Then server responds "204"
 			And there is a "Location" Response Header
 			And there is a "ETag" Response Header
-			And category has changed
+			And product has changed
 	
-	Scenario: Atualizar categoria não existente
+	Scenario: Atualizar Produto não existente
 		When there is an update operation for a non existing entity
 		Then server responds "404"
 		
-	Scenario: Atualizar categoria não existente
+	Scenario: Atualizar Produto não existente
 		When there is an inconsistent update operation
 		Then server responds "400"
 	
-	Scenario: Listar Categoria
-		Given an existing category
+	Scenario: Listar Produto
+		Given an existing product
 		When there is a matching list operation by name
 		Then server responds "200"
 			And there is a "Page-Number" Response Header
 			And the list was gotten
 			And there are elements on list
 
-	Scenario: Listar Categoria - Lista Vazia
+	Scenario: Listar Produto - Lista Vazia
 		When there is a non matching list operation by name
 		Then server responds "200"
 			And there is a "Page-Number" Response Header
 			And the list was gotten
 			And there are no elements on list
 
-	Scenario: Cadastrar Categoria
-		When a category is created
+	Scenario: Cadastrar Produto
+		When a product is created
 		Then server responds "201"
 			And there is a "Location" Response Header
 			And there is a "ETag" Response Header
 			
-	Scenario: Cadastrar Categoria com ID
-		When an attempt to create an entity with ID is made 
+	Scenario: Cadastrar Produto com ID
+		When an attempt to create a product with ID is made 
 		Then server responds "400"
 		
 	Scenario: Listar Segunda Pagina
@@ -72,20 +72,20 @@ Feature: Categories operations
 		Then server responds "200"
 			And there is a "Previous-Page" Response Header
 
-	Scenario: Deletar Categoria
-		Given an existing category
+	Scenario: Deletar Produto
+		Given an existing product
 		When there is a delete operation for an existing resource
 		Then server responds "204"
 		
-	Scenario: Deletar Categoria inexistente
+	Scenario: Deletar Produto inexistente
 		When there is a delete operation for a non existing resource
 		Then server responds "404"
 		
-	Scenario: Cancelar Delete Categoria
-		Given a deleted category
+	Scenario: Cancelar Delete Produto
+		Given a deleted product
 		When there is an undelete operation for an existing resource
 		Then server responds "204"
 		
-	Scenario: Cancelar Delete Categoria inexistente
+	Scenario: Cancelar Delete Produto inexistente
 		When there is an undelete operation for a non existing resource
 		Then server responds "404"

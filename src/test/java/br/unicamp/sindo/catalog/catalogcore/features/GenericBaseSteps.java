@@ -3,6 +3,7 @@ package br.unicamp.sindo.catalog.catalogcore.features;
 import java.util.List;
 import java.util.UUID;
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import cucumber.api.junit.Cucumber;
+
 @ContextConfiguration(loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("it")
+@RunWith(Cucumber.class)
 public class GenericBaseSteps<T> {
 
 	@Autowired
@@ -30,8 +34,9 @@ public class GenericBaseSteps<T> {
 	@SuppressWarnings("rawtypes")
 	private ResponseEntity responseEntity; 
 	
-	protected UUID uuid;
-	protected T dto;
+	private UUID uuid;
+	private String etag;
+	private T dto;
 	private List<T> dtos;
 	
 	@SuppressWarnings("rawtypes")
@@ -70,5 +75,25 @@ public class GenericBaseSteps<T> {
 	
 	public ObjectMapper mapper(){
 		return objectMapper;
+	}
+	
+	public UUID uuid(){
+		return uuid;
+	}
+	
+	public T dto(){
+		return dto;
+	}
+	
+	public void exportDto(T dto){
+		this.dto = dto;
+	}
+	
+	public void exportEtag(String eTag){
+		this.etag = eTag;
+	}
+	
+	public String etag(){
+		return etag;
 	}
 }
