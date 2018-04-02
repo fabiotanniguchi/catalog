@@ -5,17 +5,24 @@ import static org.junit.Assert.assertNotNull;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import br.unicamp.sindo.catalog.catalogcore.features.CrudSteps;
 import br.unicamp.sindo.catalog.catalogcore.features.GenericBaseSteps;
 import br.unicamp.sindo.catalog.product.Product;
+import br.unicamp.sindo.catalog.product.ProductEntity;
+import br.unicamp.sindo.catalog.product.ProductRepository;
+import br.unicamp.sindo.catalog.product.Status;
 import cucumber.api.CucumberOptions;
 
 @CucumberOptions(features = "src/test/resources/features/products.feature", plugin = { "pretty", "html:target/cucumber"})
 public class ProductSteps extends GenericBaseSteps<Product> implements CrudSteps<Product> {
 
+	@Autowired
+	private ProductRepository repository;
+	
 	private String expectedName = "Name2";
 
 	public ProductSteps(){
@@ -26,9 +33,11 @@ public class ProductSteps extends GenericBaseSteps<Product> implements CrudSteps
 		});
 		
 		Given("an existing product", () -> {
+			setUpEntity(Status.ACTIVE);
 		});
 		
 		Given("a deleted product", () -> {
+			setUpEntity(Status.DISABLED);
 		});
 
 		When("a product is created", () -> {
@@ -72,8 +81,16 @@ public class ProductSteps extends GenericBaseSteps<Product> implements CrudSteps
 
 	}
 
-	public void setUpEntity(String status){
+	public void setUpEntity(Status status){
+		ProductEntity product = ProductEntity.fromDTO(Product.builder()
+				.name("Name")
+				.status(status)
+				.build());
 		
+		product = repository.save(product);
+		exportUUID(product.getId());
+		exportDto(product.assemble());
+		exportEtag(dto().version());
 	}
 	
 	@Override
