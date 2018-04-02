@@ -1,6 +1,7 @@
 package br.unicamp.sindo.catalog.product;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +24,8 @@ public class Product extends VersionableDTO implements Serializable {
 
 	private UUID id;
 	private String name;
+	private Map<String, String> additionalInfo;
+	private Status status;
 	
 	@JsonIgnore
 	public String version(){
