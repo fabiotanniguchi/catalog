@@ -20,7 +20,7 @@ import br.unicamp.sindo.catalog.configuration.Mapper;
 import br.unicamp.sindo.catalog.utils.repository.BaseEntity;
 
 @Entity
-@Table(name="categories")
+@Table(name="products")
 public class ProductEntity extends BaseEntity {
 
 	private String name;

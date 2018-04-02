@@ -36,15 +36,15 @@ public class ProductService {
 				.collect(Collectors.toList());
 	}
 	
-	public Product save(Product categoryDTO){
-		ProductEntity entity = ProductEntity.fromDTO(categoryDTO);
+	public Product save(Product productDTO){
+		ProductEntity entity = ProductEntity.fromDTO(productDTO);
 		return repository.save(entity).assemble();
 	}
 	
-	public Product update(UUID uuid, Product categoryDTO){
+	public Product update(UUID uuid, Product productDTO){
 		if(!repository.existsById(uuid)) 
-			throw new NotFoundException(Product.class.getSimpleName(), categoryDTO.getId());
-		ProductEntity entity = ProductEntity.fromDTO(categoryDTO);
+			throw new NotFoundException(Product.class.getSimpleName(), productDTO.getId());
+		ProductEntity entity = ProductEntity.fromDTO(productDTO);
 		entity.setId(uuid);
 		return repository.save(entity).assemble();
 	}
