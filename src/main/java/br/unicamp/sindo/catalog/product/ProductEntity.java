@@ -54,7 +54,6 @@ public class ProductEntity extends BaseEntity {
                 .price(price)
                 .stock(stock)
                 .brand(brand)
-                .additionalInfo(additionalInfo)
                 .highlight(highlight)
                 .categoryId(categoryId)
 				.build();
@@ -72,6 +71,12 @@ public class ProductEntity extends BaseEntity {
 		e.setId(dto.getId());
 		e.setName(dto.getName());
 		e.setAdditionalInfo(additionalInfo);
+		e.setDescription(dto.getDescription());
+		e.setPrice(dto.getPrice());
+		e.setStock(dto.getStock());
+		e.setBrand(dto.getBrand());
+		e.setHighlight(dto.getHighlight());
+		e.setCategoryId(dto.getCategoryId());
 		
 		return e;
 	}
