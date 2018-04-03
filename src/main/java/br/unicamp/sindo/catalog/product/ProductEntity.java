@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,7 @@ public class ProductEntity extends BaseEntity {
     private String additionalInfo;
     private Status status;
     private Boolean highlight;
+    private UUID categoryId;
 	
 	@SuppressWarnings("unchecked")
 	public Product assemble(){
@@ -55,6 +57,7 @@ public class ProductEntity extends BaseEntity {
                 //.tags(tags)
                 .additionalInfo(additionalInfo)
                 .highlight(highlight)
+                .categoryId(categoryId)
 				.build();
 	}
 	
@@ -143,7 +146,15 @@ public class ProductEntity extends BaseEntity {
         this.highlight = highlight;
     }
 
-	@PrePersist
+    @Column(name="category")
+    public UUID getCategoryId() {
+        return categoryId;
+    }
+    public void setCategoryId(UUID categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    @PrePersist
 	@PreUpdate
 	private void flush(){
 		if(status == null)

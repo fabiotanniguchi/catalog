@@ -36,6 +36,7 @@ public class Product extends VersionableDTO implements Serializable {
     private Date updatedAt;
     private Status status;
     private Boolean highlight;
+    private UUID categoryId;
 	
 	@JsonIgnore
 	public String version(){
