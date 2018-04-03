@@ -37,9 +37,9 @@ public class CategoryController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Category> get(@PathVariable(name = "id") UUID uuid,
+	public ResponseEntity<Category> get(@PathVariable(name = "id") String uuid,
 			@RequestHeader(name = "ETag", required = false) String etag){
-		Category category = service.fetch(uuid);
+		Category category = service.fetch(UUID.fromString(uuid));
 		return ETaggedResponseEntity.ok(category, etag);
 	}
 	
