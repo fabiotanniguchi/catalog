@@ -31,8 +31,6 @@ public class ProductEntity extends BaseEntity {
     private String brand;
     private String tags;
     private String additionalInfo;
-    private Date createdAt;
-    private Date updatedAt;
     private Status status;
     private Boolean highlight;
 	
@@ -127,16 +125,6 @@ public class ProductEntity extends BaseEntity {
     }
     public void setTags(String tags) {
         this.tags = tags;
-    }
-
-    @Override
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    @Override
-    public Date getUpdatedAt() {
-        return updatedAt;
     }
 
     @Column(name="highlight", nullable=false)
