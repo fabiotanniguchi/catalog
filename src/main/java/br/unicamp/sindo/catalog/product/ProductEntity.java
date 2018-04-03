@@ -42,11 +42,19 @@ public class ProductEntity extends BaseEntity {
 		} catch (IOException e) {
 			//TODO register occurrence
 		}
+
 		return Product.builder()
 				//TODO complete builder
 				.id(id)
 				.name(name)
 				.additionalInfo(additionalInfo)
+                .description(description)
+                .price(price)
+                .stock(stock)
+                .brand(brand)
+                //.tags(tags)
+                .additionalInfo(additionalInfo)
+                .highlight(highlight)
 				.build();
 	}
 	
