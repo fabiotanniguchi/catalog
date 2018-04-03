@@ -1,8 +1,10 @@
 package br.unicamp.sindo.catalog.product;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,8 +26,16 @@ public class Product extends VersionableDTO implements Serializable {
 
 	private UUID id;
 	private String name;
-	private Map<String, String> additionalInfo;
-	private Status status;
+	private String descrption;
+	private Double price;
+	private Long stock;
+	private String brand;
+	private List<String> tags;
+    private Map<String, String> additionalInfo;
+    private Date createdAt;
+    private Date updatedAt;
+    private Status status;
+    private Boolean highlight;
 	
 	@JsonIgnore
 	public String version(){
