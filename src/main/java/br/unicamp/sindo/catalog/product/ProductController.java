@@ -37,9 +37,9 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Product> get(@PathVariable(name = "id") String uuid,
+	public ResponseEntity<Product> get(@PathVariable(name = "id") UUID uuid,
 			@RequestHeader(name = "ETag", required = false) String etag){
-		Product product = service.fetch(UUID.fromString(uuid));
+		Product product = service.fetch(uuid);
 		return ETaggedResponseEntity.ok(product, etag);
 	}
 	
