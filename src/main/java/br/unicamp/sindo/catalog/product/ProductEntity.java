@@ -54,7 +54,6 @@ public class ProductEntity extends BaseEntity {
                 .price(price)
                 .stock(stock)
                 .brand(brand)
-                //.tags(tags)
                 .additionalInfo(additionalInfo)
                 .highlight(highlight)
                 .categoryId(categoryId)
