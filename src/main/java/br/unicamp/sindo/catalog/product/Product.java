@@ -26,7 +26,7 @@ public class Product extends VersionableDTO implements Serializable {
 
 	private UUID id;
 	private String name;
-	private String descrption;
+	private String description;
 	private Double price;
 	private Long stock;
 	private String brand;

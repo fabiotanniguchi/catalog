@@ -3,6 +3,7 @@ package br.unicamp.sindo.catalog.product;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,10 +24,17 @@ import br.unicamp.sindo.catalog.utils.repository.BaseEntity;
 @Table(name="products")
 public class ProductEntity extends BaseEntity {
 
-	private String name;
-	private String description;
-	private String additionalInfo;
-	private Status status;
+    private String name;
+    private String description;
+    private Double price;
+    private Long stock;
+    private String brand;
+    private String tags;
+    private String additionalInfo;
+    private Date createdAt;
+    private Date updatedAt;
+    private Status status;
+    private Boolean highlight;
 	
 	@SuppressWarnings("unchecked")
 	public Product assemble(){
@@ -88,7 +96,57 @@ public class ProductEntity extends BaseEntity {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
+
+	@Column(name="price", nullable=false)
+    public Double getPrice() {
+        return price;
+    }
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Column(name="stock", nullable=false)
+    public Long getStock() {
+        return stock;
+    }
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
+
+    @Column(name="brand")
+    public String getBrand() {
+        return brand;
+    }
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    @Column(name="tags")
+    public String getTags() {
+        return tags;
+    }
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    @Override
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @Column(name="highlight", nullable=false)
+    public Boolean getHighlight() {
+        return highlight;
+    }
+    public void setHighlight(Boolean highlight) {
+        this.highlight = highlight;
+    }
+
 	@PrePersist
 	@PreUpdate
 	private void flush(){
