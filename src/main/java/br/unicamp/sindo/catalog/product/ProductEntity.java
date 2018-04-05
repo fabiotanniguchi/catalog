@@ -80,6 +80,35 @@ public class ProductEntity extends BaseEntity {
 		
 		return e;
 	}
+
+	public static ProductEntity updateUUIDDTO(Product update, Product dto) {
+		String additionalInfo = null;
+		try {
+			additionalInfo = Mapper.getInstance().writeValueAsString(dto.getAdditionalInfo());
+		} catch (JsonProcessingException e1) {
+			//TODO register occurrence
+		}
+		ProductEntity e = fromDTO(update);
+
+		if (dto.getName() != null)
+			e.setName(dto.getName());
+		if (additionalInfo != null)
+			e.setAdditionalInfo(additionalInfo);
+		if (dto.getDescription() != null)
+			e.setDescription(dto.getDescription());
+		if (dto.getPrice() != null)
+			e.setPrice(dto.getPrice());
+		if (dto.getStock() != null)
+			e.setStock(dto.getStock());
+		if (dto.getBrand() != null)
+			e.setBrand(dto.getBrand());
+		if (dto.getHighlight() != null)
+			e.setHighlight(dto.getHighlight());
+		if (dto.getCategoryId() != null)
+			e.setCategoryId(dto.getCategoryId());
+
+		return e;
+	}
 	
 	@Column(name="name", nullable=false)
 	public String getName() {

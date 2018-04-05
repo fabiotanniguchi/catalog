@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.unicamp.sindo.catalog.utils.MD5;
 import br.unicamp.sindo.catalog.utils.web.VersionableDTO;
+import com.fasterxml.jackson.core.JsonToken;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -37,10 +38,42 @@ public class Product extends VersionableDTO implements Serializable {
     private Status status;
     private Boolean highlight;
     private UUID categoryId;
-	
+
+
+
 	@JsonIgnore
 	public String version(){
 		return MD5.hash(this.toString());
 	}
-	
+
+	public UUID getId() {return this.id;
+	}
+
+	public Map<String, String> getAdditionalInfo() {return this.additionalInfo;
+	}
+
+	public String getName() {return this.name;}
+
+	public String getDescription() {return this.description;
+	}
+
+	public Double getPrice() {return this.price;
+	}
+
+	public Long getStock() {return this.stock;
+	}
+
+	public String getBrand() {return this.brand;
+	}
+
+	public Boolean getHighlight() {
+		return this.highlight;
+	}
+
+	public void setHighlight(Boolean highlight) {
+		this.highlight = highlight;
+	}
+
+	public UUID getCategoryId() {return this.categoryId;
+	}
 }

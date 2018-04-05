@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -42,10 +43,10 @@ public class ProductService {
 	}
 	
 	public Product update(UUID uuid, Product productDTO){
-		if(!repository.existsById(uuid)) 
+		if(!repository.existsById(uuid))
 			throw new NotFoundException(Product.class.getSimpleName(), productDTO.getId());
-		ProductEntity entity = ProductEntity.fromDTO(productDTO);
-		entity.setId(uuid);
+		ProductEntity entity = ProductEntity.updateUUIDDTO(fetch(uuid), productDTO);
+
 		return repository.save(entity).assemble();
 	}
 

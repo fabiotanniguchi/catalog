@@ -42,7 +42,7 @@ public class ProductController {
 		Product product = service.fetch(uuid);
 		return ETaggedResponseEntity.ok(product, etag);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Void> post(@RequestBody Product product){
 		validate(product);
@@ -50,8 +50,9 @@ public class ProductController {
 		return ETaggedResponseEntity.created(product);
 	}
 
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> put(@PathVariable(name = "id") UUID uuid,
+
+	@PutMapping(params = {"id"})
+	public ResponseEntity<Void> put(@RequestParam(name = "id") UUID uuid,
 			@RequestBody Product product){
 		validate(uuid, product);
 		product = service.update(uuid, product);
