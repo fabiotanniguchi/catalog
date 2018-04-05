@@ -44,8 +44,8 @@ public class CategoryService {
 	public Category update(UUID uuid, Category categoryDTO){
 		if(!repository.existsById(uuid)) 
 			throw new NotFoundException(Category.class.getSimpleName(), categoryDTO.getId());
-		CategoryEntity entity = CategoryEntity.fromDTO(categoryDTO);
-		entity.setId(uuid);
+		CategoryEntity entity = CategoryEntity.updateUUIDDTO(fetch(uuid), categoryDTO);
+
 		return repository.save(entity).assemble();
 	}
 

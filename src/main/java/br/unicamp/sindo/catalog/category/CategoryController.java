@@ -50,8 +50,8 @@ public class CategoryController {
 		return ETaggedResponseEntity.created(category);
 	}
 
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> put(@PathVariable(name = "id") UUID uuid,
+	@PutMapping(params = {"id"})
+	public ResponseEntity<Void> put(@RequestParam(name = "id") UUID uuid,
 			@RequestBody Category category){
 		validate(uuid, category);
 		category = service.update(uuid, category);

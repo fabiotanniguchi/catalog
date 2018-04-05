@@ -66,6 +66,29 @@ public class CategoryEntity extends BaseEntity {
 		
 		return e;
 	}
+
+	public static CategoryEntity updateUUIDDTO(Category update, Category dto) {
+		String additionalInfo = null;
+		try {
+			additionalInfo = Mapper.getInstance().writeValueAsString(dto.getAdditionalInfo());
+		} catch (JsonProcessingException e1) {
+			//TODO register occurrence
+		}
+		CategoryEntity e = fromDTO(update);
+
+		if (dto.getName() != null)
+			e.setName(dto.getName());
+		if (additionalInfo != null)
+			e.setAdditionalInfo(additionalInfo);
+		if (dto.getDescription() != null)
+			e.setDescription(dto.getDescription());
+		if (dto.getParentId() != null)
+			e.setParentId(dto.getParentId());
+		if (dto.getStatus() != null)
+			e.setStatus(dto.getStatus());
+
+		return e;
+	}
 	
 	@Column(name="name", nullable=false)
 	public String getName() {
