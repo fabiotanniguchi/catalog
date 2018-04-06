@@ -50,6 +50,13 @@ public class ProductController {
 		return ETaggedResponseEntity.created(product);
 	}
 
+	@PostMapping(value = "/{id}:release")
+	public ResponseEntity<Void> post(@RequestParam(name = "id") UUID uuid,
+									 @RequestBody int amount){
+		Product product = service.fetch(uuid);
+		product.setStock(product.getStock()+amount);
+		return ETaggedResponseEntity.updated(product);
+	}
 
 	@PutMapping(params = {"id"})
 	public ResponseEntity<Void> put(@RequestParam(name = "id") UUID uuid,

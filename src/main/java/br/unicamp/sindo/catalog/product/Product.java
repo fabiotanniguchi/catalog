@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.unicamp.sindo.catalog.utils.MD5;
 import br.unicamp.sindo.catalog.utils.web.VersionableDTO;
-import com.fasterxml.jackson.core.JsonToken;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -62,6 +61,7 @@ public class Product extends VersionableDTO implements Serializable {
 
 	public Long getStock() {return this.stock;
 	}
+	public void setStock(Long stock) {this.stock = stock;}
 
 	public String getBrand() {return this.brand;
 	}
