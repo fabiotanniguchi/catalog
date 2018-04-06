@@ -20,7 +20,7 @@ import static br.unicamp.sindo.catalog.product.ProductSpecification.buildSpec;
 public class ProductService {
 
 	@Autowired
-	ProductRepository repository;
+	protected ProductRepository repository;
 	
 	public Product fetch(UUID id){
 		return repository.findById(id)
@@ -42,10 +42,10 @@ public class ProductService {
 		return repository.save(entity).assemble();
 	}
 	
-	public Product update(UUID uuid, Product productDTO){
-		if(!repository.existsById(uuid))
+	public Product update(Product productDTO){
+		if(!repository.existsById(productDTO.getId()))
 			throw new NotFoundException(Product.class.getSimpleName(), productDTO.getId());
-		ProductEntity entity = ProductEntity.updateUUIDDTO(fetch(uuid), productDTO);
+		ProductEntity entity = ProductEntity.updateUUIDDTO(fetch(productDTO.getId()), productDTO);
 
 		return repository.save(entity).assemble();
 	}
@@ -53,13 +53,13 @@ public class ProductService {
 	public void delete(UUID uuid) {
 		ProductEntity entity = ProductEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.DISABLED);
-		update(uuid, entity.assemble());
+		update(entity.assemble());
 	}
 	
 	public void undelete(UUID uuid) {
 		ProductEntity entity = ProductEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.ACTIVE);
-		update(uuid, entity.assemble());
+		update(entity.assemble());
 	}
 
 }

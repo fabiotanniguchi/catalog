@@ -25,7 +25,7 @@ import br.unicamp.sindo.catalog.utils.web.PageableResponseEntity;
 public class ProductStockController {
 
 	@Autowired
-	ProductService service;
+	protected ProductService service;
 	
 	@PutMapping(value = "/{id}:release")
 	public ResponseEntity<Void> release(@RequestParam(name = "id") UUID uuid,
@@ -33,7 +33,7 @@ public class ProductStockController {
 		Product product= service.fetch(uuid);
 
 		product.setStock(product.getStock() + quantity);
-		product = service.update(uuid, product);
+		product = service.update(product);
 
 		return ETaggedResponseEntity.updated(product);
 	}
@@ -47,7 +47,7 @@ public class ProductStockController {
 			throw new BadParameterException("Reserve quantity is greater than the available stock.");
 		else {
 			product.setStock(product.getStock() - quantity);
-			product = service.update(uuid, product);
+			product = service.update(product);
 		}
 
 		return ETaggedResponseEntity.updated(product);

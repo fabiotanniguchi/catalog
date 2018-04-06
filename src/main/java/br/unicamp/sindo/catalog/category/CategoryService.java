@@ -19,7 +19,7 @@ import static br.unicamp.sindo.catalog.category.CategorySpecification.buildSpec;
 public class CategoryService {
 
 	@Autowired
-	CategoryRepository repository;
+	protected CategoryRepository repository;
 	
 	public Category fetch(UUID id){
 		return repository.findById(id)
@@ -41,10 +41,10 @@ public class CategoryService {
 		return repository.save(entity).assemble();
 	}
 	
-	public Category update(UUID uuid, Category categoryDTO){
-		if(!repository.existsById(uuid)) 
+	public Category update(Category categoryDTO){
+		if(!repository.existsById(categoryDTO.getId()))
 			throw new NotFoundException(Category.class.getSimpleName(), categoryDTO.getId());
-		CategoryEntity entity = CategoryEntity.updateUUIDDTO(fetch(uuid), categoryDTO);
+		CategoryEntity entity = CategoryEntity.updateUUIDDTO(fetch(categoryDTO.getId()), categoryDTO);
 
 		return repository.save(entity).assemble();
 	}
@@ -52,13 +52,13 @@ public class CategoryService {
 	public void delete(UUID uuid) {
 		CategoryEntity entity = CategoryEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.DISABLED);
-		update(uuid, entity.assemble());
+		update(entity.assemble());
 	}
 	
 	public void undelete(UUID uuid) {
 		CategoryEntity entity = CategoryEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.ACTIVE);
-		update(uuid, entity.assemble());
+		update(entity.assemble());
 	}
 
 }

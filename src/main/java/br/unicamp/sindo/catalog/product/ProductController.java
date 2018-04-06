@@ -26,7 +26,7 @@ import br.unicamp.sindo.catalog.utils.web.PageableResponseEntity;
 public class ProductController {
 
 	@Autowired
-	ProductService service;
+	protected ProductService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Product>> list(@RequestParam(required = false) String name
@@ -58,20 +58,19 @@ public class ProductController {
 		return ETaggedResponseEntity.updated(product);
 	}
 
-	@PutMapping(params = {"id"})
-	public ResponseEntity<Void> put(@RequestParam(name = "id") UUID uuid,
-			@RequestBody Product product){
-		validate(uuid, product);
-		product = service.update(uuid, product);
+	@PutMapping
+	public ResponseEntity<Void> put(@RequestBody Product product){
+		validate(product);
+		product = service.update(product);
 		return ETaggedResponseEntity.updated(product);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(name = "id") UUID uuid){
 		service.delete(uuid);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@PostMapping(value = "/{id}:undelete")
 	public ResponseEntity<Void> undelete(@PathVariable(name = "id") UUID uuid){
 		service.undelete(uuid);

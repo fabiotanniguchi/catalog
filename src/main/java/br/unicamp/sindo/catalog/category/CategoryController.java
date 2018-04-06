@@ -26,7 +26,7 @@ import br.unicamp.sindo.catalog.utils.web.PageableResponseEntity;
 public class CategoryController {
 
 	@Autowired
-	CategoryService service;
+	protected CategoryService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Category>> list(@RequestParam(required = false) String name
@@ -50,11 +50,10 @@ public class CategoryController {
 		return ETaggedResponseEntity.created(category);
 	}
 
-	@PutMapping(params = {"id"})
-	public ResponseEntity<Void> put(@RequestParam(name = "id") UUID uuid,
-			@RequestBody Category category){
-		validate(uuid, category);
-		category = service.update(uuid, category);
+	@PutMapping
+	public ResponseEntity<Void> put(@RequestBody Category category){
+		validate(category);
+		category = service.update(category);
 		return ETaggedResponseEntity.updated(category);
 	}
 	
