@@ -40,8 +40,8 @@ public class ProductStockController {
 	
 	@PutMapping(value = "/{id}:reserve")
 	public ResponseEntity<Void> reserve(@RequestParam(name = "id") UUID uuid,
-			@RequestBody Integer quantity){
-		Product product= service.fetch(uuid);
+			@RequestBody Integer quantity) {
+		Product product = service.fetch(uuid);
 
 		if (quantity > product.getStock())
 			throw new BadParameterException("Reserve quantity is greater than the available stock.");
@@ -52,4 +52,5 @@ public class ProductStockController {
 
 		return ETaggedResponseEntity.updated(product);
 	}
+
 }
