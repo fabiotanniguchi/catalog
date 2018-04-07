@@ -20,15 +20,22 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> list(@RequestParam(required = false) String name
-            , @RequestParam(name = "parent_product", required = false) UUID parentId
+            , @RequestParam(name="parent_product", required = false) UUID parentId
+            , @RequestParam(name="category_id", required = false) UUID categoryId
+            , @RequestParam(name="min_price", required = false) Double minPrice
+            , @RequestParam(name="max_price", required = false) Double maxPrice
+            , @RequestParam(name="tags", required = false) String tags
+            , @RequestParam(name="brand", required = false) String brand
+            , @RequestParam(name="highlight", required = false) Boolean highlight
             , @RequestParam(defaultValue = "1") Integer page) {
         int pageSize = 50;
-        return PageableResponseEntity.ok(service.list(name, parentId, page, pageSize + 1), page, pageSize);
+        return PageableResponseEntity.ok(service.list(name, parentId, categoryId, minPrice,
+                maxPrice, tags, brand, highlight, page, pageSize + 1), page, pageSize);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Product> get(@PathVariable(name = "id") UUID uuid,
-                                       @RequestHeader(name = "ETag", required = false) String etag) {
+                                       @RequestHeader(name = "ETag", required = false) String etag){
         Product product = service.fetch(uuid);
         return ETaggedResponseEntity.ok(product, etag);
     }
