@@ -21,7 +21,7 @@ public class ProductService {
     @Autowired
     protected ProductRepository repository;
 
-    public Product fetch(UUID id){
+    public Product fetch(UUID id) {
         return repository.findById(id)
                 .map(ProductEntity::assemble)
                 .orElseThrow(() -> new NotFoundException(Product.class.getSimpleName(), id));
@@ -33,7 +33,7 @@ public class ProductService {
                 Optional.ofNullable(maxPrice), Optional.ofNullable(tags), Optional.ofNullable(brand),
                 Optional.ofNullable(highlight));
         return repository.findAll(spec,
-                PageRequest.of(page-1, pageSize, Sort.Direction.ASC, "createdAt"))
+                PageRequest.of(page - 1, pageSize, Sort.Direction.ASC, "createdAt"))
                 .stream()
                 .map(ProductEntity::assemble)
                 .collect(Collectors.toList());

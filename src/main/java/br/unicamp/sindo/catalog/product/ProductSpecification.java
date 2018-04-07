@@ -1,13 +1,11 @@
 package br.unicamp.sindo.catalog.product;
 
-import java.util.Optional;
-import java.util.UUID;
-
-import javax.persistence.criteria.Predicate;
-
+import br.unicamp.sindo.catalog.utils.repository.RootSpecification;
 import org.springframework.data.jpa.domain.Specification;
 
-import br.unicamp.sindo.catalog.utils.repository.RootSpecification;
+import javax.persistence.criteria.Predicate;
+import java.util.Optional;
+import java.util.UUID;
 
 public class ProductSpecification extends RootSpecification<ProductEntity> {
 
@@ -20,7 +18,7 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
         ProductSpecification specDefinition = new ProductSpecification();
         Specification<ProductEntity> specs = Specification.where(specDefinition.init());
 
-        if (name.isPresent()){
+        if (name.isPresent()) {
             specs = specs.and(withName(name.get().toUpperCase()));
         }
 
@@ -32,7 +30,7 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
             specs = specs.and(withCategoryId(categoryId.get()));
         }
 
-        if (status.isPresent()){
+        if (status.isPresent()) {
             specs = specs.and(withStatus(status.get()));
         }
 
@@ -93,21 +91,21 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
         };
     }
 
-    private static Specification<ProductEntity> withStatus(final Status status){
+    private static Specification<ProductEntity> withStatus(final Status status) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.equal(root.get("status"), status);
             return predicate;
         };
     }
 
-    private static Specification<ProductEntity> withName(final String name){
+    private static Specification<ProductEntity> withName(final String name) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.like(root.get("name"), name);
             return predicate;
         };
     }
 
-    private static Specification<ProductEntity> withParentId(final UUID parentId){
+    private static Specification<ProductEntity> withParentId(final UUID parentId) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.equal(root.get("parentId"), parentId);
             return predicate;

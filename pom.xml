@@ -6,7 +6,7 @@
     <groupId>br.unicamp.sindo.catalog</groupId>
     <artifactId>catalog-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>catalog-core</name>
     <description>Demo project for Spring Boot</description>
@@ -18,6 +18,7 @@
     </parent>
 
     <properties>
+        <enunciate.version>2.10.1</enunciate.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -42,7 +43,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+            <version>0.24.0.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -95,6 +100,12 @@
             <version>3.7</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <version>2.0.1.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -114,6 +125,33 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.webcohesion.enunciate</groupId>
+                <artifactId>enunciate-maven-plugin</artifactId>
+                <version>${enunciate.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.webcohesion.enunciate</groupId>
+                        <artifactId>enunciate-lombok</artifactId>
+                        <version>${enunciate.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourcepath-includes>
+                        <sourcepath-include>
+                            <groupId>br.unicamp.sindo.catalog</groupId>
+                        </sourcepath-include>
+                    </sourcepath-includes>
+                    <docsDir>${project.build.directory}/docs</docsDir>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>docs</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
