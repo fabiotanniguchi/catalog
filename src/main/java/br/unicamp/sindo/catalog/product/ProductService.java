@@ -1,11 +1,11 @@
 package br.unicamp.sindo.catalog.product;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -39,6 +39,8 @@ public class ProductService {
 	
 	public Product save(Product productDTO){
 		ProductEntity entity = ProductEntity.fromDTO(productDTO);
+		entity.setCreatedAt(new Date());
+		entity.setUpdatedAt(new Date());
 		return repository.save(entity).assemble();
 	}
 	
@@ -46,20 +48,22 @@ public class ProductService {
 		if(!repository.existsById(productDTO.getId()))
 			throw new NotFoundException(Product.class.getSimpleName(), productDTO.getId());
 		ProductEntity entity = ProductEntity.updateUUIDDTO(fetch(productDTO.getId()), productDTO);
-
+		entity.setUpdatedAt(new Date());
 		return repository.save(entity).assemble();
 	}
 
 	public void delete(UUID uuid) {
 		ProductEntity entity = ProductEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.DISABLED);
-		update(entity.assemble());
+		entity.setUpdatedAt(new Date());
+		repository.save(entity);
 	}
 	
 	public void undelete(UUID uuid) {
 		ProductEntity entity = ProductEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.ACTIVE);
-		update(entity.assemble());
+		entity.setUpdatedAt(new Date());
+		repository.save(entity);
 	}
 
 }

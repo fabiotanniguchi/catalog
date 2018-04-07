@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.category;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,6 +39,8 @@ public class CategoryService {
 	
 	public Category save(Category categoryDTO){
 		CategoryEntity entity = CategoryEntity.fromDTO(categoryDTO);
+        entity.setCreatedAt(new Date());
+        entity.setUpdatedAt(new Date());
 		return repository.save(entity).assemble();
 	}
 	
@@ -45,20 +48,22 @@ public class CategoryService {
 		if(!repository.existsById(categoryDTO.getId()))
 			throw new NotFoundException(Category.class.getSimpleName(), categoryDTO.getId());
 		CategoryEntity entity = CategoryEntity.updateUUIDDTO(fetch(categoryDTO.getId()), categoryDTO);
-
+        entity.setUpdatedAt(new Date());
 		return repository.save(entity).assemble();
 	}
 
 	public void delete(UUID uuid) {
 		CategoryEntity entity = CategoryEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.DISABLED);
-		update(entity.assemble());
+        entity.setUpdatedAt(new Date());
+        repository.save(entity);
 	}
 	
 	public void undelete(UUID uuid) {
 		CategoryEntity entity = CategoryEntity.fromDTO(fetch(uuid));
 		entity.setStatus(Status.ACTIVE);
-		update(entity.assemble());
+        entity.setUpdatedAt(new Date());
+        repository.save(entity);
 	}
 
 }

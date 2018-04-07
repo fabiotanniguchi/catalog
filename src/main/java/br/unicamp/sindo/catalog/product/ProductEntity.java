@@ -3,7 +3,6 @@ package br.unicamp.sindo.catalog.product;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.*;
 
 import javax.persistence.Column;
