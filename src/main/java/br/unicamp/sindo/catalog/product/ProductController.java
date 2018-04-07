@@ -87,6 +87,9 @@ public class ProductController {
 		if(product.getId() != null) {
 			throw new BadParameterException("Should not pass ID on Product Creation");
 		}
+		if(product.getStock() == null){
+			product.setStatus(Status.ACTIVE);
+		}
 	}
 	
 }

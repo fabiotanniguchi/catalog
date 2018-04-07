@@ -4,9 +4,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,8 +43,15 @@ public class ProductEntity extends BaseEntity {
 			//TODO register occurrence
 		}
 
+        List<String> tagsList = new ArrayList<>();
+		if(tags != null) {
+            String[] pieces = tags.split(" ");
+            for(String piece : pieces){
+                tagsList.add(piece);
+            }
+        }
+
 		return Product.builder()
-				//TODO complete builder
 				.id(id)
 				.name(name)
 				.additionalInfo(additionalInfo)
@@ -56,6 +61,8 @@ public class ProductEntity extends BaseEntity {
                 .brand(brand)
                 .highlight(highlight)
                 .categoryId(categoryId)
+				.status(status)
+                .tags(tagsList)
 				.build();
 	}
 	
@@ -77,6 +84,15 @@ public class ProductEntity extends BaseEntity {
 		e.setBrand(dto.getBrand());
 		e.setHighlight(dto.getHighlight());
 		e.setCategoryId(dto.getCategoryId());
+		e.setStatus(dto.getStatus());
+
+		if(dto.getTags() != null) {
+            String tags = "";
+            for (String piece : dto.getTags()) {
+                tags = tags + piece + " ";
+            }
+            e.setTags(tags);
+        }
 		
 		return e;
 	}
@@ -106,6 +122,15 @@ public class ProductEntity extends BaseEntity {
 			e.setHighlight(dto.getHighlight());
 		if (dto.getCategoryId() != null)
 			e.setCategoryId(dto.getCategoryId());
+		if(dto.getStatus() != null)
+		    e.setStatus(dto.getStatus());
+		if(dto.getTags() != null){
+		    String tagsConcated = "";
+		    for(String tag : dto.getTags()){
+                tagsConcated = tagsConcated + tag + " ";
+            }
+		    e.setTags(tagsConcated);
+        }
 
 		return e;
 	}

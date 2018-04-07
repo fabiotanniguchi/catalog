@@ -79,6 +79,9 @@ public class CategoryController {
 		if(category.getId() != null) {
 			throw new BadParameterException("Should not pass ID on Category Creation");
 		}
+		if(category.getStatus() == null){
+			category.setStatus(Status.ACTIVE);
+		}
 	}
 	
 }
