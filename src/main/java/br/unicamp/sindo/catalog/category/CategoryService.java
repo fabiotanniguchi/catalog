@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.category;
 
+import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.error.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

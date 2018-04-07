@@ -1,11 +1,11 @@
 package br.unicamp.sindo.catalog.catalogcore.features.product;
 
+import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.catalogcore.features.CrudSteps;
 import br.unicamp.sindo.catalog.catalogcore.features.GenericBaseSteps;
 import br.unicamp.sindo.catalog.product.Product;
 import br.unicamp.sindo.catalog.product.ProductEntity;
 import br.unicamp.sindo.catalog.product.ProductRepository;
-import br.unicamp.sindo.catalog.product.Status;
 import cucumber.api.CucumberOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;

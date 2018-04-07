@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.category;
 
+import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.configuration.Mapper;
 import br.unicamp.sindo.catalog.utils.repository.BaseEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;

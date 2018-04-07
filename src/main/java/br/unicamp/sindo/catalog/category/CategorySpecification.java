@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.category;
 
+import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.utils.repository.RootSpecification;
 import org.springframework.data.jpa.domain.Specification;
 

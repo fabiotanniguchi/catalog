@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.product;
 
+import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.error.BadParameterException;
 import br.unicamp.sindo.catalog.utils.web.ETaggedResponseEntity;
 import br.unicamp.sindo.catalog.utils.web.PageableResponseEntity;

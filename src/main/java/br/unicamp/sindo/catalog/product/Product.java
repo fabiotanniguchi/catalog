@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.product;
 
+import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.utils.MD5;
 import br.unicamp.sindo.catalog.utils.web.VersionableDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;

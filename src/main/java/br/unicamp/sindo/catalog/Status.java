@@ -1,4 +1,4 @@
-package br.unicamp.sindo.catalog.product;
+package br.unicamp.sindo.catalog;
 
 public enum Status {
 
