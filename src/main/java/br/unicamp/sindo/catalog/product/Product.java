@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,13 +33,11 @@ public class Product extends VersionableDTO implements Serializable {
 	private String brand;
 	private List<String> tags;
     private Map<String, String> additionalInfo;
-    private Date createdAt;
-    private Date updatedAt;
+    private Long createdAt;
+    private Long updatedAt;
     private Status status;
     private Boolean highlight;
     private UUID categoryId;
-
-
 
 	@JsonIgnore
 	public String version(){
@@ -78,4 +75,20 @@ public class Product extends VersionableDTO implements Serializable {
 
 	public UUID getCategoryId() {return this.categoryId;
 	}
+
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

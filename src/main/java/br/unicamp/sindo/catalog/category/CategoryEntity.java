@@ -45,6 +45,8 @@ public class CategoryEntity extends BaseEntity {
 				.name(name)
 				.parentId(parentId)
 				.status(status)
+                .createdAt(createdAt.getTime())
+                .updatedAt(updatedAt.getTime())
 				.build();
 	}
 	

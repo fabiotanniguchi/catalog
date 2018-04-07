@@ -62,6 +62,8 @@ public class ProductEntity extends BaseEntity {
                 .categoryId(categoryId)
 				.status(status)
                 .tags(tagsList)
+                .createdAt(createdAt.getTime())
+                .updatedAt(updatedAt.getTime())
 				.build();
 	}
 	

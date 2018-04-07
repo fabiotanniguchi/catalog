@@ -30,6 +30,8 @@ public class Category extends VersionableDTO implements Serializable {
     private UUID parentId;
     private Map<String, String> additionalInfo;
     private Status status;
+    private Long createdAt;
+    private Long updatedAt;
 
     @JsonIgnore
     public String version() {
@@ -65,4 +67,19 @@ public class Category extends VersionableDTO implements Serializable {
         return status;
     }
 
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
