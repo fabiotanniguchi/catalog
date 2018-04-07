@@ -52,7 +52,6 @@ public class CategoryController {
 
 	@PutMapping
 	public ResponseEntity<Void> put(@RequestBody Category category){
-		validate(category);
 		category = service.update(category);
 		return ETaggedResponseEntity.updated(category);
 	}

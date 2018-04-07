@@ -60,7 +60,6 @@ public class ProductController {
 
 	@PutMapping
 	public ResponseEntity<Void> put(@RequestBody Product product){
-		validate(product);
 		product = service.update(product);
 		return ETaggedResponseEntity.updated(product);
 	}
