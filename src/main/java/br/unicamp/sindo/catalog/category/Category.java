@@ -1,17 +1,16 @@
 package br.unicamp.sindo.catalog.category;
 
-import java.io.Serializable;
-import java.util.Map;
-import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.unicamp.sindo.catalog.utils.MD5;
 import br.unicamp.sindo.catalog.utils.web.VersionableDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
+import java.util.Map;
+import java.util.UUID;
 
 @Getter
 @Setter

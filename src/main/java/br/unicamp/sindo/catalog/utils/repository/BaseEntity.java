@@ -1,18 +1,10 @@
 package br.unicamp.sindo.catalog.utils.repository;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @MappedSuperclass
 public abstract class BaseEntity {
@@ -42,7 +34,7 @@ public abstract class BaseEntity {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    
+
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     public Date getUpdatedAt() {
@@ -58,10 +50,10 @@ public abstract class BaseEntity {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
-    
+
     @PreUpdate
     private void preUpdate() {
-    	this.updatedAt = new Date();
+        this.updatedAt = new Date();
     }
 
 }

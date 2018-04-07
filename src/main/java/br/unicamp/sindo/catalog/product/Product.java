@@ -1,18 +1,17 @@
 package br.unicamp.sindo.catalog.product;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.unicamp.sindo.catalog.utils.MD5;
 import br.unicamp.sindo.catalog.utils.web.VersionableDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,18 +19,18 @@ import lombok.ToString;
 @ToString
 public class Product extends VersionableDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	private UUID id;
-	private String name;
-	private String description;
-	private Double price;
-	private Long stock;
-	private String brand;
-	private List<String> tags;
+    private UUID id;
+    private String name;
+    private String description;
+    private Double price;
+    private Long stock;
+    private String brand;
+    private List<String> tags;
     private Map<String, String> additionalInfo;
     private Long createdAt;
     private Long updatedAt;
@@ -39,42 +38,54 @@ public class Product extends VersionableDTO implements Serializable {
     private Boolean highlight;
     private UUID categoryId;
 
-	@JsonIgnore
-	public String version(){
-		return MD5.hash(this.toString());
-	}
+    @JsonIgnore
+    public String version() {
+        return MD5.hash(this.toString());
+    }
 
-	public UUID getId() {return this.id;
-	}
+    public UUID getId() {
+        return this.id;
+    }
 
-	public Map<String, String> getAdditionalInfo() {return this.additionalInfo;
-	}
+    public Map<String, String> getAdditionalInfo() {
+        return this.additionalInfo;
+    }
 
-	public String getName() {return this.name;}
+    public String getName() {
+        return this.name;
+    }
 
-	public String getDescription() {return this.description;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public Double getPrice() {return this.price;
-	}
+    public Double getPrice() {
+        return this.price;
+    }
 
-	public Long getStock() {return this.stock;
-	}
-	public void setStock(Long stock) {this.stock = stock;}
+    public Long getStock() {
+        return this.stock;
+    }
 
-	public String getBrand() {return this.brand;
-	}
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
 
-	public Boolean getHighlight() {
-		return this.highlight;
-	}
+    public String getBrand() {
+        return this.brand;
+    }
 
-	public void setHighlight(Boolean highlight) {
-		this.highlight = highlight;
-	}
+    public Boolean getHighlight() {
+        return this.highlight;
+    }
 
-	public UUID getCategoryId() {return this.categoryId;
-	}
+    public void setHighlight(Boolean highlight) {
+        this.highlight = highlight;
+    }
+
+    public UUID getCategoryId() {
+        return this.categoryId;
+    }
 
     public Long getCreatedAt() {
         return createdAt;
