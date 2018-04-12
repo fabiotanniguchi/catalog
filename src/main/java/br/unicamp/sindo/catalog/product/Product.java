@@ -38,6 +38,7 @@ public class Product extends VersionableDTO implements Serializable {
     private Status status;
     private Boolean highlight;
     private UUID categoryId;
+    private String imageUrl;
 
     @JsonIgnore
     public String version() {

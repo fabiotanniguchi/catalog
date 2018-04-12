@@ -28,6 +28,7 @@ public class ProductController {
             , @RequestParam(name = "tags", required = false) String tags
             , @RequestParam(name = "brand", required = false) String brand
             , @RequestParam(name = "highlight", required = false) Boolean highlight
+            , @RequestParam(name = "image_url", required = false) String imageUrl
             , @RequestParam(defaultValue = "1") Integer page) {
         int pageSize = 50;
         return PageableResponseEntity.ok(service.list(name, parentId, categoryId, minPrice,

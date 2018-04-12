@@ -25,6 +25,7 @@ public class ProductEntity extends BaseEntity {
     private Status status;
     private Boolean highlight;
     private UUID categoryId;
+    private String imageUrl;
 
     public static ProductEntity fromDTO(Product dto) {
         String additionalInfo = null;
@@ -45,6 +46,7 @@ public class ProductEntity extends BaseEntity {
         e.setHighlight(dto.getHighlight());
         e.setCategoryId(dto.getCategoryId());
         e.setStatus(dto.getStatus());
+        e.setImageUrl(dto.getImageUrl());
 
         if (dto.getTags() != null) {
             String tags = "";
@@ -91,6 +93,9 @@ public class ProductEntity extends BaseEntity {
             }
             e.setTags(tagsConcated);
         }
+        if(dto.getImageUrl() != null){
+            e.setImageUrl(dto.getImageUrl());
+        }
 
         return e;
     }
@@ -126,6 +131,7 @@ public class ProductEntity extends BaseEntity {
                 .tags(tagsList)
                 .createdAt(createdAt.getTime())
                 .updatedAt(updatedAt.getTime())
+                .imageUrl(imageUrl)
                 .build();
     }
 
@@ -217,6 +223,15 @@ public class ProductEntity extends BaseEntity {
 
     public void setCategoryId(UUID categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @Column(name = "image_url")
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @PrePersist
