@@ -28,10 +28,10 @@ public class ProductService {
                 .orElseThrow(() -> new NotFoundException(Product.class.getSimpleName(), id));
     }
 
-    public List<Product> list(String name, UUID parentId, UUID categoryId, Double minPrice, Double maxPrice, String tags, String brand, Boolean highlight, Integer page, Integer pageSize) {
+    public List<Product> list(String name, UUID parentId, UUID categoryId, Double minPrice, Double maxPrice, String brand, Boolean highlight, Integer page, Integer pageSize) {
         Specification<ProductEntity> spec = buildSpec(Optional.ofNullable(name), Optional.of(Status.ACTIVE),
                 Optional.ofNullable(parentId), Optional.ofNullable(categoryId), Optional.ofNullable(minPrice),
-                Optional.ofNullable(maxPrice), Optional.ofNullable(tags), Optional.ofNullable(brand),
+                Optional.ofNullable(maxPrice), Optional.ofNullable(brand),
                 Optional.ofNullable(highlight));
         return repository.findAll(spec,
                 PageRequest.of(page - 1, pageSize, Sort.Direction.ASC, "createdAt"))

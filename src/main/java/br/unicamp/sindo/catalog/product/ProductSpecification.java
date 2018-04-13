@@ -13,8 +13,7 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
 
     public static Specification<ProductEntity> buildSpec(Optional<String> name, Optional<Status> status,
                                                          Optional<UUID> parentId, Optional<UUID> categoryId,
-                                                         Optional<Double> minPrice, Optional<Double> maxPrice,
-                                                         Optional<String> tags, Optional<String> brand,
+                                                         Optional<Double> minPrice, Optional<Double> maxPrice, Optional<String> brand,
                                                          Optional<Boolean> highlight) {
         ProductSpecification specDefinition = new ProductSpecification();
         Specification<ProductEntity> specs = Specification.where(specDefinition.init());
@@ -42,10 +41,6 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
         if (maxPrice.isPresent()) {
             specs = specs.and(withMaxPrice(maxPrice.get()));
         }
-
-        if (tags.isPresent()) {
-        }
-
         if (brand.isPresent()) {
             specs = specs.and(withBrand(brand.get()));
         }
