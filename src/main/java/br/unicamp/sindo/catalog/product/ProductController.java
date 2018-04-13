@@ -80,14 +80,19 @@ public class ProductController {
         if (product.getId() != null && !uuid.equals(product.getId())) {
             throw new BadParameterException("Path Parameter (" + uuid + ") should be the same as Body Entity (" + product.getId() + ")");
         }
-
     }
 
     private void validate(Product product) {
         if (product.getId() != null) {
             throw new BadParameterException("Should not pass ID on Product Creation");
         }
-        if (product.getStock() == null) {
+
+        if (product.getPrice() < 0)
+        {
+            throw new BadParameterException("Price can not be negative.");
+        }
+
+        if (product.getStock() != null) {
             product.setStatus(Status.ACTIVE);
         }
     }
