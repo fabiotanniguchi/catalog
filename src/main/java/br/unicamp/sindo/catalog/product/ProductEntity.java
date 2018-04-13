@@ -129,8 +129,8 @@ public class ProductEntity extends BaseEntity {
                 .categoryId(categoryId)
                 .status(status)
                 .tags(tagsList)
-                .createdAt(createdAt.getTime())
-                .updatedAt(updatedAt.getTime())
+                .createdAt(createdAt == null ? null : createdAt.getTime())
+                .updatedAt(updatedAt == null ? null : updatedAt.getTime())
                 .imageUrl(imageUrl)
                 .build();
     }

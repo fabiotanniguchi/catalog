@@ -80,9 +80,9 @@ public class CategoryEntity extends BaseEntity {
                 .name(name)
                 .parentId(parentId)
                 .status(status)
-                .createdAt(createdAt.getTime())
-                .updatedAt(updatedAt.getTime())
-                .build();
+                .createdAt(createdAt == null ? null : createdAt.getTime())
+                .updatedAt(updatedAt == null ? null : updatedAt.getTime())
+            .build();
     }
 
     @Column(name = "name", nullable = false)
