@@ -104,4 +104,8 @@ public class Product extends VersionableDTO implements Serializable {
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public void setStatus(Status status) {this.status = status;
+    }
+    public Status getStatus(Status status) {return(this.status);}
 }
