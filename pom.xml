@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <name>catalog-core</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Produtos</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -126,6 +126,14 @@
     </dependencyManagement>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/webapp</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
