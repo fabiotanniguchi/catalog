@@ -82,7 +82,7 @@ public class CategoryEntity extends BaseEntity {
                 .status(status)
                 .createdAt(createdAt == null ? null : createdAt.getTime())
                 .updatedAt(updatedAt == null ? null : updatedAt.getTime())
-            .build();
+                .build();
     }
 
     @Column(name = "name", nullable = false)

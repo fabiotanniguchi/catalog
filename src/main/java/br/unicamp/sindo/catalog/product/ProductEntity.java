@@ -93,7 +93,7 @@ public class ProductEntity extends BaseEntity {
             }
             e.setTags(tagsConcated);
         }
-        if(dto.getImageUrl() != null){
+        if (dto.getImageUrl() != null) {
             e.setImageUrl(dto.getImageUrl());
         }
 

@@ -8,9 +8,9 @@
         $scope.message = ""
 
         $scope.submit = function(){
-            if($scope.user == "admin@admin.com" && $scope.password == "password"){
+            if($scope.userId == "admin@admin.com" && $scope.password == "password"){
                 console.log("Passou aqui");
-                $scope.message = "Olá " + $scope.user + "!";
+                $scope.message = "Olá " + $scope.userId + "!";
             } else {
                 console.log("Passou aquiiiiii");
                 $scope.message = "Sorry!";
@@ -18,19 +18,20 @@
         }
 
     });
+
 </script>
 <head>
     <meta charset="UTF-8">
     <title>Loja Virtual - Administração</title>
 </head>
 <body ng-app="myApp">
-    <div ng-controller="formCtrl" ng-submit="submit()">
-        <form>
-            <div><input type="email" ng-model="user"/></div>
-            <div><input type="password" ng-model="password"/></div>
-            <div><input type="submit" value="Enviar"/></div>
-        </form>
-    </div>
-    {{ message }}
+<div ng-controller="formCtrl" ng-submit="submit()">
+    <form>
+        <div><input type="email" ng-model="userId"/></div>
+        <div><input type="password" ng-model="password"/></div>
+        <div><input type="submit" value="Enviar"/></div>
+    </form>
+</div>
+{{ message }}
 </body>
 </html>

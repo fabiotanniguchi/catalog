@@ -87,8 +87,7 @@ public class ProductController {
             throw new BadParameterException("Should not pass ID on Product Creation");
         }
 
-        if (product.getPrice() < 0)
-        {
+        if (product.getPrice() < 0) {
             throw new BadParameterException("Price can not be negative.");
         }
 
