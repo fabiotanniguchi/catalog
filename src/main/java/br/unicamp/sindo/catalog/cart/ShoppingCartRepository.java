@@ -2,8 +2,10 @@ package br.unicamp.sindo.catalog.cart;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-public interface ShoppingCartProductEntityRepository extends PagingAndSortingRepository<ShoppingCartProductEntity, UUID>, JpaSpecificationExecutor<ShoppingCartProductEntity> {
+@Repository
+public interface ShoppingCartRepository extends PagingAndSortingRepository<ShoppingCartEntity, UUID>, JpaSpecificationExecutor<ShoppingCartEntity> {
 }

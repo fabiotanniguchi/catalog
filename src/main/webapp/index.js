@@ -1,5 +1,5 @@
 var baseHost = "http://localhost:8080/"
-// var baseHost = "https://ftt-catalog.herokuapp.com/"
+//var baseHost = "https://ftt-catalog.herokuapp.com/"
 
 var parseProducts = function (result) {
 	console.info("products", result.length);
