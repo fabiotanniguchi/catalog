@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CatalogWebController {
 
     private static final String HOMEPAGE = "index.html";
-    private static final String ADMIN = "admin.html";
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -17,6 +16,11 @@ public class CatalogWebController {
 
     @RequestMapping("/admin")
     public String admin(Model model) {
-        return ADMIN;
+        return HOMEPAGE;
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        return HOMEPAGE;
     }
 }

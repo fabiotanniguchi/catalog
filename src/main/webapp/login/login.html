@@ -1,70 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-login">
+                <h4>Bem-vindo!</h4>
+                <div class="input-field">
+                  <input type="text" id="userName" ng-model="user.username" placeholder="Usuário"/>
+                  <label for="userName">Usuário</label>
+                </div>
+                <div class="input-field">
+                  <input type="text" id="userPassword" ng-model="user.password" placeholder="Senha"/>
+                  <label for="userPassword">Senha</label>
+                </div>
+                <div class="wrapper">
+	            <span class="group-btn">
+	                <a href="#" class="btn btn-primary btn-md" onclick="login()">Entrar <i class="fa fa-sign-in"></i></a>
+	            </span>
+                </div>
+            </div>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-    <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-
-    <!------ Include the above in your HEAD tag ---------->
-
-
-    <!--Pulling Awesome Font -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
-</head>
-<body>
-<div>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="/" class="brand-logo">Produto</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/login/login.html">Entrar</a></li>
-        <li><a href="/account/create.html">Criar conta</a></li>
-      </ul>
+        </div>
     </div>
-  </nav>
-  <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="form-login">
-                  <h4>Bem-vindo!</h4>
-                  <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="Usuário"/>
-                  </br>
-                  <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="Senha"/>
-                  </br>
-                  <div class="wrapper">
-  	            <span class="group-btn">
-  	                <a href="#" class="btn btn-primary btn-md" onclick="login()">Entrar <i class="fa fa-sign-in"></i></a>
-  	            </span>
-                  </div>
-              </div>
-
-          </div>
-      </div>
-    </div>
-</div>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
-<script src="login.js"></script>
-</body>
-</html>
+  </div>
