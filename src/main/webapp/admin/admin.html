@@ -1,9 +1,21 @@
-<div class="container" ng-controller="formCtrl" ng-submit="submit()">
-    <form>
-        <div><input class="form-control" type="email" ng-model="userId"/></div>
-        <div><input class="form-control" type="password" ng-model="password"/></div>
-        <div><input class="btn btn-primary btn-md" type="submit" value="Entrar"/></div>
-    </form>
-    <br/>
-    <div>{{ message }}</div>
+<div class="container login-container" ng-controller="formCtrl" ng-submit="submit()">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Acesso Restrito</h4>
+            <form class="form-login" ng-submit="submit()">
+                <div class="input-field">
+                    <input id="email" type="email" ng-model="userId"/>
+                    <label for="email">E-mail</label>
+                </div>
+                <div class="input-field">
+                    <input id="password" type="password" ng-model="password"/>
+                    <label for="password">Senha</label>
+                </div>
+                <div class="valign-wrapper">
+                    <loading ng-hide="!loading" class="loading-btn"></loading> <input ng-hide="loading" class="btn btn-md" type="submit" value="Entrar"/>
+                </div>
+            </form>
+            <div style="margin-top: 24px;">{{ message }}</div>
+        </div>
+    </div>
 </div>

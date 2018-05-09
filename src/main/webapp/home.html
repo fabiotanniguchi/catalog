@@ -12,7 +12,7 @@
         <h2>Destaques</h2>
         <loading ng-if="products.length == 0"></loading>
         <ul class="row" ng-if="products.length > 0">
-            <li class='col-md-4' ng-repeat="product in products">
+            <li class='col-md-3' ng-repeat="product in products">
                 <a href='/product-details/{{ product.id }}'>
                     <div class="product-img">
                         <img ng-src='{{ product.imageUrl == null ? "nophoto.svg" : product.imageUrl }}' />

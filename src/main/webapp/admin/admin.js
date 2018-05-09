@@ -8,7 +8,12 @@ var app = angular.module('catalogProducts');
       $scope.userId = "";
       $scope.password = "";
 
+      $scope.loading = false;
+
       $scope.submit = function(){
+          $scope.loading = true;
+          $scope.message = "";
+
           var requestUrl = baseHost + "admuser?user=" + $scope.userId + "&password=" + $scope.password;
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function(){
@@ -22,6 +27,8 @@ var app = angular.module('catalogProducts');
       }
 
       $scope.updateMessage = function(result){
+          $scope.loading = false;
+
           if(result == "0"){
               $scope.message = "Login realizado com sucesso. Você será redirecionado ao dashboard...";
           }else{
@@ -35,6 +42,8 @@ var app = angular.module('catalogProducts');
                   }
               }
           }
+
+          $scope.$apply();
       }
 
 });
