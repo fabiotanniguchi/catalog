@@ -1,23 +1,22 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <h4>Bem-vindo!</h4>
             <div class="form-login">
-                <h4>Bem-vindo!</h4>
                 <div class="input-field">
-                  <input type="text" id="userName" ng-model="user.username" placeholder="Usuário"/>
-                  <label for="userName">Usuário</label>
+                    <input type="text" id="userName" ng-model="user.username" class="validate"/>
+                    <label for="userName">Usuário</label>
                 </div>
                 <div class="input-field">
-                  <input type="text" id="userPassword" ng-model="user.password" placeholder="Senha"/>
-                  <label for="userPassword">Senha</label>
+                    <input type="password" id="userPassword" ng-model="user.password" class="validate"/>
+                    <label for="userPassword">Senha</label>
                 </div>
                 <div class="wrapper">
-	            <span class="group-btn">
-	                <a href="#" class="btn btn-primary btn-md" onclick="login()">Entrar <i class="fa fa-sign-in"></i></a>
-	            </span>
+                    <span class="group-btn">
+                        <a href="#" class="btn btn-primary btn-md" onclick="login()">Entrar <i class="fa fa-sign-in"></i></a>
+                    </span>
                 </div>
             </div>
-
         </div>
     </div>
-  </div>
+</div>

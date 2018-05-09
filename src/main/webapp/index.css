@@ -1,15 +1,18 @@
+label {
+    font-weight: normal;
+}
 nav .nav-wrapper a.brand-logo {
-  padding-left: 1em;
-  text-decoration: none;
+    padding-left: 1em;
+    text-decoration: none;
 }
 
 nav .nav-wrapper a.brand-logo:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 ul {
-  list-style: none;
-  margin: 0;
+    list-style: none;
+    margin: 0;
 }
 
 .products ul li img {
@@ -19,4 +22,37 @@ ul {
 .no-gutter [class^="col-"] {
     padding-left:0;
     padding-right:0;
+}
+
+/* label color */
+ .input-field label {
+   color: #494949;
+ }
+ /* label focus color */
+ .form-login .input-field input[type]:focus + label {
+   color: #9596bf;
+ }
+ /* label underline focus color */
+ .form-login .input-field input[type]:focus {
+   border-bottom: 1px solid #9596bf;
+   box-shadow: 0 1px 0 0 #9596bf;
+ }
+
+header nav {
+    background-color: #008ac8;
+}
+
+.btn {
+    background-color: #1d4f91;
+}
+
+a.btn:hover {
+    text-decoration: none;
+    color: #f2f2f2;
+    background-color: rgba(33,54,110,1);
+}
+
+nav a:hover {
+    text-decoration: none;
+    color: #f2f2f2;
 }
