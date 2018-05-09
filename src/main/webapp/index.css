@@ -158,12 +158,20 @@ header nav {
     background-color: #1d4f91;
 }
 
+.login-container h4 {
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 300;
+}
+
 .login-container .createAccount {
     text-align: center;
     padding: 2rem;
     margin-top: 2rem;
     background-color: #fafafe;
-    border: 1px solid #dedede;
+    border: 1px solid #f2f2f5;
     border-radius: 2px;
 }
 
