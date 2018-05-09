@@ -1,31 +1,41 @@
 var baseHost = "http://localhost:8080/"
 // var baseHost = "https://ftt-catalog.herokuapp.com/"
 
-var parseProducts = function (result) {
-	console.info("products", result.length);
-	for(var i = 0; i < result.length; i++){
+var app = angular.module('catalogProducts');
+
+app.controller('HomeCtrl', function($scope) {
+	$scope.products = [];
+	$scope.categories = [];
+
+	$scope.parseProducts = function (result) {
+		$scope.products = [];
 		console.info(result);
-		$("#products-galery").append("<li class='col-md-4'><div>"+result[i].name+"</div><a href='http://placehold.it/640x480.png'><img src='"+(result[i].imageUrl == null ? 'nophoto.png' : result[i].imageUrl)+"' /></a></li>")
+		for(var i = 0; i < result.length; i++){
+			if (result[i].price > 0) {
+				result[i].name = result[i].name
+				$scope.products.push(result[i]);
+			}
+		}
+		$scope.$apply();
 	}
-}
 
-var parseCategories = function (result) {
-	console.info("categories", result.length);
-	for(var i = 0; i < result.length; i++){
-		console.info(result);
-		$("#categories-galery").append("<li class='col-md-4'><a href='' title=''>"+result[i].name+"<span class='pull-right'>"+i+"</span></a></li>")
+	$scope.parseCategories = function (result) {
+		$scope.categories = [];
+		for(var i = 0; i < result.length; i++){
+			$scope.categories.push(result[i]);
+		}
+		$scope.$apply();
 	}
-}
 
 
-var onLoad = function (argument) {
-	$.ajax({url: baseHost + "products", success: function(result){
-		parseProducts(result);
-	}});
+	$scope.onLoad = function (argument) {
+		$.ajax({url: baseHost + "products", success: function(result){
+			$scope.parseProducts(result);
+		}});
 
-	$.ajax({url: baseHost + "categories", success: function(result){
-		parseCategories(result);
-	}});
-};
+		$.ajax({url: baseHost + "categories", success: function(result){
+			$scope.parseCategories(result);
+		}});
+	};
 
-onLoad();
+});

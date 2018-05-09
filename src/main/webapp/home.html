@@ -1,12 +1,27 @@
-<div class="container">
-        <div class="category">
-            <h3 class="side-title">Categorias</h3>
-            <ul class="row" id="categories-galery">
-            </ul>
-        </div>
-    <div class="products">
-        <h2>Produtos</h2>
-        <ul class="row galeria" id="products-galery">
+<div class="container" ng-controller="HomeCtrl" ng-init="onLoad()">
+    <div class="categories">
+        <h3 class="categories-title">Navegue por nossas categorias</h3>
+        <ul class="browser-default" id="categories-galery">
+            <li class="" ng-repeat="category in categories">
+                {{ category.name }}
+            </li>
         </ul>
     </div>
+
+    <div class="products">
+        <h2>Destaques</h2>
+        <loading ng-if="products.length == 0"></loading>
+        <ul class="row" ng-if="products.length > 0">
+            <li class='col-md-4' ng-repeat="product in products">
+                <a href='/product-details/{{ product.id }}'>
+                    <div class="product-img">
+                        <img ng-src='{{ product.imageUrl == null ? "nophoto.svg" : product.imageUrl }}' />
+                    </div>
+                    <div class="product-name"> {{ product.name }}</div>
+                    <div class="product-price"> {{ product.price | currency:'R$ ' }}</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
 </div>
