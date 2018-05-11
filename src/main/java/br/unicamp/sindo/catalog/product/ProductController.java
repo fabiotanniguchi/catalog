@@ -41,6 +41,11 @@ public class ProductController {
         return ETaggedResponseEntity.ok(product, etag);
     }
 
+    @GetMapping(value = "/group/{id}")
+    public List<Product> getByGroup(@PathVariable(name = "id") String groupId) {
+        return service.fetchByGroup(groupId);
+    }
+
     @PostMapping
     public ResponseEntity<Void> post(@RequestBody Product product) {
         validate(product);

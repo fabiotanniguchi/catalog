@@ -8,10 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static br.unicamp.sindo.catalog.product.ProductSpecification.buildSpec;
@@ -26,6 +23,17 @@ public class ProductService {
         return repository.findById(id)
                 .map(ProductEntity::assemble)
                 .orElseThrow(() -> new NotFoundException(Product.class.getSimpleName(), id));
+    }
+
+    public List<Product> fetchByGroup(String group) {
+        List<Product> finalList = new ArrayList<>();
+
+        List<ProductEntity> list = repository.findByGroupId(group);
+        for(ProductEntity product : list){
+            finalList.add(product.assemble());
+        }
+
+        return finalList;
     }
 
     public List<Product> list(String name, UUID parentId, UUID categoryId, Double minPrice, Double maxPrice, String brand, Boolean highlight, Integer page, Integer pageSize) {

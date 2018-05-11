@@ -2,6 +2,8 @@ package br.unicamp.sindo.catalog.category;
 
 import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.error.NotFoundException;
+import br.unicamp.sindo.catalog.product.ProductEntity;
+import br.unicamp.sindo.catalog.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,6 +23,9 @@ public class CategoryService {
 
     @Autowired
     protected CategoryRepository repository;
+
+    @Autowired
+    protected ProductRepository productRepository;
 
     public Category fetch(UUID id) {
         return repository.findById(id)
@@ -53,6 +58,14 @@ public class CategoryService {
     }
 
     public void delete(UUID uuid) {
+        List<ProductEntity> existingProducts = productRepository.findByCategoryId(uuid);
+        if(existingProducts != null && existingProducts.size() > 0){
+            for(ProductEntity product : existingProducts){
+                product.setStatus(Status.DISABLED);
+                productRepository.save(product);
+            }
+        }
+
         CategoryEntity entity = CategoryEntity.fromDTO(fetch(uuid));
         entity.setStatus(Status.DISABLED);
         entity.setUpdatedAt(new Date());
