@@ -61,7 +61,7 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
 
     private static Specification<ProductEntity> withBrand(String brand) {
         return (root, criteriaQuery, criteriaBuilder) -> {
-            Predicate predicate = criteriaBuilder.like(root.get("brand"), brand);
+            Predicate predicate = criteriaBuilder.like(root.get("brand"), "%"+brand+"%");
             return predicate;
         };
     }
@@ -96,7 +96,7 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
 
     private static Specification<ProductEntity> withName(final String name) {
         return (root, criteriaQuery, criteriaBuilder) -> {
-            Predicate predicate = criteriaBuilder.like(root.get("name"), name);
+            Predicate predicate = criteriaBuilder.like(root.get("name"), "%"+name+"%");
             return predicate;
         };
     }
