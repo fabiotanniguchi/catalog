@@ -27,6 +27,13 @@ public class ProductEntity extends BaseEntity {
     private UUID categoryId;
     private String imageUrl;
 
+    private Double weight;
+    private Double length;
+    private Double height;
+    private Double width;
+
+    private String groupId;
+
     public static ProductEntity fromDTO(Product dto) {
         String additionalInfo = null;
         try {
@@ -132,6 +139,11 @@ public class ProductEntity extends BaseEntity {
                 .createdAt(createdAt == null ? null : createdAt.getTime())
                 .updatedAt(updatedAt == null ? null : updatedAt.getTime())
                 .imageUrl(imageUrl)
+                .weight(weight)
+                .height(height)
+                .width(width)
+                .length(length)
+                .groupId(groupId)
                 .build();
     }
 
@@ -232,6 +244,51 @@ public class ProductEntity extends BaseEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Column(name = "weight")
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    @Column(name = "length")
+    public Double getLength() {
+        return length;
+    }
+
+    public void setLength(Double length) {
+        this.length = length;
+    }
+
+    @Column(name = "height")
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    @Column(name = "width")
+    public Double getWidth() {
+        return width;
+    }
+
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+
+    @Column(name = "group_id")
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     @PrePersist

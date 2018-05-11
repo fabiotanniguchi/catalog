@@ -40,6 +40,13 @@ public class Product extends VersionableDTO implements Serializable {
     private UUID categoryId;
     private String imageUrl;
 
+    private Double weight;
+    private Double length;
+    private Double width;
+    private Double height;
+
+    private String groupId;
+
     @JsonIgnore
     public String version() {
         return MD5.hash(this.toString());
@@ -112,4 +119,6 @@ public class Product extends VersionableDTO implements Serializable {
     public Status getStatus(Status status) {
         return (this.status);
     }
+
+
 }
