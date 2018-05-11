@@ -11,20 +11,11 @@ import java.util.UUID;
 @Table(name="shopping_cart_product")
 public class ShoppingCartProductEntity extends BaseEntity {
 
-    private UUID shoppingCartId;
     private UUID productId;
     private Integer productOrigin;
     private Long qty;
     private Double unitPrice;
-
-    @Column(name="cart_id", nullable = false)
-    public UUID getShoppingCartId() {
-        return shoppingCartId;
-    }
-
-    public void setShoppingCartId(UUID shoppingCartId) {
-        this.shoppingCartId = shoppingCartId;
-    }
+    private UUID userId;
 
     @Column(name="product_id", nullable = false)
     public UUID getProductId() {
@@ -60,5 +51,14 @@ public class ShoppingCartProductEntity extends BaseEntity {
 
     public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    @Column(name="user_id", nullable = false)
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 }
