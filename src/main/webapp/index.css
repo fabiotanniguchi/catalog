@@ -58,6 +58,8 @@ ul {
 .products ul li {
     padding: 16px;
     transition: all .16s ease-in-out;
+    max-height: 330px;
+    min-height: 330px;
 }
 
 .products ul li a, .products ul li a:hover {
