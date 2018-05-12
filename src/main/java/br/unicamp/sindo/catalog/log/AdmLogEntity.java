@@ -13,7 +13,7 @@ public class AdmLogEntity extends BaseEntity {
     private String userEmail;
     private String actionDescription;
 
-    @Column(name="user_email", nullable=false)
+    @Column(name = "user_email", nullable = false)
     public String getUserEmail() {
         return userEmail;
     }
@@ -22,7 +22,7 @@ public class AdmLogEntity extends BaseEntity {
         this.userEmail = userEmail;
     }
 
-    @Column(name="action_desc")
+    @Column(name = "action_desc")
     public String getActionDescription() {
         return actionDescription;
     }

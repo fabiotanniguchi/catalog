@@ -14,27 +14,27 @@ public class ShoppingCartService {
     @Autowired
     private ShoppingCartProductRepository repository;
 
-    public List<CartProductDTO> fetchAllByUser(UUID userId){
+    public List<CartProductDTO> fetchAllByUser(UUID userId) {
         List<CartProductDTO> resultList = new ArrayList<>();
 
         try {
             List<ShoppingCartProductEntity> cartProducts = repository.findByUserId(userId);
 
-            for(ShoppingCartProductEntity product : cartProducts){
+            for (ShoppingCartProductEntity product : cartProducts) {
                 CartProductDTO dto = CartProductDTO.from(product);
                 resultList.add(dto);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return resultList;
     }
 
-    public CartProductDTO insertOrUpdateCartProduct(CartProductDTO dto){
+    public CartProductDTO insertOrUpdateCartProduct(CartProductDTO dto) {
         List<ShoppingCartProductEntity> existingProducts = repository.findByUserIdAndProductId(dto.userId, dto.productId);
 
-        if(existingProducts == null || existingProducts.size() == 0){
+        if (existingProducts == null || existingProducts.size() == 0) {
             ShoppingCartProductEntity entity = new ShoppingCartProductEntity();
             entity.setProductId(dto.productId);
             entity.setProductOrigin(dto.productOrigin);
@@ -58,16 +58,16 @@ public class ShoppingCartService {
         return CartProductDTO.from(first);
     }
 
-    public void removeCartProduct(CartProductDTO dto){
+    public void removeCartProduct(CartProductDTO dto) {
         List<ShoppingCartProductEntity> existingProducts = repository.findByUserIdAndProductId(dto.userId, dto.productId);
 
-        if(existingProducts == null || existingProducts.size() == 0){
+        if (existingProducts == null || existingProducts.size() == 0) {
             return;
         }
 
         long qtyToRemove = dto.qty;
-        for(ShoppingCartProductEntity product : existingProducts){
-            if(qtyToRemove <= 0){
+        for (ShoppingCartProductEntity product : existingProducts) {
+            if (qtyToRemove <= 0) {
                 break;
             }
             long difference = product.getQty() - qtyToRemove;

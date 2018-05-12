@@ -13,7 +13,7 @@ public class LogEntity extends BaseEntity {
     private String userId;
     private String actionDescription;
 
-    @Column(name="user_id")
+    @Column(name = "user_id")
     public String getUserId() {
         return userId;
     }
@@ -22,7 +22,7 @@ public class LogEntity extends BaseEntity {
         this.userId = userId;
     }
 
-    @Column(name="action_desc")
+    @Column(name = "action_desc")
     public String getActionDescription() {
         return actionDescription;
     }

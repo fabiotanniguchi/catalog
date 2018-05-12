@@ -29,7 +29,18 @@ public class ProductService {
         List<Product> finalList = new ArrayList<>();
 
         List<ProductEntity> list = repository.findByGroupId(group);
-        for(ProductEntity product : list){
+        for (ProductEntity product : list) {
+            finalList.add(product.assemble());
+        }
+
+        return finalList;
+    }
+
+    public List<Product> fetchBySomeString(String expr) {
+        List<Product> finalList = new ArrayList<>();
+
+        List<ProductEntity> products = repository.search(expr);
+        for (ProductEntity product : products) {
             finalList.add(product.assemble());
         }
 

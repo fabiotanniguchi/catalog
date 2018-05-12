@@ -14,7 +14,7 @@ public class ShoppingCartController {
     private ShoppingCartService service;
 
     @GetMapping(value = "/{userId}")
-    public List<CartProductDTO> allUserCartProducts(@PathVariable(name="id") UUID userId) {
+    public List<CartProductDTO> allUserCartProducts(@PathVariable(name = "id") UUID userId) {
         return service.fetchAllByUser(userId);
     }
 
@@ -24,7 +24,7 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping
-    public void removeFromCart(@RequestBody CartProductDTO dto){
+    public void removeFromCart(@RequestBody CartProductDTO dto) {
         service.removeCartProduct(dto);
     }
 }

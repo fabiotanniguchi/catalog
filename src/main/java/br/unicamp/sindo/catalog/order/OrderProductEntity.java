@@ -17,7 +17,7 @@ public class OrderProductEntity extends BaseEntity {
     private Long qty;
     private Double unitPrice;
 
-    @Column(name="order_id", nullable = false)
+    @Column(name = "order_id", nullable = false)
     public UUID getOrderId() {
         return orderId;
     }
@@ -26,7 +26,7 @@ public class OrderProductEntity extends BaseEntity {
         this.orderId = orderId;
     }
 
-    @Column(name="product_id", nullable = false)
+    @Column(name = "product_id", nullable = false)
     public UUID getProductId() {
         return productId;
     }
@@ -35,7 +35,7 @@ public class OrderProductEntity extends BaseEntity {
         this.productId = productId;
     }
 
-    @Column(name="product_origin", nullable = false)
+    @Column(name = "product_origin", nullable = false)
     public Integer getProductOrigin() {
         return productOrigin;
     }
@@ -44,7 +44,7 @@ public class OrderProductEntity extends BaseEntity {
         this.productOrigin = productOrigin;
     }
 
-    @Column(name="qty", nullable = false)
+    @Column(name = "qty", nullable = false)
     public Long getQty() {
         return qty;
     }
@@ -53,7 +53,7 @@ public class OrderProductEntity extends BaseEntity {
         this.qty = qty;
     }
 
-    @Column(name="unit_price", nullable = false)
+    @Column(name = "unit_price", nullable = false)
     public Double getUnitPrice() {
         return unitPrice;
     }

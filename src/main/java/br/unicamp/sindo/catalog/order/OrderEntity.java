@@ -17,7 +17,7 @@ public class OrderEntity extends BaseEntity {
     private String logistic;
     private String logisticTracking;
 
-    @Column(name="user_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     public String getUserId() {
         return userId;
     }
@@ -26,7 +26,7 @@ public class OrderEntity extends BaseEntity {
         this.userId = userId;
     }
 
-    @Column(name="total", nullable = false)
+    @Column(name = "total", nullable = false)
     public Double getTotal() {
         return total;
     }
@@ -35,7 +35,7 @@ public class OrderEntity extends BaseEntity {
         this.total = total;
     }
 
-    @Column(name="payment")
+    @Column(name = "payment")
     public String getPayment() {
         return payment;
     }
@@ -44,7 +44,7 @@ public class OrderEntity extends BaseEntity {
         this.payment = payment;
     }
 
-    @Column(name="payment_type")
+    @Column(name = "payment_type")
     public String getPaymentType() {
         return paymentType;
     }
@@ -53,7 +53,7 @@ public class OrderEntity extends BaseEntity {
         this.paymentType = paymentType;
     }
 
-    @Column(name="logistic")
+    @Column(name = "logistic")
     public String getLogistic() {
         return logistic;
     }
@@ -62,7 +62,7 @@ public class OrderEntity extends BaseEntity {
         this.logistic = logistic;
     }
 
-    @Column(name="logistic_tracking")
+    @Column(name = "logistic_tracking")
     public String getLogisticTracking() {
         return logisticTracking;
     }

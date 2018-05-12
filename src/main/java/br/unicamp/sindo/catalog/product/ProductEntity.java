@@ -108,19 +108,19 @@ public class ProductEntity extends BaseEntity {
         if (dto.getImageUrl() != null) {
             e.setImageUrl(dto.getImageUrl());
         }
-        if(dto.getHeight() != null){
+        if (dto.getHeight() != null) {
             e.setHeight(dto.getHeight());
         }
-        if(dto.getWeight() != null){
+        if (dto.getWeight() != null) {
             e.setWeight(dto.getWeight());
         }
-        if(dto.getWidth() != null){
+        if (dto.getWidth() != null) {
             e.setWidth(dto.getWidth());
         }
-        if(dto.getLength() != null){
+        if (dto.getLength() != null) {
             e.setLength(dto.getLength());
         }
-        if(dto.getGroupId() != null){
+        if (dto.getGroupId() != null) {
             e.setGroupId(dto.getGroupId());
         }
 

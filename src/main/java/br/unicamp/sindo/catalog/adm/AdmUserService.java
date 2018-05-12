@@ -8,26 +8,26 @@ import java.util.List;
 @Service
 public class AdmUserService {
 
-    public enum LoginResult{
-        OK, USER_NOT_FOUND, INCORRECT_PASSWORD, OTHER_PROBLEM
-    }
-
     @Autowired
     protected AdmUserRepository repository;
 
-    public LoginResult validate(String user, String password){
+    public LoginResult validate(String user, String password) {
         List<AdmUserEntity> users = repository.findByEmailAndPassword(user, password);
 
-        if(users == null || users.isEmpty()){
+        if (users == null || users.isEmpty()) {
             List<AdmUserEntity> emailUsers = repository.findByEmail(user);
 
-            if(emailUsers == null || emailUsers.isEmpty()){
+            if (emailUsers == null || emailUsers.isEmpty()) {
                 return LoginResult.USER_NOT_FOUND;
-            }else{
+            } else {
                 return LoginResult.INCORRECT_PASSWORD;
             }
-        }else{
+        } else {
             return LoginResult.OK;
         }
+    }
+
+    public enum LoginResult {
+        OK, USER_NOT_FOUND, INCORRECT_PASSWORD, OTHER_PROBLEM
     }
 }

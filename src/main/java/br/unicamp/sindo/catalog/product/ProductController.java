@@ -46,6 +46,11 @@ public class ProductController {
         return service.fetchByGroup(groupId);
     }
 
+    @GetMapping(value = "/search/{expr}")
+    public List<Product> getBySomeString(@PathVariable(name = "expr") String expression) {
+        return service.fetchBySomeString(expression);
+    }
+
     @PostMapping
     public ResponseEntity<Void> post(@RequestBody Product product) {
         validate(product);

@@ -11,7 +11,7 @@ public class CartProductDTO {
     public Double unitPrice;
     public UUID userId;
 
-    public static CartProductDTO from(ShoppingCartProductEntity product){
+    public static CartProductDTO from(ShoppingCartProductEntity product) {
         CartProductDTO dto = new CartProductDTO();
         dto.cartProductId = product.getId();
         dto.productId = product.getProductId();

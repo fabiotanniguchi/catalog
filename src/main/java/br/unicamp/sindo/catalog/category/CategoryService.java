@@ -59,8 +59,8 @@ public class CategoryService {
 
     public void delete(UUID uuid) {
         List<ProductEntity> existingProducts = productRepository.findByCategoryId(uuid);
-        if(existingProducts != null && existingProducts.size() > 0){
-            for(ProductEntity product : existingProducts){
+        if (existingProducts != null && existingProducts.size() > 0) {
+            for (ProductEntity product : existingProducts) {
                 product.setStatus(Status.DISABLED);
                 productRepository.save(product);
             }
