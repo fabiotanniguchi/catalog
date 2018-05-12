@@ -54,6 +54,11 @@ public class ProductEntity extends BaseEntity {
         e.setCategoryId(dto.getCategoryId());
         e.setStatus(dto.getStatus());
         e.setImageUrl(dto.getImageUrl());
+        e.setWeight(dto.getWeight());
+        e.setHeight(dto.getHeight());
+        e.setWidth(dto.getWidth());
+        e.setLength(dto.getLength());
+        e.setGroupId(dto.getGroupId());
 
         if (dto.getTags() != null) {
             String tags = "";
@@ -102,6 +107,21 @@ public class ProductEntity extends BaseEntity {
         }
         if (dto.getImageUrl() != null) {
             e.setImageUrl(dto.getImageUrl());
+        }
+        if(dto.getHeight() != null){
+            e.setHeight(dto.getHeight());
+        }
+        if(dto.getWeight() != null){
+            e.setWeight(dto.getWeight());
+        }
+        if(dto.getWidth() != null){
+            e.setWidth(dto.getWidth());
+        }
+        if(dto.getLength() != null){
+            e.setLength(dto.getLength());
+        }
+        if(dto.getGroupId() != null){
+            e.setGroupId(dto.getGroupId());
         }
 
         return e;
