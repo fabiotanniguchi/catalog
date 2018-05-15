@@ -1,6 +1,7 @@
 package br.unicamp.sindo.catalog.external.customer.rest;
 
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1DTO;
+import br.unicamp.sindo.catalog.external.customer.dto.Customer1LoginDTO;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +27,7 @@ public class Customer1Rest {
     private static final String CUSTOMER1_LOGIN_PATH = "login";
 
     @PostMapping
-    public ResponseEntity<Customer1DTO> insertCustomer1(@RequestBody Customer1DTO customer){
+    public ResponseEntity<Void> insertCustomer1(@RequestBody Customer1DTO customer){
         final String uri = CUSTOMER1_HOST + CUSTOMER1_INSERT_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -35,10 +36,10 @@ public class Customer1Rest {
 
         HttpEntity<Customer1DTO> entity = new HttpEntity<>(customer, headers);
 
-        ResponseEntity<Customer1DTO> response = null;
+        ResponseEntity<Void> response = null;
         try {
             RestTemplate restTemplate = new RestTemplate();
-            response = restTemplate.exchange(uri, HttpMethod.POST, entity, Customer1DTO.class);
+            response = restTemplate.exchange(uri, HttpMethod.POST, entity, Void.class);
             HttpStatus status = response.getStatusCode();
 
             System.out.println(status);
@@ -52,7 +53,7 @@ public class Customer1Rest {
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<Customer1DTO> updateCustomer1(@PathVariable(value="id") String id, @RequestBody Customer1DTO customer){
+    public ResponseEntity<Void> updateCustomer1(@PathVariable(value="id") String id, @RequestBody Customer1DTO customer){
         final String uri = CUSTOMER1_HOST + CUSTOMER1_UPDATE_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -64,10 +65,10 @@ public class Customer1Rest {
         Map<String, String> params = new HashMap<>();
         params.put("id", id);
 
-        ResponseEntity<Customer1DTO> response = null;
+        ResponseEntity<Void> response = null;
         try {
             RestTemplate restTemplate = new RestTemplate();
-            response = restTemplate.exchange(uri, HttpMethod.PUT, entity, Customer1DTO.class, params);
+            response = restTemplate.exchange(uri, HttpMethod.PUT, entity, Void.class, params);
         }catch(Exception e){
             System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
             e.printStackTrace();
@@ -78,7 +79,7 @@ public class Customer1Rest {
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<Customer1DTO> getCustomer1(@PathVariable(value="id") String id, @RequestBody Customer1DTO customer){
+    public ResponseEntity<Void> getCustomer1(@PathVariable(value="id") String id, @RequestBody Customer1DTO customer){
         final String uri = CUSTOMER1_HOST + CUSTOMER1_GETDATA_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -90,10 +91,33 @@ public class Customer1Rest {
         Map<String, String> params = new HashMap<>();
         params.put("id", id);
 
-        ResponseEntity<Customer1DTO> response = null;
+        ResponseEntity<Void> response = null;
         try {
             RestTemplate restTemplate = new RestTemplate();
-            response = restTemplate.exchange(uri, HttpMethod.GET, entity, Customer1DTO.class, params);
+            response = restTemplate.exchange(uri, HttpMethod.GET, entity, Void.class, params);
+        }catch(Exception e){
+            System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return response;
+    }
+
+    @GetMapping(value="/login")
+    public ResponseEntity<Void> loginCustomer1(@RequestBody Customer1LoginDTO customer){
+        final String uri = CUSTOMER1_HOST + CUSTOMER1_LOGIN_PATH;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add(CUSTOMER1_API_KEY_NAME, CUSTOMER1_API_KEY);
+
+        HttpEntity<Customer1LoginDTO> entity = new HttpEntity<>(customer, headers);
+
+        ResponseEntity<Void> response = null;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            response = restTemplate.exchange(uri, HttpMethod.GET, entity, Void.class);
         }catch(Exception e){
             System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
             e.printStackTrace();
