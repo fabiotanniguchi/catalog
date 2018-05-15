@@ -22,6 +22,7 @@ public class CategoryEntity extends BaseEntity {
     private UUID parentId;
     private String additionalInfo;
     private Status status;
+    private String groupId;
 
     public static CategoryEntity fromDTO(Category dto) {
         String additionalInfo = null;
@@ -38,6 +39,7 @@ public class CategoryEntity extends BaseEntity {
         e.setParentId(dto.getParentId());
         e.setStatus(dto.getStatus());
         e.setAdditionalInfo(additionalInfo);
+        e.setGroupId(dto.getGroupId());
 
         return e;
     }
@@ -61,6 +63,8 @@ public class CategoryEntity extends BaseEntity {
             e.setParentId(dto.getParentId());
         if (dto.getStatus() != null)
             e.setStatus(dto.getStatus());
+        if(dto.getGroupId() != null)
+            e.setGroupId(dto.getGroupId());
 
         return e;
     }
@@ -82,6 +86,7 @@ public class CategoryEntity extends BaseEntity {
                 .status(status)
                 .createdAt(createdAt == null ? null : createdAt.getTime())
                 .updatedAt(updatedAt == null ? null : updatedAt.getTime())
+                .groupId(groupId)
                 .build();
     }
 
@@ -128,6 +133,15 @@ public class CategoryEntity extends BaseEntity {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Column(name = "group_id")
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     @PrePersist

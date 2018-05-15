@@ -59,6 +59,11 @@ public class CategoryController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping(value = "/group/{id}")
+    public List<Category> getByGroup(@PathVariable(name = "id") String groupId) {
+        return service.fetchByGroup(groupId);
+    }
+
     private void validate(UUID uuid, Category category) {
         if (category.getId() != null && !uuid.equals(category.getId())) {
             throw new BadParameterException("Path Parameter (" + uuid + ") should be the same as Body Entity (" + category.getId() + ")");

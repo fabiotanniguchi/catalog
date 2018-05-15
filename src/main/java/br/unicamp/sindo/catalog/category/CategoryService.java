@@ -10,10 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static br.unicamp.sindo.catalog.category.CategorySpecification.buildSpec;
@@ -77,6 +74,17 @@ public class CategoryService {
         entity.setStatus(Status.ACTIVE);
         entity.setUpdatedAt(new Date());
         repository.save(entity);
+    }
+
+    public List<Category> fetchByGroup(String group) {
+        List<Category> finalList = new ArrayList<>();
+
+        List<CategoryEntity> list = repository.findByGroupId(group);
+        for (CategoryEntity category : list) {
+            finalList.add(category.assemble());
+        }
+
+        return finalList;
     }
 
 }

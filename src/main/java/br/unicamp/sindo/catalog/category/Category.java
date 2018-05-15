@@ -32,54 +32,11 @@ public class Category extends VersionableDTO implements Serializable {
     private Status status;
     private Long createdAt;
     private Long updatedAt;
+    private String groupId;
 
     @JsonIgnore
     public String version() {
         return MD5.hash(this.toString());
     }
 
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public UUID getParentId() {
-        return parentId;
-    }
-
-    public Map<String, String> getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public Long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Long getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Long updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
