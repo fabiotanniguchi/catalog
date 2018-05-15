@@ -4,21 +4,19 @@ import br.unicamp.sindo.catalog.error.BadParameterException;
 import br.unicamp.sindo.catalog.utils.web.ETaggedResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
+@RequestMapping(value = "/reservation")
 public class ProductStockController {
 
     @Autowired
     protected ProductService service;
 
-    @PutMapping(value = "/{id}:release")
-    public ResponseEntity<Void> release(@RequestParam(name = "id") UUID uuid,
+    @PutMapping(value = "/release/{id}")
+    public ResponseEntity<Void> release(@PathVariable(name = "id") UUID uuid,
                                         @RequestBody Integer quantity) {
         Product product = service.fetch(uuid);
 
@@ -28,8 +26,8 @@ public class ProductStockController {
         return ETaggedResponseEntity.updated(product);
     }
 
-    @PutMapping(value = "/{id}:reserve")
-    public ResponseEntity<Void> reserve(@RequestParam(name = "id") UUID uuid,
+    @PutMapping(value = "/reserve/{id}")
+    public ResponseEntity<Void> reserve(@PathVariable(name = "id") UUID uuid,
                                         @RequestBody Integer quantity) {
         Product product = service.fetch(uuid);
 
