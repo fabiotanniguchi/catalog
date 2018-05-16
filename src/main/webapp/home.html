@@ -13,7 +13,7 @@
         <loading ng-if="products.length == 0"></loading>
         <ul class="row" ng-if="products.length > 0">
             <li class='col-md-3' ng-repeat="product in products">
-                <a href='/product-details/{{ product.id }}'>
+                <a href='/product-details/{{ product.id }}' ng-click="showDetails(product);">
                     <div class="product-img">
                         <img ng-src='{{ product.imageUrl == null ? "nophoto.svg" : product.imageUrl }}' />
                     </div>

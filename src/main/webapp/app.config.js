@@ -16,6 +16,9 @@ app.config(['$locationProvider', '$routeProvider',
         when('/admin', {
           templateUrl: '../admin/admin.html'
         }).
+        when('/product-details/:id', {
+          templateUrl: '../product/details.html'
+        }).
         otherwise('/');
 
         $locationProvider.hashPrefix('!');

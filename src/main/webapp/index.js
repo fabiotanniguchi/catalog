@@ -1,9 +1,9 @@
-// var baseHost = "http://localhost:8080/"
-var baseHost = "https://ftt-catalog.herokuapp.com/"
+var baseHost = "http://localhost:8080/"
+// var baseHost = "https://ftt-catalog.herokuapp.com/"
 
 var app = angular.module('catalogProducts');
 
-app.controller('HomeCtrl', function($scope) {
+app.controller('HomeCtrl', function($scope, productService) {
 	$scope.products = [];
 	$scope.categories = [];
 
@@ -17,6 +17,10 @@ app.controller('HomeCtrl', function($scope) {
 			}
 		}
 		$scope.$apply();
+	}
+
+	$scope.showDetails = function(obj) {
+		productService.setCurrentObject(obj);
 	}
 
 	$scope.parseCategories = function (result) {
