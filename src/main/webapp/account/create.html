@@ -1,1 +1,89 @@
-<div> To do: criar conta </div>
+<div class="container createAccount-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="existing-account">
+                <div class="center-align" style="font-size: 18px; margin-bottom: 1rem;">Já tem uma conta?</div>
+                <a href="/login" class="btn center-align btn-md">Entrar</i></a>
+            </div>
+        </div>
+        <div class="col-md-12" style="padding:0;">
+            <div class="col-md-12">
+                <h4>Crie sua conta</h4>
+                <h3>Dados pessoais</h3>
+            </div>
+            <div class="form-login">
+                <div class="col-md-8">
+                    <div class="input-field">
+                        <input type="text" id="name" ng-model="user.name"/>
+                        <label for="name">Nome</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <input type="text" id="cpf" ng-model="user.cpf"/>
+                        <label for="cpf">CPF</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <input type="text" id="birthDate" ng-model="user.birthDate"/>
+                        <label for="birthDate">Data de nascimento</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <input type="text" id="phone" ng-model="user.phone"/>
+                        <label for="phone">Tel. (XX) 9XXXX-XXXX</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <input type="text" id="cep" ng-model="user.address.cep"/>
+                        <label for="cep">CEP</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-field">
+                        <input type="text" id="street" ng-model="user.address.street"/>
+                        <label for="street">Rua</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-field">
+                        <input type="text" id="number" ng-model="user.address.number"/>
+                        <label for="number">Número</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <input type="text" id="complement" ng-model="user.address.complement"/>
+                        <label for="complement">Complemento</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <input type="text" id="district" ng-model="user.address.district"/>
+                        <label for="district">Bairro</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <input type="text" id="city" ng-model="user.address.city"/>
+                        <label for="city">Cidade</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-field">
+                        <input type="text" id="state" ng-model="user.address.state"/>
+                        <label for="state">Estado</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <span class="group-btn">
+                        <a href="#" class="btn btn-primary btn-md" ng-click="createAccount()">Criar conta</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

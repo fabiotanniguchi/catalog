@@ -174,7 +174,8 @@ h1, h2, h3, h4, h5 {
     font-weight: 300;
 }
 
-.login-container .createAccount {
+.login-container .createAccount,
+.createAccount-container .existing-account {
     text-align: center;
     padding: 2rem;
     margin-top: 4rem;
@@ -183,15 +184,30 @@ h1, h2, h3, h4, h5 {
     border-radius: 2px;
 }
 
+.createAccount-container .existing-account {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.createAccount-container h3 {
+    font-size: 18px;
+    color: #888888;
+}
+
 a.btn:not(.btn-flat):hover, button.btn:not(.btn-flat):hover {
     text-decoration: none;
     color: #f2f2f2;
     background-color: rgba(33,54,110,1);
 }
 
-nav a:hover {
+nav a:hover,
+nav a:focus {
     text-decoration: none;
     color: #f2f2f2;
+}
+
+nav a:focus {
+    background-color: rgba(0,0,0, 0.1);
 }
 
 loading.loading-btn {
