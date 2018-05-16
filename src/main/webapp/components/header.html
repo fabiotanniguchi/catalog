@@ -1,4 +1,4 @@
-<nav>
+<nav ng-controller="HeaderCtrl" ng-init="init()">
   <div class="nav-wrapper valign-wrapper">
     <a href="/" class="brand-logo">Produtos 01</a>
     <span class="nav-search-field hide-on-med-and-down" style="flex: 1 1;">
@@ -7,9 +7,11 @@
     </span>
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="/shopping-cart"><img src="../image/outline-shopping_cart-24px.svg"/></a></li>
-      <li><a href="/login">entrar</a></li>
-      <li><a href="/newAccount">criar conta</a></li>
+      <li ng-if="isLogged" style="padding-right: 12px; font-size: 15px;">olá, maria!</li>
+      <li><a href="/shopping-cart"><img src="../image/outline-shopping_cart-24px.svg"/> 0 itens</a></li>
+      <li ng-if="isLogged"><a href="/account/info.html">minha conta</a></li>
+      <li ng-if="!isLogged"><a href="/login">entrar</a></li>
+      <li ng-if="!isLogged"><a href="/newAccount">criar conta</a></li>
     </ul>
   </div>
 </nav>
