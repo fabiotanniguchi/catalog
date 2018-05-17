@@ -28,7 +28,7 @@ public class Customer1Rest {
     private static final String CUSTOMER1_LOGIN_PATH = "login";
 
     @PostMapping
-    public ResponseEntity<String> insertCustomer1(@RequestBody Customer1DTO customer){
+    public ResponseEntity<String> insertCustomer1(@RequestBody Customer1DTO customer) {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_INSERT_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -44,7 +44,7 @@ public class Customer1Rest {
             HttpStatus status = response.getStatusCode();
 
             System.out.println(status);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível inserir cliente " + customer.getEmail());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -53,8 +53,8 @@ public class Customer1Rest {
         return response;
     }
 
-    @PutMapping(value="/{id}")
-    public ResponseEntity<String> updateCustomer1(@PathVariable(value="id") String id, @RequestBody Customer1DTO customer){
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<String> updateCustomer1(@PathVariable(value = "id") String id, @RequestBody Customer1DTO customer) {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_UPDATE_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -70,7 +70,7 @@ public class Customer1Rest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class, params);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -79,8 +79,8 @@ public class Customer1Rest {
         return response;
     }
 
-    @GetMapping(value="/{id}")
-    public ResponseEntity<String> getCustomer1(@PathVariable(value="id") String id, @RequestBody Customer1DTO customer){
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<String> getCustomer1(@PathVariable(value = "id") String id, @RequestBody Customer1DTO customer) {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_GETDATA_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -96,7 +96,7 @@ public class Customer1Rest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class, params);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -105,8 +105,8 @@ public class Customer1Rest {
         return response;
     }
 
-    @GetMapping(value="/login")
-    public ResponseEntity<String> loginCustomer1(@RequestBody Customer1LoginDTO customer){
+    @GetMapping(value = "/login")
+    public ResponseEntity<String> loginCustomer1(@RequestBody Customer1LoginDTO customer) {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_LOGIN_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -119,7 +119,7 @@ public class Customer1Rest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -128,8 +128,8 @@ public class Customer1Rest {
         return response;
     }
 
-    @PutMapping(value="/change/{id}")
-    public ResponseEntity<String> changePasswordCustomer1(@PathVariable(value="id") String id, @RequestBody Customer1ChangePasswordDTO customer){
+    @PutMapping(value = "/change/{id}")
+    public ResponseEntity<String> changePasswordCustomer1(@PathVariable(value = "id") String id, @RequestBody Customer1ChangePasswordDTO customer) {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_CHGPASSWRD_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -145,7 +145,7 @@ public class Customer1Rest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class, params);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível atualizar cliente " + id);
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

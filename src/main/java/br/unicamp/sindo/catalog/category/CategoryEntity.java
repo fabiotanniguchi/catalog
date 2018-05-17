@@ -63,7 +63,7 @@ public class CategoryEntity extends BaseEntity {
             e.setParentId(dto.getParentId());
         if (dto.getStatus() != null)
             e.setStatus(dto.getStatus());
-        if(dto.getGroupId() != null)
+        if (dto.getGroupId() != null)
             e.setGroupId(dto.getGroupId());
 
         return e;

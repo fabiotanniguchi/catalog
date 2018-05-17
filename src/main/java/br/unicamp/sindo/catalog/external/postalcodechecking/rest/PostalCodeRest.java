@@ -6,14 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/external/postalcode")
+@RequestMapping(value = "/external/postalcode")
 public class PostalCodeRest {
 
     private String POSTAL_CODE_API_KEY = "1a2cd962-e70a-4d08-bfa8-2ee127d89e9c";
@@ -22,8 +21,8 @@ public class PostalCodeRest {
     private String POSTAL_CODE_SERV_HOST = "http://node.thiagoelg.com/paises/br";
     private String POSTAL_CODE_SERV_CEP = "/cep/{cep}";
 
-    @GetMapping(value="/{cep}")
-    public ResponseEntity<PostalCodeAddressDTO> getAddressFromPostalCode(@PathVariable(value="cep") String cep){
+    @GetMapping(value = "/{cep}")
+    public ResponseEntity<PostalCodeAddressDTO> getAddressFromPostalCode(@PathVariable(value = "cep") String cep) {
         final String uri = POSTAL_CODE_SERV_HOST + POSTAL_CODE_SERV_CEP;
 
         HttpHeaders headers = new HttpHeaders();
@@ -39,7 +38,7 @@ public class PostalCodeRest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, PostalCodeAddressDTO.class, params);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível consultar CEP " + cep);
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PostalCodeAddressDTO());

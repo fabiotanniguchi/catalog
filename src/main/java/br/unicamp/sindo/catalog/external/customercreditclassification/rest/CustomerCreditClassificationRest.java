@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value="/external/credit")
+@RequestMapping(value = "/external/credit")
 public class CustomerCreditClassificationRest {
 
     private String CREDIT_API_KEY = "tmvcgp1";
@@ -22,8 +22,8 @@ public class CustomerCreditClassificationRest {
     private String CREDIT_SCORE_PATH = "/score/{cpf}";
     private String CREDIT_PAYMENT_PATH = "/payment/{cpf}";
 
-    @GetMapping(value="/{cpf}")
-    public ResponseEntity<CustomerCreditClassificationDTO> getCreditScore(@PathVariable(value="cpf") String cpf){
+    @GetMapping(value = "/{cpf}")
+    public ResponseEntity<CustomerCreditClassificationDTO> getCreditScore(@PathVariable(value = "cpf") String cpf) {
         final String uri = CREDIT_HOST + CREDIT_SCORE_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -39,17 +39,15 @@ public class CustomerCreditClassificationRest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, CustomerCreditClassificationDTO.class, params);
-        }
-        catch(HttpClientErrorException ex){
-            if(ex.getStatusCode() == HttpStatus.NOT_FOUND){ // client without profile at credit institution
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) { // client without profile at credit institution
                 return ResponseEntity.status(HttpStatus.OK).body(new CustomerCreditClassificationDTO());
-            }else{
+            } else {
                 System.err.println("[ERRO] Não foi possível consultar score do CPF " + cpf);
                 ex.printStackTrace();
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomerCreditClassificationDTO());
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível consultar score do CPF " + cpf);
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomerCreditClassificationDTO());
@@ -58,8 +56,8 @@ public class CustomerCreditClassificationRest {
         return response;
     }
 
-    @PostMapping(value="/{cpf}")
-    public ResponseEntity<String> putScore(@PathVariable(value="cpf") String cpf, @RequestBody CustomerCreditClassificationUpdateDTO customer){
+    @PostMapping(value = "/{cpf}")
+    public ResponseEntity<String> putScore(@PathVariable(value = "cpf") String cpf, @RequestBody CustomerCreditClassificationUpdateDTO customer) {
         final String uri = CREDIT_HOST + CREDIT_SCORE_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -75,7 +73,7 @@ public class CustomerCreditClassificationRest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class, params);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível inserir score do CPF " + cpf);
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String());
@@ -84,8 +82,8 @@ public class CustomerCreditClassificationRest {
         return response;
     }
 
-    @PostMapping(value="/payment/{cpf}")
-    public ResponseEntity<String> putPayment(@PathVariable(value="cpf") String cpf, @RequestBody CustomerCreditClassificationPaymentDTO customer){
+    @PostMapping(value = "/payment/{cpf}")
+    public ResponseEntity<String> putPayment(@PathVariable(value = "cpf") String cpf, @RequestBody CustomerCreditClassificationPaymentDTO customer) {
         final String uri = CREDIT_HOST + CREDIT_PAYMENT_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -101,7 +99,7 @@ public class CustomerCreditClassificationRest {
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class, params);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível inserir pagamento do CPF " + cpf);
             e.printStackTrace();
         }
