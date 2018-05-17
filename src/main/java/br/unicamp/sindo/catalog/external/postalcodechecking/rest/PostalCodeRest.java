@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class PostalCodeRest {
     private String POSTAL_CODE_SERV_CEP = "/cep/{cep}";
 
     @GetMapping(value="/{cep}")
-    public ResponseEntity<PostalCodeAddressDTO> getCustomer1(@PathVariable(value="cep") String cep){
+    public ResponseEntity<PostalCodeAddressDTO> getAddressFromPostalCode(@PathVariable(value="cep") String cep){
         final String uri = POSTAL_CODE_SERV_HOST + POSTAL_CODE_SERV_CEP;
 
         HttpHeaders headers = new HttpHeaders();
