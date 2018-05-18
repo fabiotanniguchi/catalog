@@ -5,6 +5,8 @@ import br.unicamp.sindo.catalog.utils.repository.RootSpecification;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,7 +15,7 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
 
     public static Specification<ProductEntity> buildSpec(Optional<String> name, Optional<Status> status,
                                                          Optional<UUID> parentId, Optional<UUID> categoryId,
-                                                         Optional<Double> minPrice, Optional<Double> maxPrice, Optional<String> brand,
+                                                         Optional<Double> minPrice, Optional<Double> maxPrice, Optional<List<String>> brands,
                                                          Optional<Boolean> highlight) {
         ProductSpecification specDefinition = new ProductSpecification();
         Specification<ProductEntity> specs = Specification.where(specDefinition.init());
@@ -41,8 +43,12 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
         if (maxPrice.isPresent()) {
             specs = specs.and(withMaxPrice(maxPrice.get()));
         }
-        if (brand.isPresent()) {
-            specs = specs.and(withBrand(brand.get()));
+        if (brands.isPresent() && !brands.get().isEmpty()) {
+        	Specification<ProductEntity> orBrands = withBrand(brands.get().get(0));
+        	for(int i = 1; i < brands.get().size(); i++){
+        		orBrands = orBrands.or(withBrand(brands.get().get(i)));
+        	}
+            specs = specs.and(orBrands);
         }
 
         if (highlight.isPresent()) {
