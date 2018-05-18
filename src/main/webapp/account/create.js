@@ -1,8 +1,26 @@
+var baseHost = "http://localhost:8080/"
+// var baseHost = "https://ftt-catalog.herokuapp.com/"
+
 var app = angular.module('catalogProducts');
 
 app.controller('CreateAccountCtrl', function($scope) {
 
     $scope.createAccount = function() {
+        $scope.loading = true;
+        $scope.message = "";
+
+        var requestUrl = baseHost + "external/customers";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(xhttp.readyState == 4){
+                var result = xhttp.responseText;
+                console.info(result);
+            }
+        };
+        xhttp.open("POST", requestUrl, true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        console.info(JSON.stringify($scope.user));
+        xhttp.send(JSON.stringify($scope.user));
         // TODO: submit $scope.user to back-end
 
         /*

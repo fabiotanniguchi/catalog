@@ -32,50 +32,38 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-field">
-                        <input type="text" id="phone" ng-model="user.phone"/>
+                        <input type="text" id="phone" ng-model="user.telephone"/>
                         <label for="phone">Tel. (XX) 9XXXX-XXXX</label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-field">
-                        <input type="text" id="cep" ng-model="user.address.cep"/>
+                        <input type="text" id="cep" ng-model="user.cep"/>
                         <label for="cep">CEP</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="input-field">
-                        <input type="text" id="street" ng-model="user.address.street"/>
-                        <label for="street">Rua</label>
+                        <input type="text" id="street" ng-model="user.address"/>
+                        <label for="street">Endereço</label>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <div class="input-field">
-                        <input type="text" id="number" ng-model="user.address.number"/>
-                        <label for="number">Número</label>
+                        <input type="text" id="email" ng-model="user.email"/>
+                        <label for="number">Email</label>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="input-field">
-                        <input type="text" id="complement" ng-model="user.address.complement"/>
-                        <label for="complement">Complemento</label>
+                        <input type="password" id="email" ng-model="user.password"/>
+                        <label for="number">Senha</label>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="input-field">
-                        <input type="text" id="district" ng-model="user.address.district"/>
-                        <label for="district">Bairro</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="input-field">
-                        <input type="text" id="city" ng-model="user.address.city"/>
-                        <label for="city">Cidade</label>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="input-field">
-                        <input type="text" id="state" ng-model="user.address.state"/>
-                        <label for="state">Estado</label>
+                        <input type="password" id="email" ng-model="user.samePass"/>
+                        <label for="number">Confirme sua Senha</label>
                     </div>
                 </div>
                 <div class="col-md-12">
