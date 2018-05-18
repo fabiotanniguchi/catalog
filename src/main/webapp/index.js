@@ -1,5 +1,5 @@
 // var baseHost = "http://localhost:8080/";
- var baseHost = "https://ftt-catalog.herokuapp.com/"
+var baseHost = "https://ftt-catalog.herokuapp.com/"
 
 var app = angular.module('catalogProducts');
 
@@ -33,7 +33,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService) {
 
 
 	$scope.onLoad = function (argument) {
-		$.ajax({url:  "http://localhost:8080/products", success: function(result){
+		$.ajax({url:  baseHost + "products", success: function(result){
 			$scope.parseProducts(result);
 		}});
 
