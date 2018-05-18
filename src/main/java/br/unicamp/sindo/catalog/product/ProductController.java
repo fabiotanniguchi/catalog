@@ -25,13 +25,13 @@ public class ProductController {
             , @RequestParam(name = "category_id", required = false) UUID categoryId
             , @RequestParam(name = "min_price", required = false) Double minPrice
             , @RequestParam(name = "max_price", required = false) Double maxPrice
-            , @RequestParam(name = "brand", required = false) String brand
+            , @RequestParam(name = "brand", required = false) List<String> brands
             , @RequestParam(name = "highlight", required = false) Boolean highlight
             , @RequestParam(name = "image_url", required = false) String imageUrl
             , @RequestParam(defaultValue = "1") Integer page) {
         int pageSize = 50;
         return PageableResponseEntity.ok(service.list(name, parentId, categoryId, minPrice,
-                maxPrice, brand, highlight, page, pageSize + 1), page, pageSize);
+                maxPrice, brands, highlight, page, pageSize + 1), page, pageSize);
     }
 
     @GetMapping(value = "/{id}")
