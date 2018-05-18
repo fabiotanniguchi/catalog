@@ -106,12 +106,16 @@ public class Customer1Rest {
     }
 
     @GetMapping(value = "/login")
-    public ResponseEntity<String> loginCustomer1(@RequestBody Customer1LoginDTO customer) {
+    public ResponseEntity<String> loginCustomer1(@RequestParam String email, @RequestParam String password) {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_LOGIN_PATH;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add(CUSTOMER1_API_KEY_NAME, CUSTOMER1_API_KEY);
+
+        Customer1LoginDTO customer = new Customer1LoginDTO();
+        customer.setEmail(email);
+        customer.setPassword(password);
 
         HttpEntity<Customer1LoginDTO> entity = new HttpEntity<>(customer, headers);
 
@@ -120,7 +124,7 @@ public class Customer1Rest {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
         } catch (Exception e) {
-            System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
+            System.err.println("[ERRO] Não foi possível logar com o cliente " + customer.getEmail());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

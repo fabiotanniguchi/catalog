@@ -1,11 +1,21 @@
-// var baseHost = "http://localhost:8080/"
-var baseHost = "https://ftt-catalog.herokuapp.com/"
+var baseHost = "http://localhost:8080/"
+// var baseHost = "https://ftt-catalog.herokuapp.com/"
 
 var app = angular.module('catalogProducts');
 
-app.controller('CreateAccountCtrl', function($scope) {
+app.controller('CreateAccountCtrl', function($scope, $location) {
 
     $scope.createAccount = function() {
+        if(!$scope.user){
+            alert("Preencha todos os campos");
+            return;
+        }
+
+        if($scope.user.password != $scope.user.samePass){
+            alert("As senhas não coincidem");
+            return;
+        }
+
         $scope.loading = true;
         $scope.message = "";
 
@@ -14,7 +24,11 @@ app.controller('CreateAccountCtrl', function($scope) {
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState == 4){
                 var result = xhttp.responseText;
-                console.info(result);
+                alert("Conta Criada com sucesso")
+                $scope.loading = false;
+                $location.path("/login")
+                $scope.$apply();
+                
             }
         };
         xhttp.open("POST", requestUrl, true);

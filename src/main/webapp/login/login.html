@@ -4,15 +4,16 @@
             <h4>Bem-vindo!</h4>
             <div class="form-login">
                 <div class="input-field">
-                    <input type="email" id="userName" ng-model="user.username" class="validate"/>
-                    <label for="userName">Usuário</label>
+                    <input type="email" id="userName" ng-model="user.email" class="validate"/>
+                    <label for="userName">Email</label>
                 </div>
                 <div class="input-field">
                     <input type="password" id="userPassword" ng-model="user.password" class="validate"/>
                     <label for="userPassword">Senha</label>
                 </div>
                 <div class="wrapper">
-                    <span class="group-btn">
+                    <loading ng-hide="!loading" class="loading-btn"></loading>
+                    <span class="group-btn" ng-hide="loading">
                         <a href="#" class="btn btn-primary btn-md" ng-click="login()">Entrar <i class="fa fa-sign-in"></i></a>
                     </span>
                 </div>
