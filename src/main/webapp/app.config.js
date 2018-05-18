@@ -19,6 +19,9 @@ app.config(['$locationProvider', '$routeProvider',
         when('/product-details/:id', {
           templateUrl: '../product/details.html'
         }).
+        when('/shopping-cart', {
+            templateUrl: '../shopping-cart/cart.html'
+        }).
         otherwise('/');
 
         $locationProvider.hashPrefix('!');

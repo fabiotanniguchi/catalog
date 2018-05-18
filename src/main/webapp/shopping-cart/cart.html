@@ -1,0 +1,42 @@
+<div class="container cart-details" ng-controller="CartCtrl" ng-init="show()">
+	
+	<div class="products">
+		<h2>Carrinho</h2>
+		<ul class="row" ng-if="!isEmpty()">
+			<li>
+				<table class="table table-striped">
+					<tr>
+						<th>Nome</th>
+						<th>Quantidade</th>
+						<th>Preço</th>
+					</tr>
+					<tr ng-repeat="(id, data) in cart">
+						<td> {{data.product.name}} </td>
+						<td> {{data.quantity}} </td>
+						<td> {{data.quantity * data.product.price}} </td>
+					</tr>
+					<tr><td></td><td></td><td></td></tr>
+					<tr>
+						<td></td>
+						<td>SubTotal</td>
+						<td> {{totalValue}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Frete</td>
+						<td> {{frete}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Total</td>
+						<td> {{frete ? frete + totalValue : totalValue}} </td>
+					</tr>
+					<tr>
+						<td> Cep: </td>
+						<td> <input type="text"/><input class="btn" ng-click="calculaFrete()" type="button" value="OK"/></td>
+						<td> </td>
+				</table>
+			</li>
+		</ul>
+	</div>
+</div>
