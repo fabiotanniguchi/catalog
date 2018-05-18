@@ -47,11 +47,11 @@ public class ProductService {
         return finalList;
     }
 
-    public List<Product> list(String name, UUID parentId, UUID categoryId, Double minPrice, Double maxPrice, List<String> brands, Boolean highlight, Integer page, Integer pageSize) {
+    public List<Product> list(String name, UUID parentId, List<UUID> categoryIds, Double minPrice, Double maxPrice, List<String> brands, Boolean highlight, List<String> groupIds, Integer page, Integer pageSize) {
         Specification<ProductEntity> spec = buildSpec(Optional.ofNullable(name), Optional.of(Status.ACTIVE),
-                Optional.ofNullable(parentId), Optional.ofNullable(categoryId), Optional.ofNullable(minPrice),
+                Optional.ofNullable(parentId), Optional.ofNullable(categoryIds), Optional.ofNullable(minPrice),
                 Optional.ofNullable(maxPrice), Optional.ofNullable(brands),
-                Optional.ofNullable(highlight));
+                Optional.ofNullable(highlight), Optional.ofNullable(groupIds));
         return repository.findAll(spec,
                 PageRequest.of(page - 1, pageSize, Sort.Direction.ASC, "createdAt"))
                 .stream()
