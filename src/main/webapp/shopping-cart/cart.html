@@ -2,6 +2,9 @@
 
     <div class="products">
         <h2>Carrinho</h2>
+        <div ng-if="isEmpty()">
+        Os produtos que você adicionar ao carrinho aparecerão aqui.
+        </div>
         <ul class="row" ng-if="!isEmpty()">
             <li>
                 <table class="table table-striped">
@@ -13,7 +16,7 @@
                     <tr ng-repeat="(id, data) in cart">
                         <td> {{data.product.name}}</td>
                         <td> {{data.quantity}}</td>
-                        <td> {{data.quantity * data.product.price}}</td>
+                        <td> {{data.quantity * data.product.price | currency:'R$ '}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -23,17 +26,17 @@
                     <tr>
                         <td></td>
                         <td>SubTotal</td>
-                        <td> {{orderInfo.subTotal}}</td>
+                        <td> {{orderInfo.subTotal | currency:'R$ '}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Frete</td>
-                        <td> {{orderInfo.postalFee}}</td>
+                        <td> {{orderInfo.postalFee | currency:'R$ '}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Total</td>
-                        <td> {{orderInfo.postalFee ? orderInfo.postalFee + orderInfo.subTotal : orderInfo.subTotal}}
+                        <td> {{orderInfo.postalFee ? orderInfo.postalFee + orderInfo.subTotal : orderInfo.subTotal | currency:'R$ '}}
                         </td>
                     </tr>
                     <tr>

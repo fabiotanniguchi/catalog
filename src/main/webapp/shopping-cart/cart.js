@@ -7,7 +7,7 @@ app.controller('CartCtrl', function($scope, cartService) {
 		$scope.orderInfo = {};
 		$scope.orderInfo.subTotal = cartService.totalValue();
 	}
-	
+
 	$scope.isEmpty = function() {
 		return cartService.getCartSize() == 0;
 	}

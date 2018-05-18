@@ -26,11 +26,15 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
         }
         $scope.cartSize = cartService.getCartSize();
     }
-    
-    //$scope.$watch('cartSize', function(){
-    //	$scope.apply();
-    //});
-    
+
+    // $scope.$watch('cartSize', function(){
+    // 	$scope.apply();
+    // });
+
+    $scope.$on('cartChanged', function(event, args){
+        $scope.cartSize = cartService.getCartSize();
+    });
+
 });
 
 app.service('productService', function(){
@@ -48,54 +52,62 @@ app.service('productService', function(){
 
 //todo cookiesotre
 //app.service('cartService', ['$cookies', function($cookies) {
-app.service('cartService', function() {
+app.service('cartService', function($rootScope) {
 	this.cart = {};
-	
+
 	this.addProduct = function(product, quantity){
 		if(this.cart[product.id] == null){
 			this.setProduct(product, quantity);
 		}else if (quantity >= 0 && this.cart[product.id].quantity + quantity <= product.stock){
 			this.cart[product.id].quantity += quantity;
 		}else if (quantity < 0 ){
-			alert("Unexpected error");
+            M.Toast.dismissAll();
+			M.toast({html: 'Quantidade inválida!'})
 			return;
 		}else{
-			alert("Alertar sobre quantidade em estoque: " + product.stock);
+            M.Toast.dismissAll();
+			M.toast({html: 'Não temos a quantidade suficiente em estoque'})
 			return;
 		}
-		alert('Alertar: Deseja continuar comprando ou ir para o carrinho?');
+
+        $rootScope.$broadcast('cartChanged');
+        M.Toast.dismissAll();
+        M.toast({html: 'Produto adicionado ao carrinho'})
 		this.persist();
 	}
-	
+
 	this.setProduct = function(product, quantity){
-		if(quantity < 0){ 
-			alert("Alertar sobre quantidade negativa");
+		if(quantity < 0){
+            M.Toast.dismissAll();
+            M.toast({html: 'Quantidade inválida!'})
 			return;
 		}
 		if(quantity > product.stock){
-			alert("Alertar sobre quantidade em estoque: " + product.stock);
+            M.Toast.dismissAll();
+			M.toast({html: 'Não temos a quantidade suficiente em estoque'})
 			return;
 		}
 		if(quantity == 0){
+            console.info(product, quantity);
 			this.cart[product.id] = undefined;
 		}
-		
+
 		this.cart[product.id] = {};
 		this.cart[product.id].product = product;
 		this.cart[product.id].quantity = quantity;
-		
+
 		this.persist();
 	}
-	
+
 	this.persist = function(){
 		//$cookies.putOject("cart", this.cart);
 	}
-	
+
 	this.getCart = function(){
 		return this.cart;
 		//return $cookies.getObject("cart");
 	}
-	
+
 	this.totalValue = function(){
 		value = 0;
 		for(id in this.cart){
@@ -103,9 +115,13 @@ app.service('cartService', function() {
 		}
 		return value;
 	}
-	
+
 	this.getCartSize = function(){
-		return Object.keys(this.cart).length;
+        qty = 0;
+		for(id in this.cart){
+			qty += this.cart[id].quantity;
+		}
+		return qty;
 	}
 });
 
