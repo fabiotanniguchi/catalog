@@ -15,7 +15,7 @@
             <li class='col-md-3' ng-repeat="product in products">
                 <a href='/product-details/{{ product.id }}' ng-click="showDetails(product);">
                     <div class="product-img">
-                        <img ng-src='{{ product.imageUrl == null ? "nophoto.svg" : product.imageUrl }}' />
+                        <img ng-src='{{ product.imageUrl == null ? "nophoto.svg" : product.imageUrl }}'/>
                     </div>
                     <div class="product-name"> {{ product.name }}</div>
                     <div class="product-price"> {{ product.price | currency:'R$ ' }}</div>
