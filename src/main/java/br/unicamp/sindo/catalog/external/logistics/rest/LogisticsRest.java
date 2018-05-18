@@ -6,6 +6,7 @@ import br.unicamp.sindo.catalog.external.logistics.dto.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,27 +18,27 @@ public class LogisticsRest {
     public static final String LOGISTICS_API_KEY = "947682d1-7093-596e-9829-90a1845dc8a5";
     private static final String LOGISTICS_HOST = "https://hidden-basin-50728.herokuapp.com";
     private static final String LOGISTICS_COST_CALC_PATH = "/calculafrete";
-    private static final String LOGISTICS_TRACKING_PATH = "/rastrearentrega";
+    private static final String LOGISTICS_TRACKING_PATH = "/rastrearentrega/{cod_rastreio}?apiKey={apiKey}";
     private static final String LOGISTICS_PACKAGE_INSERT_PATH = "/cadastrarentrega";
 
     @GetMapping(value = "/calc")
     public ResponseEntity<LogisticsCostCalcResultDTO> getCalc(@RequestBody LogisticsCostCalcDTO dto) {
         final String uri = LOGISTICS_HOST + LOGISTICS_COST_CALC_PATH;
 
-        Map<String, String> params = new HashMap<>();
-        params.put("tipoEntrega", DeliveryType.values()[dto.getDeliveryType()].toString());
-        params.put("cepOrigem", dto.getFromCEP());
-        params.put("cepDestino", dto.getToCEP());
-        params.put("peso", dto.getWeight().toString());
-        params.put("tipoPacote", PackageType.values()[dto.getPackageType()].toString());
-        params.put("comprimento", dto.getLength().toString());
-        params.put("altura", dto.getHeight().toString());
-        params.put("largura", dto.getWidth().toString());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uri)
+                .queryParam("tipoEntrega", DeliveryType.values()[dto.getDeliveryType()].toString())
+                .queryParam("cepOrigem", dto.getFromCEP())
+                .queryParam("cepDestino", dto.getToCEP())
+                .queryParam("peso", dto.getWeight().toString())
+                .queryParam("tipoPacote", PackageType.values()[dto.getPackageType()].toString())
+                .queryParam("comprimento", dto.getLength().toString())
+                .queryParam("altura", dto.getHeight().toString())
+                .queryParam("largura", dto.getWidth().toString());
 
         ResponseEntity<LogisticsCostCalcResultDTO> response = null;
         try {
             RestTemplate restTemplate = new RestTemplate();
-            response = restTemplate.getForEntity(uri, LogisticsCostCalcResultDTO.class, params);
+            response = restTemplate.getForEntity(builder.toUriString(), LogisticsCostCalcResultDTO.class);
         } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível obter cálculo do frete");
             e.printStackTrace();
