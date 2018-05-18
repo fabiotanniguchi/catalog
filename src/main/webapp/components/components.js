@@ -12,17 +12,25 @@ app.component('loading', {
     templateUrl: "./components/loading.html"
 });
 
-app.controller('HeaderCtrl', function($scope, authService) {
+app.controller('HeaderCtrl', function($scope, authService, cartService) {
 
     $scope.isLogged = false;
     $scope.user = null;
+
+    $scope.cartSize = null;
 
     $scope.init = function() {
         if (authService.isLogged()) {
             $scope.isLogged = true;
             $scope.user = authService.getLoggedUser();
         }
+        $scope.cartSize = cartService.getCartSize();
     }
+    
+    //$scope.$watch('cartSize', function(){
+    //	$scope.apply();
+    //});
+    
 });
 
 app.service('productService', function(){
@@ -36,6 +44,69 @@ app.service('productService', function(){
     this.getCurrentObject = function() {
         return this.currentObject;
     }
+});
+
+//todo cookiesotre
+//app.service('cartService', ['$cookies', function($cookies) {
+app.service('cartService', function() {
+	this.cart = {};
+	
+	this.addProduct = function(product, quantity){
+		if(this.cart[product.id] == null){
+			this.setProduct(product, quantity);
+		}else if (quantity >= 0 && this.cart[product.id].quantity + quantity <= product.stock){
+			this.cart[product.id].quantity += quantity;
+		}else if (quantity < 0 ){
+			alert("Unexpected error");
+			return;
+		}else{
+			alert("Alertar sobre quantidade em estoque: " + product.stock);
+			return;
+		}
+		alert('Alertar: Deseja continuar comprando ou ir para o carrinho?');
+		this.persist();
+	}
+	
+	this.setProduct = function(product, quantity){
+		if(quantity < 0){ 
+			alert("Alertar sobre quantidade negativa");
+			return;
+		}
+		if(quantity > product.stock){
+			alert("Alertar sobre quantidade em estoque: " + product.stock);
+			return;
+		}
+		if(quantity == 0){
+			this.cart[product.id] = undefined;
+		}
+		
+		this.cart[product.id] = {};
+		this.cart[product.id].product = product;
+		this.cart[product.id].quantity = quantity;
+		
+		this.persist();
+	}
+	
+	this.persist = function(){
+		//$cookies.putOject("cart", this.cart);
+	}
+	
+	this.getCart = function(){
+		return this.cart;
+		//return $cookies.getObject("cart");
+	}
+	
+	this.totalValue = function(){
+		value = 0;
+		for(id in this.cart){
+			value += this.cart[id].quantity * this.cart[id].product.price;
+		}
+		return value;
+	}
+	
+	this.getCartSize = function(){
+		return Object.keys(this.cart).length;
+	}
 });
 
 app.service('authService', function(){

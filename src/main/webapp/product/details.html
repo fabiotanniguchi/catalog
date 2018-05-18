@@ -15,7 +15,8 @@
             </div>
             <div class="col-md-12">
                 <div class="product-actions">
-                    <button type="button" class="btn">Adicionar ao carrinho</button>
+                	<input type="number" ng-model="product.quantity" value="1" min="1" max="{{product.stock}}"/>
+                	<input type="button" class="btn"  ng-click="addProduct(product)" value="Adicionar ao carrinho"/>
                 </div>
             </div>
         </div>

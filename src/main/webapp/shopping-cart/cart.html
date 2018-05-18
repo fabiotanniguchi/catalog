@@ -1,0 +1,42 @@
+<div class="container cart-details" ng-controller="CartCtrl" ng-init="show()">
+	
+	<div class="products">
+		<h2>Carrinho</h2>
+		<ul class="row" ng-if="!isEmpty()">
+			<li>
+				<table class="table table-striped">
+					<tr>
+						<th>Nome</th>
+						<th>Quantidade</th>
+						<th>Preço</th>
+					</tr>
+					<tr ng-repeat="(id, data) in cart">
+						<td> {{data.product.name}} </td>
+						<td> {{data.quantity}} </td>
+						<td> {{data.quantity * data.product.price}} </td>
+					</tr>
+					<tr><td></td><td></td><td></td></tr>
+					<tr>
+						<td></td>
+						<td>SubTotal</td>
+						<td> {{orderInfo.subTotal}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Frete</td>
+						<td> {{orderInfo.postalFee}}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Total</td>
+						<td> {{orderInfo.postalFee ? orderInfo.postalFee + orderInfo.subTotal : orderInfo.subTotal}} </td>
+					</tr>
+					<tr>
+						<td> Cep: </td>
+						<td> <input type="text"/><input class="btn" ng-click="getPostalFee()" type="button" value="OK"/></td>
+						<td> </td>
+				</table>
+			</li>
+		</ul>
+	</div>
+</div>
