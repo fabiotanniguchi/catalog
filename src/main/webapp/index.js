@@ -33,8 +33,6 @@ app.controller('HomeCtrl', function($scope, productService, cartService) {
 
 
 	$scope.onLoad = function (argument) {
-		$scope.cartSize = cartService.size();
-		
 		$.ajax({url: baseHost + "products", success: function(result){
 			$scope.parseProducts(result);
 		}});

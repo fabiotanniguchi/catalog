@@ -19,21 +19,21 @@
 					<tr>
 						<td></td>
 						<td>SubTotal</td>
-						<td> {{totalValue}}</td>
+						<td> {{orderInfo.subTotal}}</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>Frete</td>
-						<td> {{frete}}</td>
+						<td> {{orderInfo.postalFee}}</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>Total</td>
-						<td> {{frete ? frete + totalValue : totalValue}} </td>
+						<td> {{orderInfo.postalFee ? orderInfo.postalFee + orderInfo.subTotal : orderInfo.subTotal}} </td>
 					</tr>
 					<tr>
 						<td> Cep: </td>
-						<td> <input type="text"/><input class="btn" ng-click="calculaFrete()" type="button" value="OK"/></td>
+						<td> <input type="text"/><input class="btn" ng-click="getPostalFee()" type="button" value="OK"/></td>
 						<td> </td>
 				</table>
 			</li>

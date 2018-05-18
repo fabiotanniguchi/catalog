@@ -12,17 +12,25 @@ app.component('loading', {
     templateUrl: "./components/loading.html"
 });
 
-app.controller('HeaderCtrl', function($scope, authService) {
+app.controller('HeaderCtrl', function($scope, authService, cartService) {
 
     $scope.isLogged = false;
     $scope.user = null;
+
+    $scope.cartSize = null;
 
     $scope.init = function() {
         if (authService.isLogged()) {
             $scope.isLogged = true;
             $scope.user = authService.getLoggedUser();
         }
+        $scope.cartSize = cartService.getCartSize();
     }
+    
+    //$scope.$watch('cartSize', function(){
+    //	$scope.apply();
+    //});
+    
 });
 
 app.service('productService', function(){
@@ -55,6 +63,7 @@ app.service('cartService', function() {
 			alert("Alertar sobre quantidade em estoque: " + product.stock);
 			return;
 		}
+		alert('Alertar: Deseja continuar comprando ou ir para o carrinho?');
 		this.persist();
 	}
 	
@@ -95,7 +104,7 @@ app.service('cartService', function() {
 		return value;
 	}
 	
-	this.size = function(){
+	this.getCartSize = function(){
 		return Object.keys(this.cart).length;
 	}
 });
