@@ -14,9 +14,9 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
 
 
     public static Specification<ProductEntity> buildSpec(Optional<String> name, Optional<Status> status,
-                                                         Optional<UUID> parentId, Optional<UUID> categoryId,
+                                                         Optional<UUID> parentId, Optional<List<UUID>> categoryIds,
                                                          Optional<Double> minPrice, Optional<Double> maxPrice, Optional<List<String>> brands,
-                                                         Optional<Boolean> highlight) {
+                                                         Optional<Boolean> highlight, Optional<List<String>> groupIds) {
         ProductSpecification specDefinition = new ProductSpecification();
         Specification<ProductEntity> specs = Specification.where(specDefinition.init());
 
@@ -28,8 +28,12 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
             specs = specs.and(withParentId(parentId.get()));
         }
 
-        if (categoryId.isPresent()) {
-            specs = specs.and(withCategoryId(categoryId.get()));
+        if (categoryIds.isPresent()  && !categoryIds.get().isEmpty()) {
+        	Specification<ProductEntity> orCategories = withCategoryId(categoryIds.get().get(0));
+        	for(int i = 1; i < categoryIds.get().size(); i++){
+        		orCategories = orCategories.or(withCategoryId(categoryIds.get().get(i)));
+        	}
+            specs = specs.and(orCategories);
         }
 
         if (status.isPresent()) {
@@ -54,11 +58,26 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
         if (highlight.isPresent()) {
             specs = specs.and(withHighlight(highlight.get()));
         }
+        
+        if (groupIds.isPresent() && !groupIds.get().isEmpty()) {
+        	Specification<ProductEntity> orGroups = withGroup(groupIds.get().get(0));
+        	for(int i = 1; i < brands.get().size(); i++){
+        		orGroups = orGroups.or(withGroup(groupIds.get().get(i)));
+        	}
+            specs = specs.and(orGroups);
+        }
 
         return specs;
     }
 
-    private static Specification<ProductEntity> withHighlight(Boolean highlight) {
+    private static Specification<ProductEntity> withGroup(String group) {
+    	return (root, criteriaQuery, criteriaBuilder) -> {
+            Predicate predicate = criteriaBuilder.like(root.get("groupId"), "%" + group + "%");
+            return predicate;
+        };
+	}
+
+	private static Specification<ProductEntity> withHighlight(Boolean highlight) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.equal(root.get("highlight"), highlight);
             return predicate;
