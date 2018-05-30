@@ -27,12 +27,9 @@ public class ProductController {
             , @RequestParam(name = "max_price", required = false) Double maxPrice
             , @RequestParam(name = "brand", required = false) List<String> brands
             , @RequestParam(name = "highlight", required = false) Boolean highlight
-            , @RequestParam(name = "image_url", required = false) String imageUrl
-            , @RequestParam(name = "group_id", required = false) List<String> groupIds
-            , @RequestParam(defaultValue = "1") Integer page) {
-        int pageSize = 50;
+            , @RequestParam(name = "group_id", required = false) List<String> groupIds) {
         return PageableResponseEntity.ok(service.list(name, parentId, categoryIds, minPrice,
-                maxPrice, brands, highlight, groupIds, page, pageSize + 1), page, pageSize);
+                maxPrice, brands, highlight, groupIds));
     }
 
     @GetMapping(value = "/{id}")

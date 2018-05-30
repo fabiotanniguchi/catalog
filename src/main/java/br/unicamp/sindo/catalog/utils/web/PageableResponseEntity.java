@@ -12,6 +12,10 @@ public class PageableResponseEntity<T> {
         return ok(results, page, pageSize, null);
     }
 
+    public static <T> ResponseEntity<List<T>> ok(List<T> results) {
+        return new ResponseEntity<List<T>>(results, null, HttpStatus.OK);
+    }
+
     public static <T> ResponseEntity<List<T>> ok(List<T> results, int page, int pageSize, MultiValueMap<String, String> additionalHeaders) {
         HeaderBuilder builder = HeaderBuilder.init().page(page);
 
@@ -30,6 +34,5 @@ public class PageableResponseEntity<T> {
         }
 
         return new ResponseEntity<List<T>>(results.subList(0, results.size() > pageSize ? pageSize : results.size()), headers, HttpStatus.OK);
-
     }
 }

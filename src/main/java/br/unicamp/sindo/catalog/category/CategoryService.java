@@ -30,10 +30,9 @@ public class CategoryService {
                 .orElseThrow(() -> new NotFoundException(Category.class.getSimpleName(), id));
     }
 
-    public List<Category> list(String name, UUID parentId, Integer page, Integer pageSize) {
+    public List<Category> list(String name, UUID parentId) {
         Specification<CategoryEntity> spec = buildSpec(Optional.ofNullable(name), Optional.ofNullable(parentId), Optional.of(Status.ACTIVE));
-        return repository.findAll(spec,
-                PageRequest.of(page - 1, pageSize, Sort.Direction.ASC, "createdAt"))
+        return repository.findAll(spec)
                 .stream()
                 .map(CategoryEntity::assemble)
                 .collect(Collectors.toList());
