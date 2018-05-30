@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.io.IOException;
 import java.util.*;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
 @Entity
 @Table(name = "products")
 public class ProductEntity extends BaseEntity {

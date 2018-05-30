@@ -5,7 +5,6 @@ import br.unicamp.sindo.catalog.utils.repository.RootSpecification;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,11 +27,11 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
             specs = specs.and(withParentId(parentId.get()));
         }
 
-        if (categoryIds.isPresent()  && !categoryIds.get().isEmpty()) {
-        	Specification<ProductEntity> orCategories = withCategoryId(categoryIds.get().get(0));
-        	for(int i = 1; i < categoryIds.get().size(); i++){
-        		orCategories = orCategories.or(withCategoryId(categoryIds.get().get(i)));
-        	}
+        if (categoryIds.isPresent() && !categoryIds.get().isEmpty()) {
+            Specification<ProductEntity> orCategories = withCategoryId(categoryIds.get().get(0));
+            for (int i = 1; i < categoryIds.get().size(); i++) {
+                orCategories = orCategories.or(withCategoryId(categoryIds.get().get(i)));
+            }
             specs = specs.and(orCategories);
         }
 
@@ -48,22 +47,22 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
             specs = specs.and(withMaxPrice(maxPrice.get()));
         }
         if (brands.isPresent() && !brands.get().isEmpty()) {
-        	Specification<ProductEntity> orBrands = withBrand(brands.get().get(0));
-        	for(int i = 1; i < brands.get().size(); i++){
-        		orBrands = orBrands.or(withBrand(brands.get().get(i)));
-        	}
+            Specification<ProductEntity> orBrands = withBrand(brands.get().get(0));
+            for (int i = 1; i < brands.get().size(); i++) {
+                orBrands = orBrands.or(withBrand(brands.get().get(i)));
+            }
             specs = specs.and(orBrands);
         }
 
         if (highlight.isPresent()) {
             specs = specs.and(withHighlight(highlight.get()));
         }
-        
+
         if (groupIds.isPresent() && !groupIds.get().isEmpty()) {
-        	Specification<ProductEntity> orGroups = withGroup(groupIds.get().get(0));
-        	for(int i = 1; i < groupIds.get().size(); i++){
-        		orGroups = orGroups.or(withGroup(groupIds.get().get(i)));
-        	}
+            Specification<ProductEntity> orGroups = withGroup(groupIds.get().get(0));
+            for (int i = 1; i < groupIds.get().size(); i++) {
+                orGroups = orGroups.or(withGroup(groupIds.get().get(i)));
+            }
             specs = specs.and(orGroups);
         }
 
@@ -71,13 +70,13 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
     }
 
     private static Specification<ProductEntity> withGroup(String group) {
-    	return (root, criteriaQuery, criteriaBuilder) -> {
+        return (root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.like(root.get("groupId"), "%" + group + "%");
             return predicate;
         };
-	}
+    }
 
-	private static Specification<ProductEntity> withHighlight(Boolean highlight) {
+    private static Specification<ProductEntity> withHighlight(Boolean highlight) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.equal(root.get("highlight"), highlight);
             return predicate;

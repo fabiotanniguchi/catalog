@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/external/payment")
+@RequestMapping(value = "/external/payment")
 public class PaymentsRest {
 
     private static final String PAYMENTS_HOST = "https://payment-server-mc851.herokuapp.com/";
@@ -23,7 +23,7 @@ public class PaymentsRest {
     private static final String CREDIT_CARD_QUERY_PATH = "creditCard/{number}";
 
     @PostMapping
-    public ResponseEntity<String> insertCustomer1(@RequestBody WebsitePaymentData paymentData){
+    public ResponseEntity<String> insertCustomer1(@RequestBody WebsitePaymentData paymentData) {
 
         return null;
     }
