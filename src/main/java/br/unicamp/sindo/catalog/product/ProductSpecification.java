@@ -61,7 +61,7 @@ public class ProductSpecification extends RootSpecification<ProductEntity> {
         
         if (groupIds.isPresent() && !groupIds.get().isEmpty()) {
         	Specification<ProductEntity> orGroups = withGroup(groupIds.get().get(0));
-        	for(int i = 1; i < brands.get().size(); i++){
+        	for(int i = 1; i < groupIds.get().size(); i++){
         		orGroups = orGroups.or(withGroup(groupIds.get().get(i)));
         	}
             specs = specs.and(orGroups);
