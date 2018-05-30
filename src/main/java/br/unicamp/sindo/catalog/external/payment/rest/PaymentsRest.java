@@ -12,12 +12,11 @@ import br.unicamp.sindo.catalog.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -39,12 +38,34 @@ public class PaymentsRest {
     @Autowired
     private LogisticsRest logistics;
 
+    @GetMapping(value = "/{code}")
+    public ResponseEntity<BoletoStatusData> getBoletoStatus(@PathVariable String code) {
+        final String uri = PAYMENTS_HOST + BOLETO_STATUS_PATH;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("code", code);
+
+        ResponseEntity<BoletoStatusData> response = null;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            response = restTemplate.getForEntity(uri, BoletoStatusData.class, params);
+        } catch (Exception e) {
+            System.err.println("[ERRO] Não foi possível obter dados de pagamento do boleto");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        return response;
+    }
+
     @PostMapping
     public ResponseEntity<String> postPayment(@RequestBody WebsitePaymentData paymentData) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        if(paymentData.getPaymentType() == PaymentType.CREDIT_CARD) {
+        if (paymentData.getPaymentType() == PaymentType.CREDIT_CARD) {
             final String uri = PAYMENTS_HOST + EVALUATE_CREDIT_CARD_PAYMENT_PATH;
 
             CreditCardPaymentData data = CreditCardPaymentData.from(paymentData);
@@ -67,7 +88,7 @@ public class PaymentsRest {
             } else { // error
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
             }
-        }else{ // BOLETO
+        } else { // BOLETO
             final String uri = PAYMENTS_HOST + SUBMIT_BOLETO_PAYMENT_PATH;
 
             BoletoPaymentData data = BoletoPaymentData.from(paymentData);

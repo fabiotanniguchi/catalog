@@ -2,9 +2,7 @@ package br.unicamp.sindo.catalog.external.payment.dto;
 
 import br.unicamp.sindo.catalog.external.logistics.DeliveryType;
 import br.unicamp.sindo.catalog.external.payment.PaymentType;
-import br.unicamp.sindo.catalog.order.ProductOrigin;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 

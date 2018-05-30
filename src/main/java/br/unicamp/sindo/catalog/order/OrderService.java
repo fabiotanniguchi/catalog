@@ -1,8 +1,8 @@
 package br.unicamp.sindo.catalog.order;
 
 import br.unicamp.sindo.catalog.external.payment.dto.BoletoPaymentResultData;
-import br.unicamp.sindo.catalog.external.payment.dto.OrderProductData;
 import br.unicamp.sindo.catalog.external.payment.dto.CreditCardPaymentResultData;
+import br.unicamp.sindo.catalog.external.payment.dto.OrderProductData;
 import br.unicamp.sindo.catalog.external.payment.dto.WebsitePaymentData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

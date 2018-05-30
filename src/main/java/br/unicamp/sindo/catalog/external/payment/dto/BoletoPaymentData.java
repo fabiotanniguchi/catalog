@@ -15,7 +15,7 @@ public class BoletoPaymentData {
     private String cep;
     private String value;
 
-    public static BoletoPaymentData from(WebsitePaymentData data){
+    public static BoletoPaymentData from(WebsitePaymentData data) {
         BoletoPaymentData payment = new BoletoPaymentData();
 
         payment.clientName = data.getClientCardName();
@@ -24,7 +24,7 @@ public class BoletoPaymentData {
         payment.cep = data.getClientCep();
 
         Double total = 0.0;
-        for(OrderProductData product : data.getProducts()){
+        for (OrderProductData product : data.getProducts()) {
             total += product.getQuantity() * product.getUnitPrice();
         }
         total += data.getDeliveryCosts();
