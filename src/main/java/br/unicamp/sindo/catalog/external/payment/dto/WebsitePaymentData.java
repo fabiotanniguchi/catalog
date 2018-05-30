@@ -1,6 +1,7 @@
 package br.unicamp.sindo.catalog.external.payment.dto;
 
 import br.unicamp.sindo.catalog.external.logistics.DeliveryType;
+import br.unicamp.sindo.catalog.external.payment.PaymentType;
 import br.unicamp.sindo.catalog.order.ProductOrigin;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,6 +19,8 @@ public class WebsitePaymentData {
 
     private String clientCardName;
     private String cpf;
+    private String clientAddress;
+    private String clientCep;
     private String cardNumber;
     private String month;
     private String year;
@@ -31,4 +34,6 @@ public class WebsitePaymentData {
     private String deliveryCep;
 
     private String clientEmail;
+
+    private PaymentType paymentType;
 }

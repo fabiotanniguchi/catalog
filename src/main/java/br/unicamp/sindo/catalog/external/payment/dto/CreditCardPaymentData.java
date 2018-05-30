@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PaymentData {
+public class CreditCardPaymentData {
 
     private String clientCardName;
     private String cpf;
@@ -18,8 +18,8 @@ public class PaymentData {
     private String value;
     private String instalments;
 
-    public static PaymentData from(WebsitePaymentData website) {
-        PaymentData data = new PaymentData();
+    public static CreditCardPaymentData from(WebsitePaymentData website) {
+        CreditCardPaymentData data = new CreditCardPaymentData();
         data.clientCardName = website.getClientCardName();
         data.cpf = website.getCpf();
         data.cardNumber = website.getCardNumber();

@@ -7,9 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PaymentResultData {
+public class BoletoPaymentResultData {
 
-    private String operationHash;
+    private String code;
+    private String documentRep;
     private String result;
     private String detail;
     private String errorMessage;

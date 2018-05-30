@@ -11,7 +11,7 @@ public class CreditCardInsertData {
     private Long number;
     private Boolean hasCredit;
 
-    public static CreditCardInsertData from(PaymentData data) {
+    public static CreditCardInsertData from(CreditCardPaymentData data) {
         CreditCardInsertData creditCard = new CreditCardInsertData();
         creditCard.number = Long.parseLong(data.getCardNumber().trim());
         creditCard.hasCredit = true;
