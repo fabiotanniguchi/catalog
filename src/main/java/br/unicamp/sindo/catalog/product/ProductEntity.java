@@ -316,7 +316,7 @@ public class ProductEntity extends BaseEntity {
     private void flush() {
         if (status == null)
             this.status = Status.ACTIVE;
-        if (isNotBlank(name))
-            this.name = name.toUpperCase();
+        //if (isNotBlank(name))
+        //    this.name = name.toUpperCase();
     }
 }
