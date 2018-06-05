@@ -27,7 +27,7 @@ public class PaymentsRest {
     private static final String PAYMENTS_HOST = "https://payment-server-mc851.herokuapp.com/";
     private static final String EVALUATE_CREDIT_CARD_PAYMENT_PATH = "payments/creditCard";
     private static final String SUBMIT_BOLETO_PAYMENT_PATH = "payments/bankTicket";
-    private static final String BOLETO_STATUS_PATH = "bankTicket/{code}/status";
+    private static final String BOLETO_STATUS_PATH = "payments/bankTicket/{code}/status";
     private static final String INVOICE_PATH = "invoice";
     private static final String CREDIT_CARD_PATH = "creditCard";
     private static final String CREDIT_CARD_QUERY_PATH = "creditCard/{number}";
