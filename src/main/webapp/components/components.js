@@ -126,6 +126,14 @@ app.service('cartService', function($rootScope) {
 		}
 		return value;
 	}
+	
+	this.totalItems = function(){
+		value = 0;
+		for(id in this.cart){
+			value += this.cart[id].quantity;
+		}
+		return value;
+	}
 
 	this.getCartSize = function(){
         var cart = this.getCart();
