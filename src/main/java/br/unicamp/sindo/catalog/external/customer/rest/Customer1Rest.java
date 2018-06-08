@@ -113,18 +113,21 @@ public class Customer1Rest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add(CUSTOMER1_API_KEY_NAME, CUSTOMER1_API_KEY);
 
-        Customer1LoginDTO customer = new Customer1LoginDTO();
-        customer.setEmail(email);
-        customer.setPassword(password);
+        headers.add("email", email);
+        headers.add("password", password);
 
-        HttpEntity<Customer1LoginDTO> entity = new HttpEntity<>(customer, headers);
+//        Customer1LoginDTO customer = new CustomXxer1LoginDTO();
+//        customer.setEmail(email);
+//        customer.setPassword(password);
+
+        HttpEntity<Customer1LoginDTO> entity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = null;
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
         } catch (Exception e) {
-            System.err.println("[ERRO] Não foi possível realizar login do cliente " + customer.getEmail());
+            System.err.println("[ERRO] Não foi possível realizar login do cliente " + email);
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
