@@ -32,7 +32,7 @@
 				</tr>
 				<tr ng-repeat="(id, data) in cart">
 					<td>{{data.product.name}}</td>
-					<td>{{data.quantity}}</td>
+					<td><input type="number" ng-model="data.quantity" value="{{data.quantity}}" ng-change="onQttChange(id, data)" min="1" max="99"/><td>
 					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
 				<tr>
