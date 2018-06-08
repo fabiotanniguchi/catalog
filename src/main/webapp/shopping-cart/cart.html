@@ -36,7 +36,7 @@
 					<td>{{data.product.name}}</td>
 					<td><input type="number" ng-model="data.quantity"
 						value="{{data.quantity}}" ng-change="onQttChange(id, data)"
-						min="1" max="99" />
+						min="0" max="99" />
 					<td>
 					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
@@ -146,6 +146,10 @@
 									for="name">Nome no Cartão</label>
 							</div>
 						</div>
+						<div class="col-md-12" style="padding-left: 0">
+                            <button type="button" class="btn"
+                                ng-click="validateCreditCard()" type="button">Validar Cartão de Credito</button>
+                        </div>
 					</div>
 				</div>
 			</div>

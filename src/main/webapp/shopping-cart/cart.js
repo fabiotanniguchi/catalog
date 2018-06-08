@@ -50,6 +50,14 @@ app.controller('CartCtrl', function($scope, cartService) {
 		$scope.selected = value;
 	}
 
+	$scope.validateCreditCard = function(){
+		console.info("validateCreditCard");
+		if(!$scope.cart.payment){
+			alert("informe o cartão de crédito");
+		}
+		console.info($scope.cart.payment);
+	}
+
 	$scope.onQttChange = function (id, data) {
 		var cart = cartService.getCart()
 		cart[id].quantity = data.quantity;
