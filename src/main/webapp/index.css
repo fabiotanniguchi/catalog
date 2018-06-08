@@ -366,3 +366,9 @@ loading.loading-btn .preloader-wrapper {
 .cart-details.step-2 .payment-info p {
     margin: 16px 0;
 }
+
+
+.infoAccount-container label {
+    font-size: 16px;
+    font-weight: 300;
+}
