@@ -31,7 +31,8 @@ app.controller('LoginCtrl', function($scope, authService) {
         console.info("success");
         console.info(result);
         localStorage.setItem("user_token", result)
-		window.location = "/index.html";
+        authService.setLoggedUser(result);
+		window.location = "/";
 
       }
 

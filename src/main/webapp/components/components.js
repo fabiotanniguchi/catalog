@@ -20,6 +20,8 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
     $scope.cartSize = null;
 
     $scope.init = function() {
+    	console.log(authService.isLogged());
+    	console.log(authService.getLoggedUser());
         if (authService.isLogged()) {
             $scope.isLogged = true;
             $scope.user = authService.getLoggedUser();
@@ -130,15 +132,19 @@ app.service('authService', function(){
     this.currentUser = null;
 
     this.setLoggedUser = function(user) {
-        this.currentUser = user;
+        localStorage.setItem("user_token", user);
     }
 
     this.isLogged = function(user) {
-        return this.currentUser != null;
+        return localStorage.getItem("user_token") != null;
     }
 
     this.getLoggedUser = function() {
-        return this.currentUser;
+        return JSON.parse(atob(localStorage.getItem("user_token")));
+    }
+
+	this.getLoggedUserToken = function() {
+        return localStorage.getItem("user_token");
     }
 
     this.logout = function() {
