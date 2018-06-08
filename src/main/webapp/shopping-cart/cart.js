@@ -41,6 +41,7 @@ app.controller('CartCtrl', function($scope, cartService) {
 		$scope.varCep = cep;
 		$.ajax({url:  baseHost + "external/logistics/calc?tipoEntrega="+tipoEntrega+"&cepDestino="+cep+"&quantidade="+cartService.totalItems(), success: function(result){
 			$scope.orderInfo.postalFee = parseFloat(result.preco);
+			$scope.orderInfo.expectedDays = parseInt(result.prazo);
 			$scope.$apply();
 		}});
 	}

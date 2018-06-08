@@ -13,11 +13,13 @@
 				<li class="col-md-4" ng-if="stepCheck(0)"
 					style="text-align: center;"><div class="circle"></div>
 					Pagamento e Entrega</li>
-				<li class="col-md-4 active" ng-if="stepCheck(1)"
+				<li class="col-md-4 active" ng-if="stepCheck(1) || stepCheck(2)"
 					style="text-align: center;"><div class="circle"></div>
 					Pagamento e Entrega</li>
-				<li class="col-md-4" style="text-align: center;"><div
+				<li class="col-md-4" style="text-align: center;" ng-if="!stepCheck(2)")><div
 						class="circle"></div> Confirmação</li>
+				<li class="col-md-4 active" style="text-align: center;" ng-if="stepCheck(2)")><div
+						class="circle"></div> Confirmação</li>		
 			</ul>
 		</div>
 		<div class="col-md-12" ng-if="isEmpty()">Os produtos que você
@@ -32,7 +34,10 @@
 				</tr>
 				<tr ng-repeat="(id, data) in cart">
 					<td>{{data.product.name}}</td>
-					<td><input type="number" ng-model="data.quantity" value="{{data.quantity}}" ng-change="onQttChange(id, data)" min="1" max="99"/><td>
+					<td><input type="number" ng-model="data.quantity"
+						value="{{data.quantity}}" ng-change="onQttChange(id, data)"
+						min="1" max="99" />
+					<td>
 					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
 				<tr>
@@ -48,7 +53,9 @@
 				<tr>
 					<td></td>
 					<td>Frete</td>
-					<td>{{orderInfo.postalFee | currency:'R$ '}}</td>
+					<td>{{orderInfo.postalFee | currency:'R$ '}}
+						{{orderInfo.expectedDays ? ' (Entrega estimada em ' +
+						orderInfo.expectedDays + ' dias)' : '' }}</td>
 				</tr>
 				<tr>
 					<td></td>
@@ -112,10 +119,34 @@
 					<p ng-hide="selected != 1">O pedido será confirmado após o
 						pagamento que deverá ser feito em até 3 dias úteis. O boleto
 						estará disponível ao final da compra.</p>
-					<p ng-hide="selected != 2">
-						Oi tudo bom
-						<!-- Show input fields -->
-					</p>
+					<div ng-hide="selected != 2">
+						<div class="col-md-12" style="padding-left: 0">
+							<div class="input-field">
+								<input type="text" id="creditCard"
+									ng-model="cart.payment.creditCard" /> <label for="creditCard">Número
+									do Cartão</label>
+							</div>
+						</div>
+						<div class="col-md-6" style="padding-left: 0">
+							<div class="input-field">
+								<input type="text" id="expirationDate"
+									ng-model="cart.payment.expirationDate" /> <label
+									for="expirationDate">Data de Vencimento</label>
+							</div>
+						</div>
+						<div class="col-md-4" style="padding-left: 0">
+							<div class="input-field">
+								<input type="text" id="cvv" ng-model="cart.payment.cvv" /> <label
+									for="cvv">CVV</label>
+							</div>
+						</div>
+						<div class="col-md-12" style="padding-left: 0">
+							<div class="input-field">
+								<input type="text" id="name" ng-model="cart.payment.name" /> <label
+									for="name">Nome no Cartão</label>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-7">
@@ -126,7 +157,8 @@
 				</div>
 				<div class="col-md-12">
 					<div class="input-field">
-						<input type="text" id="street" disabled ng-model="cart.address.street" />
+						<input type="text" id="street" disabled
+							ng-model="cart.address.street" />
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -143,7 +175,8 @@
 				</div>
 				<div class="col-md-4">
 					<div class="input-field">
-						<input type="text" id="district" disabled ng-model="cart.address.district" />
+						<input type="text" id="district" disabled
+							ng-model="cart.address.district" />
 					</div>
 				</div>
 				<div class="col-md-5">
@@ -155,6 +188,70 @@
 					<div class="input-field">
 						<input type="text" maxlength="2" id="state" disabled
 							ng-model="cart.address.state" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12" ng-if="!isEmpty() && stepCheck(2)">
+			<h3>Informações de pagamento e entrega</h3>
+			<div class="col-md-5" style="padding-left: 0">
+				<table class="table table-striped">
+					<tr>
+						<td>SubTotal</td>
+						<td>{{orderInfo.subTotal | currency:'R$ '}}</td>
+					</tr>
+					<tr>
+						<td>Frete</td>
+						<td>{{orderInfo.postalFee | currency:'R$ '}}</td>
+					</tr>
+					<tr>
+						<td>Total</td>
+						<td>{{orderInfo.postalFee ? orderInfo.postalFee +
+							orderInfo.subTotal : orderInfo.subTotal | currency:'R$ '}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-7">
+				<div class="col-md-6">
+					<div class="input-field">
+						<input type="text" id="cep" ng-model="cart.address.cep" /> <label
+							for="cep">CEP</label>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="input-field">
+						<input type="text" id="street" ng-model="cart.address.street" /> <label
+							for="street">Rua</label>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="input-field">
+						<input type="number" id="number" ng-model="cart.address.number" />
+						<label for="number">Número</label>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="input-field">
+						<input type="text" id="complement"
+							ng-model="cart.address.complement" /> <label for="complement">Complemento</label>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="input-field">
+						<input type="text" id="district" ng-model="cart.address.district" />
+						<label for="district">Bairro</label>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="input-field">
+						<input type="number" id="city" ng-model="cart.address.city" /> <label
+							for="city">Cidade</label>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="input-field">
+						<input type="text" maxlength="2" id="state"
+							ng-model="cart.address.state" /> <label for="state">UF</label>
 					</div>
 				</div>
 			</div>
