@@ -58,10 +58,12 @@ app.service('cartService', function($rootScope) {
 	this.cart = {};
 
 	this.addProduct = function(product, quantity){
-		if(this.cart[product.id] == null){
+        console.info(product);
+        var cart = this.getCart()
+		if(cart[product.id] == null){
 			this.setProduct(product, quantity);
-		}else if (quantity >= 0 && this.cart[product.id].quantity + quantity <= product.stock){
-			this.cart[product.id].quantity += quantity;
+		}else if (quantity >= 0 && cart[product.id].quantity + quantity <= product.stock){
+			cart[product.id].quantity += quantity;
 		}else if (quantity < 0 ){
             M.Toast.dismissAll();
 			M.toast({html: 'Quantidade inválida!'})
@@ -75,10 +77,12 @@ app.service('cartService', function($rootScope) {
         $rootScope.$broadcast('cartChanged');
         M.Toast.dismissAll();
         M.toast({html: 'Produto adicionado ao carrinho'})
-		this.persist();
+		this.persist(cart);
 	}
 
 	this.setProduct = function(product, quantity){
+        var cart = this.getCart()
+
 		if(quantity < 0){
             M.Toast.dismissAll();
             M.toast({html: 'Quantidade inválida!'})
@@ -91,37 +95,43 @@ app.service('cartService', function($rootScope) {
 		}
 		if(quantity == 0){
             console.info(product, quantity);
-			this.cart[product.id] = undefined;
+			cart[product.id] = undefined;
 		}
 
-		this.cart[product.id] = {};
-		this.cart[product.id].product = product;
-		this.cart[product.id].quantity = quantity;
+		cart[product.id] = {};
+		cart[product.id].product = product;
+		cart[product.id].quantity = quantity;
 
-		this.persist();
+		this.persist(cart);
 	}
 
-	this.persist = function(){
+	this.persist = function(cart){
+        return localStorage.setItem("cart", JSON.stringify(cart));
 		//$cookies.putOject("cart", this.cart);
 	}
 
 	this.getCart = function(){
-		return this.cart;
-		//return $cookies.getObject("cart");
+        if(!localStorage.getItem("cart") || localStorage.getItem("cart") === "undefined"){
+            this.persist({});
+            return {};
+        }
+        return JSON.parse(localStorage.getItem("cart"));
 	}
 
 	this.totalValue = function(){
+        var cart = this.getCart()
 		value = 0;
-		for(id in this.cart){
-			value += this.cart[id].quantity * this.cart[id].product.price;
+		for(id in cart){
+			value += cart[id].quantity * cart[id].product.price;
 		}
 		return value;
 	}
 
 	this.getCartSize = function(){
+        var cart = this.getCart();
         qty = 0;
-		for(id in this.cart){
-			qty += this.cart[id].quantity;
+		for(id in cart){
+			qty += cart[id].quantity;
 		}
 		return qty;
 	}
