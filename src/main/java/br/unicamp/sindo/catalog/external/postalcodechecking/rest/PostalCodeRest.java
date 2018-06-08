@@ -21,6 +21,8 @@ public class PostalCodeRest {
     private String POSTAL_CODE_SERV_HOST = "http://node.thiagoelg.com/paises/br";
     private String POSTAL_CODE_SERV_CEP = "/cep/{cep}";
 
+    private RestTemplate restTemplate = new RestTemplate();
+    
     @GetMapping(value = "/{cep}")
     public ResponseEntity<PostalCodeAddressDTO> getAddressFromPostalCode(@PathVariable(value = "cep") String cep) {
         final String uri = POSTAL_CODE_SERV_HOST + POSTAL_CODE_SERV_CEP;
@@ -36,7 +38,6 @@ public class PostalCodeRest {
 
         ResponseEntity<PostalCodeAddressDTO> response = null;
         try {
-            RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, PostalCodeAddressDTO.class, params);
         } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível consultar CEP " + cep);

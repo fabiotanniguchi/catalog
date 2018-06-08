@@ -21,23 +21,28 @@ public class LogisticsRest {
     private static final String LOGISTICS_TRACKING_PATH = "/rastrearentrega/{cod_rastreio}?apiKey={apiKey}";
     private static final String LOGISTICS_PACKAGE_INSERT_PATH = "/cadastrarentrega";
 
+    private RestTemplate restTemplate = new RestTemplate();
+    
     @GetMapping(value = "/calc")
-    public ResponseEntity<LogisticsCostCalcResultDTO> getCalc(@RequestBody LogisticsCostCalcDTO dto) {
+    public ResponseEntity<LogisticsCostCalcResultDTO> getCalc(
+    		@RequestParam(value="tipoEntrega") String tipoEntrega,
+    		@RequestParam(value="cepDestino") String cepDestino,
+    		@RequestParam(value="quantidade") Integer quantidade
+    		) {
         final String uri = LOGISTICS_HOST + LOGISTICS_COST_CALC_PATH;
-
+        
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uri)
-                .queryParam("tipoEntrega", DeliveryType.values()[dto.getDeliveryType()].toString())
-                .queryParam("cepOrigem", dto.getFromCEP())
-                .queryParam("cepDestino", dto.getToCEP())
-                .queryParam("peso", dto.getWeight().toString())
-                .queryParam("tipoPacote", PackageType.values()[dto.getPackageType()].toString())
-                .queryParam("comprimento", dto.getLength().toString())
-                .queryParam("altura", dto.getHeight().toString())
-                .queryParam("largura", dto.getWidth().toString());
+                .queryParam("tipoEntrega", tipoEntrega)
+                .queryParam("cepOrigem", "13080-655")
+                .queryParam("cepDestino", cepDestino)
+                .queryParam("peso", 2 * quantidade)
+                .queryParam("tipoPacote", "Caixa")
+                .queryParam("comprimento", 20)
+                .queryParam("altura", 30)
+                .queryParam("largura", 30);
 
         ResponseEntity<LogisticsCostCalcResultDTO> response = null;
         try {
-            RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.getForEntity(builder.toUriString(), LogisticsCostCalcResultDTO.class);
         } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível obter cálculo do frete");
@@ -57,7 +62,6 @@ public class LogisticsRest {
 
         ResponseEntity<LogisticsTrackingResultDTO> response = null;
         try {
-            RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.getForEntity(uri, LogisticsTrackingResultDTO.class, params);
         } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível obter dados de rastreio");
@@ -78,7 +82,6 @@ public class LogisticsRest {
 
         ResponseEntity<LogisticsPackageInsertResultDTO> response = null;
         try {
-            RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.postForEntity(uri, entity, LogisticsPackageInsertResultDTO.class);
         } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível inserir pacote.");

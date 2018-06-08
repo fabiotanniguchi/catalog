@@ -9,4 +9,5 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LogisticsCostCalcResultDTO {
     private String preco;
+    private String prazo;
 }
