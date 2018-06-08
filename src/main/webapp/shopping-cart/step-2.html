@@ -50,7 +50,7 @@
                     <p ng-hide="selected != 1">
                         O pedido será confirmado após o pagamento que deverá ser feito em até 3 dias úteis. O boleto estará disponível ao final da compra.
                     </p>
-                    <p ng-hide="selected != 2">
+                    <div ng-hide="selected != 2">
                         <div class="col-md-12" style="padding-left: 0">
                             <div class="input-field">
                                 <input type="text" id="creditCard" ng-model="cart.payment.creditCard"/>
@@ -75,7 +75,7 @@
                                 <label for="name">Nome no Cartão</label>
                             </div>
                         </div>
-                    </p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-7">
