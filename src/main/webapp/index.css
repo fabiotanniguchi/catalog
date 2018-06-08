@@ -194,6 +194,10 @@ header nav {
     background-color: #1d4f91;
 }
 
+.btn.secondary:not(.btn-flat) {
+    background-color: #F18F01;
+}
+
 .login-container h4 {
     font-weight: 300;
 }
@@ -226,6 +230,12 @@ a.btn:not(.btn-flat):hover, button.btn:not(.btn-flat):hover {
     text-decoration: none;
     color: #f2f2f2;
     background-color: rgba(33,54,110,1);
+}
+
+a.btn.secondary:not(.btn-flat):hover, button.btn.secondary:not(.btn-flat):hover {
+    text-decoration: none;
+    color: #f2f2f2;
+    background-color: rgb(241,143,1);
 }
 
 nav a:hover,

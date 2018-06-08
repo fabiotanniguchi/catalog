@@ -58,7 +58,12 @@
                         <button type="button" class="btn" ng-click="getPostalFee()" type="button">Calcular frete</button>
                     </td>
                     <td></td>
+                </tr>
             </table>
+
+        </div>
+        <div class="col-md-12"  style="padding: 16px 0"  ng-if="!isEmpty()">
+            <a class="btn secondary pull-right" href="/shopping-cart/step2">Continuar</a>
         </div>
     </div>
 </div>
