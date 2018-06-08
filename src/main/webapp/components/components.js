@@ -140,7 +140,10 @@ app.service('authService', function(){
     }
 
     this.getLoggedUser = function() {
-        return JSON.parse(atob(localStorage.getItem("user_token")));
+        if(localStorage.getItem("user_token"))
+            return JSON.parse(atob(localStorage.getItem("user_token")));
+
+        return null;
     }
 
 	this.getLoggedUserToken = function() {

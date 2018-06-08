@@ -15,16 +15,17 @@ app.controller('CartCtrl', function($scope, cartService) {
 	$scope.getPostalFee = function() {
 		//call postalService
 		$scope.orderInfo.postalFee = 20;
-		$scope.apply();
+		// $scope.$apply();
 	}
 });
 
-app.controller('CartCtrlStep2', function($scope, cartService) {
+app.controller('CartCtrlStep2', function($scope, cartService, authService) {
 
 	$scope.selected = 0;
 
 	$scope.show = function() {
 		$scope.cart = cartService.getCart();
+		$scope.cart.address = authService.getLoggedUser().address;
 		$scope.orderInfo = {};
 		$scope.orderInfo.subTotal = cartService.totalValue();
 	}
