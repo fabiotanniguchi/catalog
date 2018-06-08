@@ -3,8 +3,6 @@ package br.unicamp.sindo.catalog.product;
 import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.error.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -47,13 +45,12 @@ public class ProductService {
         return finalList;
     }
 
-    public List<Product> list(String name, UUID parentId, UUID categoryId, Double minPrice, Double maxPrice, String brand, Boolean highlight, Integer page, Integer pageSize) {
+    public List<Product> list(String name, UUID parentId, List<UUID> categoryIds, Double minPrice, Double maxPrice, List<String> brands, Boolean highlight, List<String> groupIds) {
         Specification<ProductEntity> spec = buildSpec(Optional.ofNullable(name), Optional.of(Status.ACTIVE),
-                Optional.ofNullable(parentId), Optional.ofNullable(categoryId), Optional.ofNullable(minPrice),
-                Optional.ofNullable(maxPrice), Optional.ofNullable(brand),
-                Optional.ofNullable(highlight));
-        return repository.findAll(spec,
-                PageRequest.of(page - 1, pageSize, Sort.Direction.ASC, "createdAt"))
+                Optional.ofNullable(parentId), Optional.ofNullable(categoryIds), Optional.ofNullable(minPrice),
+                Optional.ofNullable(maxPrice), Optional.ofNullable(brands),
+                Optional.ofNullable(highlight), Optional.ofNullable(groupIds));
+        return repository.findAll(spec)
                 .stream()
                 .map(ProductEntity::assemble)
                 .collect(Collectors.toList());

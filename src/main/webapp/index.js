@@ -1,9 +1,10 @@
 var baseHost = "http://localhost:8080/";
 // var baseHost = "https://ftt-catalog.herokuapp.com/"
+//var baseHost = "http://produtos1-2018s1.sa-east-1.elasticbeanstalk.com/";
 
 var app = angular.module('catalogProducts');
 
-app.controller('HomeCtrl', function($scope, productService) {
+app.controller('HomeCtrl', function($scope, productService, cartService) {
 	$scope.products = [];
 	$scope.categories = [];
 
@@ -11,7 +12,7 @@ app.controller('HomeCtrl', function($scope, productService) {
 		$scope.products = [];
 		console.info(result);
 		for(var i = 0; i < result.length; i++){
-			if (result[i].price > 0) {
+			if (result[i].price > 0 && result[i].stock > 0) {
 				result[i].name = result[i].name
 				$scope.products.push(result[i]);
 			}
@@ -33,7 +34,7 @@ app.controller('HomeCtrl', function($scope, productService) {
 
 
 	$scope.onLoad = function (argument) {
-		$.ajax({url: baseHost + "products", success: function(result){
+		$.ajax({url:  baseHost + "products", success: function(result){
 			$scope.parseProducts(result);
 		}});
 

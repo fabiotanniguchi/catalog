@@ -124,7 +124,7 @@ public class Customer1Rest {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
         } catch (Exception e) {
-            System.err.println("[ERRO] Não foi possível logar com o cliente " + customer.getEmail());
+            System.err.println("[ERRO] Não foi possível realizar login do cliente " + customer.getEmail());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

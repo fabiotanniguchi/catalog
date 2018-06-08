@@ -5,8 +5,6 @@ import br.unicamp.sindo.catalog.error.NotFoundException;
 import br.unicamp.sindo.catalog.product.ProductEntity;
 import br.unicamp.sindo.catalog.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +28,9 @@ public class CategoryService {
                 .orElseThrow(() -> new NotFoundException(Category.class.getSimpleName(), id));
     }
 
-    public List<Category> list(String name, UUID parentId, Integer page, Integer pageSize) {
+    public List<Category> list(String name, UUID parentId) {
         Specification<CategoryEntity> spec = buildSpec(Optional.ofNullable(name), Optional.ofNullable(parentId), Optional.of(Status.ACTIVE));
-        return repository.findAll(spec,
-                PageRequest.of(page - 1, pageSize, Sort.Direction.ASC, "createdAt"))
+        return repository.findAll(spec)
                 .stream()
                 .map(CategoryEntity::assemble)
                 .collect(Collectors.toList());

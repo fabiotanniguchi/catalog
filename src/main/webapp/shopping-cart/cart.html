@@ -1,0 +1,64 @@
+<div class="container cart-details" ng-controller="CartCtrl" ng-init="show()">
+
+    <div class="row">
+        <div class="title" ng-class="{ 'col-md-12': isEmpty(), 'col-md-7': !isEmpty() }">
+            <h2>Carrinho</h2>
+        </div>
+        <div class="steps col-md-5" ng-if="!isEmpty()">
+            <ul>
+                <li class="col-md-4 active" style="text-align: center;"><div class="circle"></div> Resumo </li>
+                <li class="col-md-4" style="text-align: center;"><div class="circle"></div> Pagamento e Entrega </li>
+                <li class="col-md-4" style="text-align: center;"><div class="circle"></div> Confirmação </li>
+            </ul>
+        </div>
+        <div class="col-md-12" ng-if="isEmpty()">
+            Os produtos que você adicionar ao carrinho aparecerão aqui.
+        </div>
+        <div class="col-md-12" ng-if="!isEmpty()">
+            <h3>Resumo do pedido</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                </tr>
+                <tr ng-repeat="(id, data) in cart">
+                    <td> {{data.product.name}}</td>
+                    <td> {{data.quantity}}</td>
+                    <td> {{data.quantity * data.product.price | currency:'R$ '}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>SubTotal</td>
+                    <td> {{orderInfo.subTotal | currency:'R$ '}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Frete</td>
+                    <td> {{orderInfo.postalFee | currency:'R$ '}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td> {{orderInfo.postalFee ? orderInfo.postalFee + orderInfo.subTotal : orderInfo.subTotal | currency:'R$ '}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 24px;">Calcular Frete:</td>
+                    <td>
+                        <div class="input-field">
+                            <input type="text" id="cep" ng-model="cep"/>
+                            <label for="cep">Digite aqui o CEP</label>
+                        </div>
+                        <button type="button" class="btn" ng-click="getPostalFee()" type="button">Calcular frete</button>
+                    </td>
+                    <td></td>
+            </table>
+        </div>
+    </div>
+</div>

@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.io.IOException;
 import java.util.*;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
 @Entity
 @Table(name = "products")
 public class ProductEntity extends BaseEntity {
@@ -316,7 +314,7 @@ public class ProductEntity extends BaseEntity {
     private void flush() {
         if (status == null)
             this.status = Status.ACTIVE;
-        if (isNotBlank(name))
-            this.name = name.toUpperCase();
+        //if (isNotBlank(name))
+        //    this.name = name.toUpperCase();
     }
 }

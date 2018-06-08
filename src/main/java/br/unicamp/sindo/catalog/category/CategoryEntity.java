@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
 @Entity
 @Table(name = "categories")
 public class CategoryEntity extends BaseEntity {
@@ -149,7 +147,7 @@ public class CategoryEntity extends BaseEntity {
     private void flush() {
         if (status == null)
             this.status = Status.ACTIVE;
-        if (isNotBlank(name))
-            this.name = name.toUpperCase();
+        //if (isNotBlank(name))
+        //    this.name = name.toUpperCase();
     }
 }

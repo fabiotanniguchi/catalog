@@ -21,10 +21,8 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> list(@RequestParam(required = false) String name
-            , @RequestParam(name = "parent_category", required = false) UUID parentId
-            , @RequestParam(defaultValue = "1") Integer page) {
-        int pageSize = 50;
-        return PageableResponseEntity.ok(service.list(name, parentId, page, pageSize + 1), page, pageSize);
+            , @RequestParam(name = "parent_category", required = false) UUID parentId) {
+        return PageableResponseEntity.ok(service.list(name, parentId));
     }
 
     @GetMapping(value = "/{id}")
