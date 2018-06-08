@@ -102,7 +102,9 @@ app.service('cartService', function($rootScope) {
 	}
 
 	this.persist = function(cart){
-        return localStorage.setItem("cart", JSON.stringify(cart));
+        var cart = localStorage.setItem("cart", JSON.stringify(cart));
+        $rootScope.$broadcast('cartChanged');
+        return cart;
 		//$cookies.putOject("cart", this.cart);
 	}
 
