@@ -1,5 +1,5 @@
-// var baseHost = "https://ftt-catalog.herokuapp.com/"
-var baseHost = "http://localhost:8080/"
+var baseHost = "https://ftt-catalog.herokuapp.com/"
+// var baseHost = "http://localhost:8080/"
 
 var app = angular.module('catalogProducts');
 
