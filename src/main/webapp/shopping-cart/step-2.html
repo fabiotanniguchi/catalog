@@ -1,0 +1,104 @@
+<div class="container cart-details" ng-controller="CartCtrlStep2" ng-init="show()">
+
+    <div class="row">
+        <div class="title" ng-class="{ 'col-md-12': isEmpty(), 'col-md-7': !isEmpty() }">
+            <h2>Carrinho</h2>
+        </div>
+        <div class="steps col-md-5" ng-if="!isEmpty()">
+            <ul>
+                <li class="col-md-4 active" style="text-align: center;"><div class="circle"></div> Resumo </li>
+                <li class="col-md-4 active" style="text-align: center;"><div class="circle"></div> Pagamento e Entrega </li>
+                <li class="col-md-4" style="text-align: center;"><div class="circle"></div> Confirmação </li>
+            </ul>
+        </div>
+        <div class="col-md-12" ng-if="isEmpty()">
+            Desculpe-nos, tivemos um problema ao tentar recuperar os dados do seu carrinho
+        </div>
+        <div class="col-md-12" ng-if="!isEmpty()">
+            <h3>Informações de pagamento e entrega</h3>
+            <div class="col-md-5" style="padding-left: 0">
+                <table class="table table-striped">
+                    <tr>
+                        <td>SubTotal</td>
+                        <td> {{orderInfo.subTotal | currency:'R$ '}}</td>
+                    </tr>
+                    <tr>
+                        <td>Frete</td>
+                        <td> {{orderInfo.postalFee | currency:'R$ '}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td> {{orderInfo.postalFee ? orderInfo.postalFee + orderInfo.subTotal : orderInfo.subTotal | currency:'R$ '}}
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="payment-info">
+                    <h4 style="font-size: 16px; margin-top: 24px; margin-bottom: 16px;">Pagamento</h4>
+                    <p>
+                      <label>
+                        <input name="group1" type="radio" ng-model="selected" value="1" ng-change="select(1)" />
+                        <span>Boleto</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="group1" type="radio" ng-model="selected" value="2" ng-change="select(2)" />
+                        <span>Cartão de Crédito</span>
+                      </label>
+                    </p>
+                    <p ng-hide="selected != 1">
+                        O pedido será confirmado após o pagamento que deverá ser feito em até 3 dias úteis. O boleto estará disponível ao final da compra.
+                    </p>
+                    <p ng-hide="selected != 2">
+                        Oi tudo bom
+                        <!-- Show input fields -->
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="col-md-6">
+                    <div class="input-field">
+                        <input type="text" id="cep" ng-model="cart.address.cep"/>
+                        <label for="cep">CEP</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="input-field">
+                        <input type="text" id="street" ng-model="cart.address.street"/>
+                        <label for="street">Rua</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <input type="number" id="number" ng-model="cart.address.number"/>
+                        <label for="number">Número</label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-field">
+                        <input type="text" id="complement" ng-model="cart.address.complement"/>
+                        <label for="complement">Complemento</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <input type="text" id="district" ng-model="cart.address.district"/>
+                        <label for="district">Bairro</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-field">
+                        <input type="number" id="city" ng-model="cart.address.city"/>
+                        <label for="city">Cidade</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-field">
+                        <input type="text" maxlength="2" id="state" ng-model="cart.address.state"/>
+                        <label for="state">UF</label>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
