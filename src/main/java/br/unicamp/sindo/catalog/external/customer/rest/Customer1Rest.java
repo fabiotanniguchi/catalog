@@ -3,6 +3,7 @@ package br.unicamp.sindo.catalog.external.customer.rest;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1ChangePasswordDTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1DTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1LoginDTO;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -81,6 +82,10 @@ public class Customer1Rest {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<String> getCustomer1(@PathVariable(value = "id") String id, @RequestBody Customer1DTO customer) {
+        return callUserDetails(id, customer);
+    }
+
+    private ResponseEntity<String> callUserDetails(String id, Customer1DTO customer) {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_GETDATA_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -97,7 +102,7 @@ public class Customer1Rest {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class, params);
         } catch (Exception e) {
-            System.err.println("[ERRO] Não foi possível atualizar cliente " + customer.getEmail());
+            System.err.println("[ERRO] Não foi possível atualizar cliente ");
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -113,23 +118,27 @@ public class Customer1Rest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add(CUSTOMER1_API_KEY_NAME, CUSTOMER1_API_KEY);
 
+        headers.add("email", email);
+        headers.add("password", password);
+
         Customer1LoginDTO customer = new Customer1LoginDTO();
         customer.setEmail(email);
         customer.setPassword(password);
 
-        HttpEntity<Customer1LoginDTO> entity = new HttpEntity<>(customer, headers);
+        HttpEntity<Customer1LoginDTO> entity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = null;
         try {
             RestTemplate restTemplate = new RestTemplate();
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+            response = callUserDetails(response.getBody(), null);
         } catch (Exception e) {
-            System.err.println("[ERRO] Não foi possível realizar login do cliente " + customer.getEmail());
+            System.err.println("[ERRO] Não foi possível realizar login do cliente " + email);
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return response;
+        return new ResponseEntity<String>(Base64.encode(response.getBody().getBytes()), null, HttpStatus.OK);
     }
 
     @PutMapping(value = "/change/{id}")
@@ -154,6 +163,7 @@ public class Customer1Rest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
 
         return response;
     }
