@@ -25,6 +25,9 @@ app.config(['$locationProvider', '$routeProvider',
         when('/shopping-cart/step2', {
             templateUrl: '../shopping-cart/step-2.html'
         }).
+        when('/shopping-cart/step3', {
+            templateUrl: '../shopping-cart/step-3.html'
+        }).
         otherwise('/');
 
         $locationProvider.hashPrefix('!');
