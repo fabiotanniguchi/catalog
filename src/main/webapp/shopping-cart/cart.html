@@ -48,7 +48,8 @@
 				<tr>
 					<td></td>
 					<td>Frete</td>
-					<td>{{orderInfo.postalFee | currency:'R$ '}}</td>
+					<td>{{orderInfo.postalFee | currency:'R$ '}} {{orderInfo.expectedDays 
+						? ' (Entrega estimada em ' + orderInfo.expectedDays + ' dias)' : '' }}</td>
 				</tr>
 				<tr>
 					<td></td>
