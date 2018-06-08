@@ -29,10 +29,6 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
         $scope.cartSize = cartService.getCartSize();
     }
 
-    // $scope.$watch('cartSize', function(){
-    // 	$scope.apply();
-    // });
-
     $scope.$on('cartChanged', function(event, args){
         $scope.cartSize = cartService.getCartSize();
     });
@@ -52,8 +48,6 @@ app.service('productService', function(){
     }
 });
 
-//todo cookiesotre
-//app.service('cartService', ['$cookies', function($cookies) {
 app.service('cartService', function($rootScope) {
 	this.cart = {};
 
@@ -61,7 +55,7 @@ app.service('cartService', function($rootScope) {
         console.info(product);
         var cart = this.getCart()
 		if(cart[product.id] == null){
-			this.setProduct(product, quantity);
+			cart = this.setProduct(product, quantity);
 		}else if (quantity >= 0 && cart[product.id].quantity + quantity <= product.stock){
 			cart[product.id].quantity += quantity;
 		}else if (quantity < 0 ){
@@ -103,6 +97,8 @@ app.service('cartService', function($rootScope) {
 		cart[product.id].quantity = quantity;
 
 		this.persist(cart);
+
+        return cart;
 	}
 
 	this.persist = function(cart){
