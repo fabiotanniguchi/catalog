@@ -1,4 +1,4 @@
-<div class="container cart-details" ng-controller="CartCtrlStep2" ng-init="show()">
+<div class="container cart-details step-2" ng-controller="CartCtrlStep2" ng-init="show()">
 
     <div class="row">
         <div class="title" ng-class="{ 'col-md-12': isEmpty(), 'col-md-7': !isEmpty() }">
@@ -34,7 +34,7 @@
                 </table>
 
                 <div class="payment-info">
-                    <h4 style="font-size: 16px; margin-top: 24px; margin-bottom: 16px;">Pagamento</h4>
+                    <h4 style="font-size: 18px; margin-top: 24px; margin-bottom: 16px;">Pagamento</h4>
                     <p>
                       <label>
                         <input name="group1" type="radio" ng-model="selected" value="1" ng-change="select(1)" />
@@ -51,8 +51,30 @@
                         O pedido será confirmado após o pagamento que deverá ser feito em até 3 dias úteis. O boleto estará disponível ao final da compra.
                     </p>
                     <p ng-hide="selected != 2">
-                        Oi tudo bom
-                        <!-- Show input fields -->
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="input-field">
+                                <input type="text" id="creditCard" ng-model="cart.payment.creditCard"/>
+                                <label for="creditCard">Número do Cartão</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding-left: 0">
+                            <div class="input-field">
+                                <input type="text" id="expirationDate" ng-model="cart.payment.expirationDate"/>
+                                <label for="expirationDate">Data de Vencimento</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="padding-left: 0">
+                            <div class="input-field">
+                                <input type="text" id="cvv" ng-model="cart.payment.cvv"/>
+                                <label for="cvv">CVV</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-left: 0">
+                            <div class="input-field">
+                                <input type="text" id="name" ng-model="cart.payment.name"/>
+                                <label for="name">Nome no Cartão</label>
+                            </div>
+                        </div>
                     </p>
                 </div>
             </div>
@@ -98,7 +120,10 @@
                         <input type="text" maxlength="2" id="state" ng-model="cart.address.state"/>
                         <label for="state">UF</label>
                     </div>
+                </div>
             </div>
-        </div>
+            <div class="col-md-12" style="margin-top: 32px;">
+                <a class="btn secondary pull-right" href="/shopping-cart/step3">Ir para confirmação</a>
+            </div>
     </div>
 </div>

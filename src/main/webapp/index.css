@@ -353,3 +353,16 @@ loading.loading-btn .preloader-wrapper {
 .cart-details .steps li.col-md-4:first-child .circle:before {
     display: none;
 }
+
+.cart-details.step-2 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+    background-color: #F18F01;
+    border: 2px solid #F18F01;
+}
+
+.cart-details.step-2 .payment-info label {
+    color: #494949;
+}
+
+.cart-details.step-2 .payment-info p {
+    margin: 16px 0;
+}
