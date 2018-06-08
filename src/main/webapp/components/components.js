@@ -125,8 +125,8 @@ app.service('cartService', function($rootScope) {
 	
 	this.totalItems = function(){
 		value = 0;
-		for(id in this.cart){
-			value += this.cart[id].quantity;
+		for(id in this.getCart()){
+			value += this.getCart()[id].quantity;
 		}
 		return value;
 	}
