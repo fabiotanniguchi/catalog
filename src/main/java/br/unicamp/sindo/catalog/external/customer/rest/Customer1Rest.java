@@ -3,6 +3,7 @@ package br.unicamp.sindo.catalog.external.customer.rest;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1ChangePasswordDTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1DTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1LoginDTO;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -137,7 +138,7 @@ public class Customer1Rest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return response;
+        return new ResponseEntity<String>(Base64.encode(response.getBody().getBytes()), null, HttpStatus.OK);
     }
 
     @PutMapping(value = "/change/{id}")
@@ -162,6 +163,7 @@ public class Customer1Rest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
 
         return response;
     }
