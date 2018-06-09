@@ -66,7 +66,7 @@ public class Customer1Rest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @PutMapping(value = "/{id}")
@@ -91,7 +91,7 @@ public class Customer1Rest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @GetMapping(value = "/{id}")
@@ -120,7 +120,7 @@ public class Customer1Rest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @GetMapping(value = "/login")
@@ -176,6 +176,6 @@ public class Customer1Rest {
         }
 
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 }

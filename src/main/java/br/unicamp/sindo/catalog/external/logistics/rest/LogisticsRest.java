@@ -49,7 +49,7 @@ public class LogisticsRest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @GetMapping(value = "/tracking/{code}")
@@ -68,7 +68,7 @@ public class LogisticsRest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @PostMapping
@@ -88,6 +88,6 @@ public class LogisticsRest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 }

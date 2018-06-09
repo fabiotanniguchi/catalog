@@ -45,6 +45,6 @@ public class PostalCodeRest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PostalCodeAddressDTO());
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 }

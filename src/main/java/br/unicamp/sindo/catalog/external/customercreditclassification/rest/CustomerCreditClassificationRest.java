@@ -4,6 +4,7 @@ import br.unicamp.sindo.catalog.external.customercreditclassification.dto.Custom
 import br.unicamp.sindo.catalog.external.customercreditclassification.dto.CustomerCreditClassificationPaymentDTO;
 import br.unicamp.sindo.catalog.external.customercreditclassification.dto.CustomerCreditClassificationUpdateDTO;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -53,7 +54,7 @@ public class CustomerCreditClassificationRest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomerCreditClassificationDTO());
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @PostMapping(value = "/{cpf}")
@@ -79,7 +80,7 @@ public class CustomerCreditClassificationRest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new String());
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @PostMapping(value = "/payment/{cpf}")
@@ -104,6 +105,6 @@ public class CustomerCreditClassificationRest {
             e.printStackTrace();
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 }
