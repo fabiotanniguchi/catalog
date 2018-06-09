@@ -57,7 +57,7 @@ public class PaymentsRest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @PostMapping

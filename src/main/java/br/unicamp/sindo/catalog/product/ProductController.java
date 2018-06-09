@@ -29,7 +29,7 @@ public class ProductController {
             , @RequestParam(name = "highlight", required = false) Boolean highlight
             , @RequestParam(name = "group_id", required = false) List<String> groupIds
             , @RequestParam(defaultValue = "1") Integer page) {
-    	int pageSize = 50;
+        int pageSize = 50;
         return PageableResponseEntity.ok(service.list(name, parentId, categoryIds, minPrice,
                 maxPrice, brands, highlight, groupIds, page, pageSize + 1), page, pageSize + 1);
     }

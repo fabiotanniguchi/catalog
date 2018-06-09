@@ -1,7 +1,5 @@
 package br.unicamp.sindo.catalog.external.logistics.rest;
 
-import br.unicamp.sindo.catalog.external.logistics.DeliveryType;
-import br.unicamp.sindo.catalog.external.logistics.PackageType;
 import br.unicamp.sindo.catalog.external.logistics.dto.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +20,15 @@ public class LogisticsRest {
     private static final String LOGISTICS_PACKAGE_INSERT_PATH = "/cadastrarentrega";
 
     private RestTemplate restTemplate = new RestTemplate();
-    
+
     @GetMapping(value = "/calc")
     public ResponseEntity<LogisticsCostCalcResultDTO> getCalc(
-    		@RequestParam(value="tipoEntrega") String tipoEntrega,
-    		@RequestParam(value="cepDestino") String cepDestino,
-    		@RequestParam(value="quantidade") Integer quantidade
-    		) {
+            @RequestParam(value = "tipoEntrega") String tipoEntrega,
+            @RequestParam(value = "cepDestino") String cepDestino,
+            @RequestParam(value = "quantidade") Integer quantidade
+    ) {
         final String uri = LOGISTICS_HOST + LOGISTICS_COST_CALC_PATH;
-        
+
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uri)
                 .queryParam("tipoEntrega", tipoEntrega)
                 .queryParam("cepOrigem", "13080-655")
@@ -49,7 +47,7 @@ public class LogisticsRest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @GetMapping(value = "/tracking/{code}")
@@ -68,7 +66,7 @@ public class LogisticsRest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
     @PostMapping
@@ -88,6 +86,6 @@ public class LogisticsRest {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 }

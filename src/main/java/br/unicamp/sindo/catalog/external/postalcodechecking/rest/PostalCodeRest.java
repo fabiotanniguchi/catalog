@@ -22,7 +22,7 @@ public class PostalCodeRest {
     private String POSTAL_CODE_SERV_CEP = "/cep/{cep}";
 
     private RestTemplate restTemplate = new RestTemplate();
-    
+
     @GetMapping(value = "/{cep}")
     public ResponseEntity<PostalCodeAddressDTO> getAddressFromPostalCode(@PathVariable(value = "cep") String cep) {
         final String uri = POSTAL_CODE_SERV_HOST + POSTAL_CODE_SERV_CEP;
@@ -45,6 +45,6 @@ public class PostalCodeRest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PostalCodeAddressDTO());
         }
 
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 }

@@ -12,6 +12,14 @@ app.component('loading', {
     templateUrl: "./components/loading.html"
 });
 
+
+app.controller('MainCtrl', function($scope, authService, cartService) {
+    $scope.$on('headerClick', function (event, args) {
+        $scope.$broadcast('headerClickRefresh');
+    });
+
+});
+
 app.controller('HeaderCtrl', function($scope, authService, cartService) {
 
     $scope.isLogged = false;
@@ -32,6 +40,10 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
     $scope.$on('cartChanged', function(event, args){
         $scope.cartSize = cartService.getCartSize();
     });
+
+    $scope.headerClick = function() {
+        $scope.$emit('headerClick', null);
+    }
 
 });
 
