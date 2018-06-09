@@ -8,6 +8,7 @@ app.controller('CartCtrl', function($scope, cartService, authService) {
 
 	$scope.step = 0;
 	$scope.varCep = 0;
+	$scope.validateCredit = false;
 	
 	$scope.show = function() {
 		$scope.cart = cartService.getCart();
@@ -74,11 +75,17 @@ app.controller('CartCtrl', function($scope, cartService, authService) {
 	}
 
 	$scope.success = function(result){
+		result = JSON.parse(result);
 		console.info("success", result);
+		if(result && result.score > 300){
+			alert("Cartão de crédito validado com sucesso")
+		}else{
+			alert("Não é possivel prosseguir com a compra com esse cartão de credito")
+		}
 	}
 
 	$scope.fail = function(result){
-		console.info("failt", result);
+		// alert("Houve um problema para avalidar seu cartão de credito")
 	}
 
 	$scope.onQttChange = function (id, data) {
