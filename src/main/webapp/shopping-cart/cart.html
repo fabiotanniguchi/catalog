@@ -197,71 +197,90 @@
 			</div>
 		</div>
 		<div class="col-md-12" ng-if="!isEmpty() && stepCheck(2)">
-			<h3>Informações de pagamento e entrega</h3>
-			<div class="col-md-5" style="padding-left: 0">
+			<h3>Confirmação do pedido</h3>
+			<div class="col-md-12" style="padding-left: 0">
 				<table class="table table-striped">
-					<tr>
-						<td>SubTotal</td>
-						<td>{{orderInfo.subTotal | currency:'R$ '}}</td>
-					</tr>
-					<tr>
-						<td>Frete</td>
-						<td>{{orderInfo.postalFee | currency:'R$ '}}</td>
-					</tr>
-					<tr>
-						<td>Total</td>
-						<td>{{orderInfo.postalFee ? orderInfo.postalFee +
-							orderInfo.subTotal : orderInfo.subTotal | currency:'R$ '}}</td>
-					</tr>
-				</table>
+				<tr>
+					<th>Nome</th>
+					<th>Quantidade</th>
+					<th>Preço</th>
+				</tr>
+				<tr ng-repeat="(id, data) in cart">
+					<td>{{data.product.name}}</td>
+					<td><input type="number" ng-model="data.quantity"
+						value="{{data.quantity}}" ng-change="onQttChange(id, data)"
+						min="0" max="99" disabled/>
+					<td>
+					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>SubTotal</td>
+					<td>{{orderInfo.subTotal | currency:'R$ '}}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Frete</td>
+					<td>{{orderInfo.postalFee | currency:'R$ '}}
+						{{orderInfo.expectedDays ? ' (Entrega estimada em ' +
+						orderInfo.expectedDays + ' dias)' : '' }}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Total</td>
+					<td>{{orderInfo.postalFee ? orderInfo.postalFee +
+						orderInfo.subTotal : orderInfo.subTotal | currency:'R$ '}}</td>
+				</tr>
+			</table>
 			</div>
 			<div class="col-md-7">
 				<div class="col-md-6">
 					<div class="input-field">
-						<input type="text" id="cep" ng-model="cart.address.cep" /> <label
-							for="cep">CEP</label>
+						<input type="text" id="cep" ng-model="cart.address.cep" disabled/> 
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="input-field">
-						<input type="text" id="street" ng-model="cart.address.street" /> <label
-							for="street">Rua</label>
+						<input type="text" id="street" ng-model="cart.address.street" disabled/> 
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="input-field">
-						<input type="number" id="number" ng-model="cart.address.number" />
-						<label for="number">Número</label>
+						<input type="number" id="number" ng-model="cart.address.number" disabled/>
 					</div>
 				</div>
 				<div class="col-md-8">
 					<div class="input-field">
 						<input type="text" id="complement"
-							ng-model="cart.address.complement" /> <label for="complement">Complemento</label>
+							ng-model="cart.address.complement" disabled/>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="input-field">
-						<input type="text" id="district" ng-model="cart.address.district" />
-						<label for="district">Bairro</label>
+						<input type="text" id="district" ng-model="cart.address.district" disabled/>
 					</div>
 				</div>
 				<div class="col-md-5">
 					<div class="input-field">
-						<input type="number" id="city" ng-model="cart.address.city" /> <label
-							for="city">Cidade</label>
+						<input type="number" id="city" ng-model="cart.address.city" disabled/> 
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="input-field">
 						<input type="text" maxlength="2" id="state"
-							ng-model="cart.address.state" /> <label for="state">UF</label>
+							ng-model="cart.address.state" disabled/>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-12" style="padding: 16px 0" ng-if="!isEmpty()">
-			<button class="btn secondary pull-right" ng-click="flush()"">Continuar</button>
+			<button class="btn secondary pull-right" ng-click="flush()"" ng-if="!stepCheck(2)">Continuar</button>
+			<button class="btn secondary pull-right" ng-click="flush()"" ng-if="stepCheck(2)">Finalizar Pedido</button>
 		</div>
 	</div>
 </div>
