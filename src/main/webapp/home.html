@@ -2,14 +2,14 @@
     <div class="categories">
         <h3 class="categories-title">Navegue por nossas categorias</h3>
         <ul class="browser-default" id="categories-galery">
-            <li class="" ng-repeat="category in categories">
+            <li class="" ng-repeat="category in categories" ng-click="parseProductsByCategory(category.id, category.name);">
                 {{ category.name }}
             </li>
         </ul>
     </div>
 
     <div class="products">
-        <h2>Destaques</h2>
+        <h2>{{categoryResult}}</h2>
         <loading ng-if="products.length == 0"></loading>
         <ul class="row" ng-if="products.length > 0">
             <li class='col-md-3' ng-repeat="product in products">
