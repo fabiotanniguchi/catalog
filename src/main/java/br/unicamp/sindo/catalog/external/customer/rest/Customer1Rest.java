@@ -1,29 +1,15 @@
 package br.unicamp.sindo.catalog.external.customer.rest;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1ChangePasswordDTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1DTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1LoginDTO;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/external/customers")
@@ -41,7 +27,7 @@ public class Customer1Rest {
     private static final String CUSTOMER1_CHGPASSWRD_PATH = "changePass/{id}";
 
     private static final String CUSTOMER1_LOGIN_PATH = "login";
-    
+
     private RestTemplate restTemplate = new RestTemplate();
 
     @PostMapping
