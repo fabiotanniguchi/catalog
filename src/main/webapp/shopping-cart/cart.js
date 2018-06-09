@@ -4,7 +4,7 @@ var baseHost = "http://localhost:8080/";
 
 var app = angular.module('catalogProducts');
 
-app.controller('CartCtrl', function($scope, cartService) {
+app.controller('CartCtrl', function($scope, cartService, authService) {
 
 	$scope.step = 0;
 	$scope.varCep = 0;
@@ -56,6 +56,29 @@ app.controller('CartCtrl', function($scope, cartService) {
 			alert("informe o cartão de crédito");
 		}
 		console.info($scope.cart.payment);
+
+		var user = authService.getLoggedUser();
+
+		var requestUrl = baseHost + "external/credit/" + user.cpf;
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+		  if(xhttp.readyState == 4){
+		      var result = xhttp.responseText;
+		      $scope.success(result);
+		  }else{
+			  $scope.fail(result);
+		  }
+		};
+		xhttp.open("GET", requestUrl, true);
+		xhttp.send();
+	}
+
+	$scope.success = function(result){
+		console.info("success", result);
+	}
+
+	$scope.fail = function(result){
+		console.info("failt", result);
 	}
 
 	$scope.onQttChange = function (id, data) {
