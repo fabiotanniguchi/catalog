@@ -1,9 +1,6 @@
-var baseHost = "https://ftt-catalog.herokuapp.com/"
-//var baseHost = "http://localhost:8080/"
-
 var app = angular.module('catalogProducts');
 
-app.controller('LoginCtrl', function($scope, authService) {
+app.controller('LoginCtrl', function($scope, authService, baseHost) {
 
     $scope.login = function() {
 
@@ -22,8 +19,6 @@ app.controller('LoginCtrl', function($scope, authService) {
 		};
 		xhttp.open("GET", requestUrl, true);
 		xhttp.send();
-
-        //TODO: call authService.setLoggedUser() after sucessful authentication;
     }
 
     $scope.success = function(result){
@@ -39,7 +34,5 @@ app.controller('LoginCtrl', function($scope, authService) {
       $scope.fail = function(result){
     	$scope.loading = false;
         console.info("fail");
-		// window.location = "/index.html";
-
       }
 });
