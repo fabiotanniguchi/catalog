@@ -173,11 +173,11 @@ ul {
    color: #494949;
  }
  /* label focus color */
- .form-login .input-field input[type]:focus + label {
+.input-field input[type]:focus + label {
    color: #9596bf;
  }
  /* label underline focus color */
- .form-login .input-field input[type]:focus {
+.input-field input[type]:focus {
    border-bottom: 1px solid #9596bf;
    box-shadow: 0 1px 0 0 #9596bf;
  }
@@ -365,4 +365,10 @@ loading.loading-btn .preloader-wrapper {
 
 .cart-details.step-2 .payment-info p {
     margin: 16px 0;
+}
+
+
+.infoAccount-container label {
+    font-size: 16px;
+    font-weight: 300;
 }

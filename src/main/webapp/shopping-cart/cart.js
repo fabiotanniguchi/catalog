@@ -1,5 +1,5 @@
-var baseHost = "http://localhost:8080/";
-// var baseHost = "https://ftt-catalog.herokuapp.com/"
+//var baseHost = "http://localhost:8080/";
+var baseHost = "https://ftt-catalog.herokuapp.com/"
 // var baseHost = "http://produtos1-2018s1.sa-east-1.elasticbeanstalk.com/";
 
 var app = angular.module('catalogProducts');
@@ -11,8 +11,6 @@ app.controller('CartCtrl', function($scope, cartService) {
 	
 	$scope.show = function() {
 		$scope.cart = cartService.getCart();
-		console.info($scope.cart);
-		console.info(localStorage.getItem("cart"));
 		$scope.orderInfo = {};
 		$scope.orderInfo.subTotal = cartService.totalValue();
 	}
@@ -40,15 +38,30 @@ app.controller('CartCtrl', function($scope, cartService) {
 	}
 
 	$scope.getPostalFee = function(cep, tipoEntrega) {
-		//call postalService
 		$scope.varCep = cep;
 		$.ajax({url:  baseHost + "external/logistics/calc?tipoEntrega="+tipoEntrega+"&cepDestino="+cep+"&quantidade="+cartService.totalItems(), success: function(result){
 			$scope.orderInfo.postalFee = parseFloat(result.preco);
+			$scope.orderInfo.expectedDays = parseInt(result.prazo);
 			$scope.$apply();
 		}});
 	}
 	
 	$scope.selectPayment = function(value) {
 		$scope.selected = value;
+	}
+
+	$scope.validateCreditCard = function(){
+		console.info("validateCreditCard");
+		if(!$scope.cart.payment){
+			alert("informe o cartão de crédito");
+		}
+		console.info($scope.cart.payment);
+	}
+
+	$scope.onQttChange = function (id, data) {
+		var cart = cartService.getCart()
+		cart[id].quantity = data.quantity;
+		cartService.persist(cart);
+		console.info(cartService.getCart()[id]);
 	}
 });

@@ -22,8 +22,11 @@ app.config(['$locationProvider', '$routeProvider',
         when('/shopping-cart', {
             templateUrl: '../shopping-cart/cart.html'
         }).
-        when('/shopping-cart/step2', {
-            templateUrl: '../shopping-cart/step-2.html'
+        when('/myaccount/info', {
+          templateUrl: '../myaccount/info.html'
+        }).
+        when('/myaccount/edit', {
+            templateUrl: '../myaccount/edit-account.html'
         }).
         otherwise('/');
 

@@ -8,7 +8,7 @@
             <ul>
                 <li class="col-md-4 active" style="text-align: center;"><div class="circle"></div> Resumo </li>
                 <li class="col-md-4 active" style="text-align: center;"><div class="circle"></div> Pagamento e Entrega </li>
-                <li class="col-md-4" style="text-align: center;"><div class="circle"></div> Confirmação </li>
+                <li class="col-md-4 active" style="text-align: center;"><div class="circle"></div> Confirmação </li>
             </ul>
         </div>
         <div class="col-md-12" ng-if="isEmpty()">
@@ -32,56 +32,6 @@
                         </td>
                     </tr>
                 </table>
-
-                <div class="payment-info">
-                    <h4 style="font-size: 18px; margin-top: 24px; margin-bottom: 16px;">Pagamento</h4>
-                    <p>
-                      <label>
-                        <input name="group1" type="radio" ng-model="selected" value="1" ng-change="select(1)" />
-                        <span>Boleto</span>
-                      </label>
-                    </p>
-                    <p>
-                      <label>
-                        <input name="group1" type="radio" ng-model="selected" value="2" ng-change="select(2)" />
-                        <span>Cartão de Crédito</span>
-                      </label>
-                    </p>
-                    <p ng-hide="selected != 1">
-                        O pedido será confirmado após o pagamento que deverá ser feito em até 3 dias úteis. O boleto estará disponível ao final da compra.
-                    </p>
-                    <div ng-hide="selected != 2">
-                        <div class="col-md-12" style="padding-left: 0">
-                            <div class="input-field">
-                                <input type="text" id="creditCard" ng-model="cart.payment.creditCard"/>
-                                <label for="creditCard">Número do Cartão</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding-left: 0">
-                            <div class="input-field">
-                                <input type="text" id="expirationDate" ng-model="cart.payment.expirationDate"/>
-                                <label for="expirationDate">Data de Vencimento</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="padding-left: 0">
-                            <div class="input-field">
-                                <input type="text" id="cvv" ng-model="cart.payment.cvv"/>
-                                <label for="cvv">CVV</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12" style="padding-left: 0">
-                            <div class="input-field">
-                                <input type="text" id="name" ng-model="cart.payment.name"/>
-                                <label for="name">Nome no Cartão</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12" style="padding-left: 0">
-                            <button type="button" class="btn"
-                                ng-click="getPostalFee(cep, tipoEntrega)" type="button">Calcular
-                                frete</button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col-md-7">
                 <div class="col-md-6">
