@@ -18,7 +18,7 @@ public class CustomerCreditClassificationRest {
     private String CREDIT_API_KEY = "tmvcgp1";
     private String CREDIT_API_KEY_NAME = "x-api-key";
 
-    private String CREDIT_HOST = "https://glacial-brook-98386.herokuapp.com/";
+    private String CREDIT_HOST = "https://glacial-brook-98386.herokuapp.com";
     private String CREDIT_SCORE_PATH = "/score/{cpf}";
     private String CREDIT_PAYMENT_PATH = "/payment/{cpf}";
 
