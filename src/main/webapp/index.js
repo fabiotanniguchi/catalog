@@ -8,14 +8,22 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 
 	$scope.parseProducts = function (result) {
 		$scope.products = [];
+		$scope.productsResult = [];
 		console.info(result);
 		for(var i = 0; i < result.length; i++){
 			if (result[i].price > 0 && result[i].stock > 0) {
 				result[i].name = result[i].name
-				$scope.products.push(result[i]);
+				$scope.productsResult.push(result[i]);
+				if (result[i].highlight == true) {
+				    $scope.products.push(result[i]);
+				}
 			}
 		}
-		$scope.productsResult = $scope.products;
+
+		if ($scope.products.length == 0) {
+		    $scope.products = $scope.productsResult;
+		    $scope.categoryResult = "Todos";
+		}
 
 		$scope.$apply();
 	}
@@ -41,16 +49,32 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
                 $scope.products.push($scope.productsResult[i]);
             }
         }
-        //$scope.$apply();
+
+        if ($scope.products.length == 0) {
+            M.Toast.dismissAll();
+            M.toast({html: "Nenhum produto cadastrado nesta categoria!"}, outDuration = 1000);
+            $scope.showProductsHighlight();
+        }
     }
 
     $scope.$on('headerClickRefresh', function (event, args) {
-        $scope.showProductsResult();
+        $scope.showProductsHighlight();
     });
 
-    $scope.showProductsResult = function() {
-        $scope.categoryResult = "Destaques";
-        $scope.products = $scope.productsResult;
+    $scope.showProductsHighlight = function() {
+        $scope.products = [];
+        for (var i = 0; i < $scope.productsResult.length; i++) {
+            if ($scope.productsResult[i].highlight == true) {
+                $scope.products.push($scope.productsResult[i]);
+            }
+        }
+
+        if ($scope.products.length == 0) {
+            $scope.products = $scope.productsResult;
+            $scope.categoryResult = "Todos";
+        } else {
+            $scope.categoryResult = "Destaques";
+        }
     }
 
 
