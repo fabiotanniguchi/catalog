@@ -9,21 +9,24 @@ app.controller('CartCtrl', function($scope, cartService, authService) {
 	$scope.step = 0;
 	$scope.varCep = 0;
 	$scope.validateCredit = false;
-	
+
 	$scope.show = function() {
-		$scope.cart = cartService.getCart();
+	    $scope.cart = cartService.cleanCart();
+	    //console.log("showCart", $scope.cart);
+		//$scope.cart = cartService.getCart();
 		$scope.orderInfo = {};
 		$scope.orderInfo.subTotal = cartService.totalValue();
 	}
 
 	$scope.isEmpty = function() {
+	    //console.log("isEmpty", cartService.getCart())
 		return cartService.getCartSize() == 0;
 	}
-	
+
 	$scope.stepCheck = function(step) {
 		return step == $scope.step;
 	}
-	
+
 	$scope.flush = function() {
 		$scope.step = $scope.step + 1;
 		if($scope.step == 1){
@@ -40,13 +43,13 @@ app.controller('CartCtrl', function($scope, cartService, authService) {
 
 	$scope.getPostalFee = function(cep, tipoEntrega) {
 		$scope.varCep = cep;
-		$.ajax({url:  baseHost + "external/logistics/calc?tipoEntrega="+tipoEntrega+"&cepDestino="+cep+"&quantidade="+cartService.totalItems(), success: function(result){
+		$.ajax({url:  baseHost + "external/logistics/calc?tipoEntrega="+tipoEntrega+"&cepDestino="+cep+"&quantidade="+cartService.getCartSize(), success: function(result){
 			$scope.orderInfo.postalFee = parseFloat(result.preco);
 			$scope.orderInfo.expectedDays = parseInt(result.prazo);
 			$scope.$apply();
 		}});
 	}
-	
+
 	$scope.selectPayment = function(value) {
 		$scope.selected = value;
 	}
@@ -89,9 +92,13 @@ app.controller('CartCtrl', function($scope, cartService, authService) {
 	}
 
 	$scope.onQttChange = function (id, data) {
-		var cart = cartService.getCart()
-		cart[id].quantity = data.quantity;
-		cartService.persist(cart);
-		console.info(cartService.getCart()[id]);
+		if (data.quantity != undefined) {
+            var cart = cartService.getCart()
+            cart = cartService.setProduct(cart[id].product, data.quantity)
+            data.quantity = cart[id].quantity;
+            //cartService.persist(cart);
+            $scope.orderInfo.subTotal = cartService.totalValue();
+            //console.info(cartService.getCart()[id]);
+		}
 	}
 });

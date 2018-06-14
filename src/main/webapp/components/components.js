@@ -28,12 +28,14 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
     $scope.cartSize = null;
 
     $scope.init = function() {
+        console.log("init");
     	console.log(authService.isLogged());
     	console.log(authService.getLoggedUser());
         if (authService.isLogged()) {
             $scope.isLogged = true;
             $scope.user = authService.getLoggedUser();
         }
+        $scope.cartClick();
         $scope.cartSize = cartService.getCartSize();
     }
 
@@ -43,6 +45,13 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
 
     $scope.headerClick = function() {
         $scope.$emit('headerClick', null);
+        cartService.cleanCart();
+    }
+
+    $scope.cartClick = function() {
+        console.log("cartClick");
+        //$scope.$emit('cartClick', null);
+        return cartService.cleanCart();
     }
 
 });
@@ -64,49 +73,56 @@ app.service('cartService', function($rootScope) {
 	this.cart = {};
 
 	this.addProduct = function(product, quantity){
-        console.info(product);
+        //console.info(product);
         var cart = this.getCart()
 		if(cart[product.id] == null){
 			cart = this.setProduct(product, quantity);
+
 		}else if (quantity >= 0 && cart[product.id].quantity + quantity <= product.stock){
 			cart[product.id].quantity += quantity;
-		}else if (quantity < 0 ){
+			$rootScope.$broadcast('cartChanged');
+                    M.Toast.dismissAll();
+                    M.toast({html: 'Produto adicionado ao carrinho'})
+		}else if (quantity == undefined || quantity == null || quantity < 0 ){
             M.Toast.dismissAll();
 			M.toast({html: 'Quantidade inválida!'})
-			return;
+			return cart;
 		}else{
             M.Toast.dismissAll();
 			M.toast({html: 'Não temos a quantidade suficiente em estoque'})
-			return;
+			return cart;
 		}
 
-        $rootScope.$broadcast('cartChanged');
-        M.Toast.dismissAll();
-        M.toast({html: 'Produto adicionado ao carrinho'})
+
 		this.persist(cart);
 	}
 
 	this.setProduct = function(product, quantity){
         var cart = this.getCart()
 
-		if(quantity < 0){
+        if (quantity == undefined) {
+            return cart;
+        } else if (quantity < 0){
             M.Toast.dismissAll();
             M.toast({html: 'Quantidade inválida!'})
-			return;
-		}
-		if(quantity > product.stock){
+			return cart;
+		} else if(quantity > product.stock){
             M.Toast.dismissAll();
 			M.toast({html: 'Não temos a quantidade suficiente em estoque'})
-			return;
+			return cart;
 		}
-		if(quantity == 0){
-            console.info(product, quantity);
-			cart[product.id] = undefined;
-		}
+		//if(quantity == 0){
+          //  console.info(product, quantity);
+		//	cart[product.id] = undefined;
+		//}
 
 		cart[product.id] = {};
 		cart[product.id].product = product;
 		cart[product.id].quantity = quantity;
+
+		$rootScope.$broadcast('cartChanged');
+        M.Toast.dismissAll();
+        M.toast({html: 'Produto adicionado ao carrinho'})
 
 		this.persist(cart);
 
@@ -116,8 +132,22 @@ app.service('cartService', function($rootScope) {
 	this.persist = function(cart){
         var cart = localStorage.setItem("cart", JSON.stringify(cart));
         $rootScope.$broadcast('cartChanged');
+        //console.log("persistCart", cart);
         return cart;
 		//$cookies.putOject("cart", this.cart);
+	}
+
+	this.cleanCart = function() {
+	    //console.log("cleanCart");
+	    var cart = this.getCart();
+	    for (id in cart){
+	        if (cart[id].quantity == 0 || cart[id].quantity == null) {
+                delete cart[id];
+            }
+        }
+
+        this.persist(cart);
+        return cart;
 	}
 
 	this.getCart = function(){
@@ -136,20 +166,17 @@ app.service('cartService', function($rootScope) {
 		}
 		return value;
 	}
-	
-	this.totalItems = function(){
-		value = 0;
-		for(id in this.getCart()){
-			value += this.getCart()[id].quantity;
-		}
-		return value;
-	}
 
 	this.getCartSize = function(){
         var cart = this.getCart();
         qty = 0;
 		for(id in cart){
-			qty += cart[id].quantity;
+		    console.log("getCartSize", cart[id].quantity);
+		    if (cart[id].quantity == null) {
+		        qty += 1;
+		    } else {
+		        qty += cart[id].quantity;
+		    }
 		}
 		return qty;
 	}

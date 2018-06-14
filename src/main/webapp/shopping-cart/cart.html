@@ -36,7 +36,7 @@
 					<td>{{data.product.name}}</td>
 					<td><input type="number" ng-model="data.quantity"
 						value="{{data.quantity}}" ng-change="onQttChange(id, data)"
-						min="0" max="99" />
+						min="0" max="data.product.stock" />
 					<td>
 					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
@@ -156,7 +156,7 @@
 			<div class="col-md-7">
 				<div class="col-md-6">
 					<div class="input-field">
-						<input type="text" id="cep" ng-value="varCep" disabled />
+						<input type="text" id="cepp" ng-value="varCep" disabled />
 					</div>
 				</div>
 				<div class="col-md-12">
@@ -209,7 +209,7 @@
 					<td>{{data.product.name}}</td>
 					<td><input type="number" ng-model="data.quantity"
 						value="{{data.quantity}}" ng-change="onQttChange(id, data)"
-						min="0" max="cart[id].stock" disabled/>
+						min="0" max="cart[id].product.stock" disabled/>
 					<td>
 					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
@@ -279,8 +279,8 @@
 			</div>
 		</div>
 		<div class="col-md-12" style="padding: 16px 0" ng-if="!isEmpty()">
-			<button class="btn secondary pull-right" ng-click="flush()"" ng-if="!stepCheck(2)">Continuar</button>
-			<button class="btn secondary pull-right" ng-click="flush()"" ng-if="stepCheck(2)">Finalizar Pedido</button>
+			<button class="btn secondary pull-right" ng-click="flush()" ng-if="!stepCheck(2)">Continuar</button>
+			<button class="btn secondary pull-right" ng-click="flush()" ng-if="stepCheck(2)">Finalizar Pedido</button>
 		</div>
 	</div>
 </div>

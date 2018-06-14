@@ -10,7 +10,8 @@ app.controller('ProductDetailsCtrl', function($scope, $rootScope, productService
     }
 
     $scope.addProduct = function(product) {
-    	cartService.addProduct(product, product.quantity);
+        console.log("addProduct", product)
+    	var cart = cartService.addProduct(product, product.quantity);
     	//$rootScope.cartSize = getCartSize().size();
     }
     
