@@ -9,7 +9,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 	$scope.parseProducts = function (result) {
 		$scope.products = [];
 		$scope.productsResult = [];
-		console.info(result);
+		//console.info(result);
 		for(var i = 0; i < result.length; i++){
 			if (result[i].price > 0 && result[i].stock > 0) {
 				result[i].name = result[i].name

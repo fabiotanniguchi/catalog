@@ -1,10 +1,6 @@
-var baseHost = "http://localhost:8080/";
-// var baseHost = "https://ftt-catalog.herokuapp.com/"
-// var baseHost = "http://produtos1-2018s1.sa-east-1.elasticbeanstalk.com/";
-
 var app = angular.module('catalogProducts');
 
-app.controller('CartCtrl', function($scope, cartService, authService) {
+app.controller('CartCtrl', function($scope, cartService, authService, baseHost) {
 
 	$scope.step = 0;
 	$scope.varCep = 0;
