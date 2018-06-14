@@ -1,4 +1,4 @@
-<div class="container createAccount-container infoAccount-container" ng-controller="CreateAccountCtrl">
+<div class="container createAccount-container infoAccount-container" ng-controller="InfoAccountCtrl">
     <div class="row">
         <div class="col-md-12" style="padding:0;">
             <div class="col-md-6">
@@ -42,7 +42,7 @@
                         <a href="/myaccount/edit" class="btn btn-primary btn-md">Editar dados</a>
                     </div>
                     <div style="margin-top: 16px;">
-                        <a href="/myaccount/edit" class="btn btn-primary btn-md">Sair</a>
+                        <input type="button" class="btn" ng-click="logout()" value="Sair"/>
                     </div>
                 </div>
 

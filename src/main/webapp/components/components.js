@@ -180,5 +180,6 @@ app.service('authService', function(){
 
     this.logout = function() {
         this.currentUser = null;
+        localStorage.setItem("user_token", null);
     }
 });
