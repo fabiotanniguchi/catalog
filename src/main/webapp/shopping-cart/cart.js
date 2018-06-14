@@ -84,12 +84,12 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 	}
 
 	$scope.fail = function(result){
-		// alert("Houve um problema para avalidar seu cartão de credito")
+		// alert("Houve um problema para validar seu cartão de credito")
 	}
 
 	$scope.onQttChange = function (id, data) {
 		if (data.quantity != undefined) {
-            var cart = cartService.getCart()
+		    var cart = cartService.getCart()
             cart = cartService.setProduct(cart[id].product, data.quantity)
             data.quantity = cart[id].quantity;
             //cartService.persist(cart);

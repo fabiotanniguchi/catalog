@@ -81,9 +81,13 @@ app.service('cartService', function($rootScope) {
 	this.addProduct = function(product, quantity){
         //console.info(product);
         var cart = this.getCart()
-		if(cart[product.id] == null){
-			cart = this.setProduct(product, quantity);
 
+		if (quantity == undefined || quantity == null || quantity < 0 ){
+            M.Toast.dismissAll();
+            M.toast({html: 'Quantidade inválida!'})
+            return cart;
+        } else if(cart[product.id] == null){
+            cart = this.setProduct(product, quantity);
 		} else if (quantity == undefined || quantity == null || quantity < 0 ){
             M.Toast.dismissAll();
             M.toast({html: 'Quantidade inválida!'})
@@ -106,7 +110,7 @@ app.service('cartService', function($rootScope) {
 	this.setProduct = function(product, quantity){
         var cart = this.getCart()
 
-        if (quantity == undefined) {
+        if (quantity == undefined || quantity == null) {
             return cart;
         } else if (quantity < 0){
             M.Toast.dismissAll();
@@ -191,11 +195,11 @@ app.service('cartService', function($rootScope) {
         qty = 0;
 		for(id in cart){
 		    console.log("getCartSize", cart[id].quantity);
-		    if (cart[id].quantity == null) {
-		        qty += 1;
-		    } else {
+		    //if (cart[id].quantity == null) {
+		     //   qty += 1;
+		    //} else {
 		        qty += cart[id].quantity;
-		    }
+		    //}
 		}
 		return qty;
 	}

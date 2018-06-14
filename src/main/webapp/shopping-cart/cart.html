@@ -208,8 +208,8 @@
 				<tr ng-repeat="(id, data) in cart">
 					<td>{{data.product.name}}</td>
 					<td><input type="number" ng-model="data.quantity"
-						value="{{data.quantity}}" ng-change="onQttChange(id, data)"
-						min="0" max="cart[id].product.stock" disabled/>
+						value="data.quantity" ng-change="onQttChange(id, data)"
+						min="0" max="cart[id].product.stock" required/>
 					<td>
 					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
