@@ -84,15 +84,15 @@ app.service('cartService', function($rootScope) {
 		if(cart[product.id] == null){
 			cart = this.setProduct(product, quantity);
 
-		}else if (quantity >= 0 && cart[product.id].quantity + quantity <= product.stock){
+		} else if (quantity == undefined || quantity == null || quantity < 0 ){
+            M.Toast.dismissAll();
+            M.toast({html: 'Quantidade inválida!'})
+            return cart;
+        } else if (quantity >= 0 && cart[product.id].quantity + quantity <= product.stock){
 			cart[product.id].quantity += quantity;
 			$rootScope.$broadcast('cartChanged');
                     M.Toast.dismissAll();
                     M.toast({html: 'Produto adicionado ao carrinho'})
-		}else if (quantity == undefined || quantity == null || quantity < 0 ){
-            M.Toast.dismissAll();
-			M.toast({html: 'Quantidade inválida!'})
-			return cart;
 		}else{
             M.Toast.dismissAll();
 			M.toast({html: 'Não temos a quantidade suficiente em estoque'})
