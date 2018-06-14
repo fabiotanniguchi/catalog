@@ -61,11 +61,17 @@ app.service('productService', function(){
     this.currentObject = {};
 
     this.setCurrentObject = function(obj) {
+        localStorage.setItem("currentObj", JSON.stringify(obj));
         this.currentObject = obj;
     }
 
     this.getCurrentObject = function() {
-        return this.currentObject;
+        if(!localStorage.getItem("currentObj") || localStorage.getItem("currentObj") === "undefined"){
+            this.persist({});
+            return {};
+        }
+        return JSON.parse(localStorage.getItem("currentObj"));
+        //return this.currentObject;
     }
 });
 
@@ -116,13 +122,26 @@ app.service('cartService', function($rootScope) {
 		//	cart[product.id] = undefined;
 		//}
 
+        if (cart[product.id] != null)
+        {
+            // removeu produto
+            if (cart[product.id].quantity > quantity) {
+                M.Toast.dismissAll();
+                M.toast({html: 'Produto removido do carrinho'})
+            } else if (cart[product.id].quantity < quantity) { // adicionou produto
+                M.Toast.dismissAll();
+                M.toast({html: 'Produto adicionado ao carrinho'})
+            }
+        } else {
+             M.Toast.dismissAll();
+             M.toast({html: 'Produto adicionado ao carrinho'})
+        }
+
 		cart[product.id] = {};
 		cart[product.id].product = product;
 		cart[product.id].quantity = quantity;
 
 		$rootScope.$broadcast('cartChanged');
-        M.Toast.dismissAll();
-        M.toast({html: 'Produto adicionado ao carrinho'})
 
 		this.persist(cart);
 

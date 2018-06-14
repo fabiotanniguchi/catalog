@@ -1,11 +1,11 @@
 var app = angular.module('catalogProducts', ['ngRoute']);
 
-//app.constant("baseHost", "http://localhost:8080/");
-app.constant("baseHost", "https://ftt-catalog.herokuapp.com/");
+app.constant("baseHost", "http://localhost:8080/");
+///app.constant("baseHost", "https://ftt-catalog.herokuapp.com/");
 
 
-app.config(['$locationProvider', '$routeProvider',
-    function config($locationProvider, $routeProvider) {
+app.config(['$locationProvider', '$routeProvider', '$provide',
+    function config($locationProvider, $routeProvider, $provide) {
 
       $routeProvider.
         when('/', {
@@ -36,5 +36,10 @@ app.config(['$locationProvider', '$routeProvider',
 
         $locationProvider.hashPrefix('!');
         $locationProvider.html5Mode(true);
+
+        $provide.decorator('$sniffer', function($delegate) {
+          $delegate.history = false;
+          return $delegate;
+        });
     }
   ]);
