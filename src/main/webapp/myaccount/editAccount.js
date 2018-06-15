@@ -33,7 +33,6 @@ app.controller('EditAccountCtrl', function($scope, cartService, authService, bas
 	$scope.success = function(result){
 		console.info(result);
 		authService.setLoggedUser(btoa(JSON.stringify($scope.user)));
-		alert("");
 		M.toast({html: "Informações atualizadas com sucesso"}, outDuration = 1000);
 	}
 
