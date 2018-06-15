@@ -205,13 +205,13 @@
 					<th>Quantidade</th>
 					<th>Preço</th>
 				</tr>
-				<tr  ng-repeat="(id, data) in cart">
-					<td ng-if="id != null && id != undefined && id != ''">{{data.product.name}}</td>
-					<td ng-if="id != null && id != undefined && id != ''"><input type="number" ng-model="data.quantity"
+				<tr  ng-if="id != 'address'" ng-repeat="(id, data) in cart">
+					<td >{{data.product.name}}</td>
+					<td ><input type="number" ng-model="data.quantity"
 						value="data.quantity" ng-change="onQttChange(id, data)"
 						min="0" max="cart[id].product.stock" required/>
 					</td >
-					<td ng-if="id != null && id != undefined && id != ''">{{data.quantity * data.product.price | currency:'R$ '}}</td>
+					<td >{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
 				<tr>
 					<td></td>

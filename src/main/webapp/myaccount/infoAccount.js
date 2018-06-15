@@ -17,9 +17,10 @@ app.controller('InfoAccountCtrl', function($scope, $window, $http, cartService, 
     }
 
     $scope.init = function() {
+        var user = authService.getLoggedUser();
         $http({
             method: 'GET',
-            url: baseHost + 'orders?userId=-LERzitEBJwXfPwqDAcg'
+            url: baseHost + 'orders?userId=' + user.id
           }).then(function successCallback(response) {
               $scope.orders = response.data;
               console.info($scope.orders);
