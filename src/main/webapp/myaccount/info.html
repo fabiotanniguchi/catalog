@@ -1,8 +1,11 @@
 <div class="container createAccount-container infoAccount-container" ng-controller="InfoAccountCtrl">
     <div class="row">
         <div class="col-md-12" style="padding:0;">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h4>Minha conta</h4>
+            </div>
+            <div class="col-md-6">
+                
                 <h3>Dados pessoais</h3>
                 <div class="col-md-6" style="padding-left: 0">
                     <label>CPF</label>
@@ -28,17 +31,59 @@
                     <label>Endereço</label>
                     <p>{{user.address}}</p>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" style="padding-left: 0; display: inline-block;">
                     <div style="margin-top: 16px;">
                         <a href="/myaccount/edit" class="btn btn-primary btn-md">Editar dados</a>
-                    </div>
-                    <div style="margin-top: 16px;">
-                        <input type="button" class="btn" ng-click="logout()" value="Sair"/>
+                        <input type="button" class="btn-flat" ng-click="logout()" style="color: #f73b3b;" value="Sair"/>
                     </div>
                 </div>
-
             </div>
+            <div class="col-md-6"> 
+                <h3 class="col-md-6" style="padding-left: 0;">Meus pedidos</h3>
+                <span class="col-md-6 total-pedidos" style="text-align: right; margin: 1.9466666667rem 0 1.168rem 0;">4 pedidos</span>
+                <ul class="meus-pedidos col-md-12" style="padding-left: 0;">
+                    <li class="col-md-12">
+                        <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido 1024812</div>
+                        <div class="col-md-12 pedido-status" style="padding-left: 0;">Entregue</div>
+                        <div class="col-md-4" style="padding-left: 0;">4 itens</div>
+                        <div class="col-md-4">R$ 1200,00</div>
+                        <div class="col-md-4" style="padding-right: 0;">02/06/2018</div>
 
+                    </li>
+                    <li class="col-md-12">
+                        <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido 1024812</div>
+                        <div class="col-md-12 pedido-status" style="padding-left: 0;">Entregue</div>
+                        <div class="col-md-4" style="padding-left: 0;">4 itens</div>
+                        <div class="col-md-4">R$ 1200,00</div>
+                        <div class="col-md-4" style="padding-right: 0;">02/06/2018</div>
+
+                    </li>
+                    <li class="col-md-12">
+                        <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido 1024812</div>
+                        <div class="col-md-12 pedido-status" style="padding-left: 0;">Entregue</div>
+                        <div class="col-md-4" style="padding-left: 0;">4 itens</div>
+                        <div class="col-md-4">R$ 1200,00</div>
+                        <div class="col-md-4" style="padding-right: 0;">02/06/2018</div>
+
+                    </li>
+                    <li class="col-md-12">
+                        <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido 1024812</div>
+                        <div class="col-md-12 pedido-status" style="padding-left: 0;">Entregue</div>
+                        <div class="col-md-4" style="padding-left: 0;">4 itens</div>
+                        <div class="col-md-4">R$ 1200,00</div>
+                        <div class="col-md-4" style="padding-right: 0;">02/06/2018</div>
+
+                    </li>
+                    <li class="col-md-12">
+                        <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido 1024812</div>
+                        <div class="col-md-12 pedido-status" style="padding-left: 0;">Entregue</div>
+                        <div class="col-md-4" style="padding-left: 0;">4 itens</div>
+                        <div class="col-md-4">R$ 1200,00</div>
+                        <div class="col-md-4" style="padding-right: 0;">02/06/2018</div>
+
+                    </li>
+                </ul>   
+            </div>
 
         </div>
     </div>
