@@ -3,11 +3,14 @@ package br.unicamp.sindo.catalog.external.customer.rest;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1ChangePasswordDTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1DTO;
 import br.unicamp.sindo.catalog.external.customer.dto.Customer1LoginDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,7 +113,7 @@ public class Customer1Rest {
     }
 
     @GetMapping(value = "/login")
-    public ResponseEntity<String> loginCustomer1(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<String> loginCustomer1(@RequestParam String email, @RequestParam String password) throws IOException {
         final String uri = CUSTOMER1_HOST + CUSTOMER1_LOGIN_PATH;
 
         HttpHeaders headers = new HttpHeaders();
@@ -126,17 +129,28 @@ public class Customer1Rest {
 
         HttpEntity<Customer1LoginDTO> entity = new HttpEntity<>(headers);
 
+
+        String id;
         ResponseEntity<String> response = null;
+        ResponseEntity<String> responseDetail = null;
+
         try {
             response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-            response = callUserDetails(response.getBody(), null);
+            id = response.getBody();
+            responseDetail = callUserDetails(id, null);
         } catch (Exception e) {
             System.err.println("[ERRO] Não foi possível realizar login do cliente " + email);
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return new ResponseEntity<String>(Base64.encode(response.getBody().getBytes()), null, HttpStatus.OK);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Customer1DTO customer1DTO = objectMapper.readValue(responseDetail.getBody(), Customer1DTO.class);
+        customer1DTO.setId(id);
+
+        String jsonStr = objectMapper.writeValueAsString(customer1DTO);
+
+        return new ResponseEntity<String>(Base64.encode(jsonStr.getBytes()), null, HttpStatus.OK);
     }
 
     @PutMapping(value = "/change/{id}")

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer1DTO {
-    private Integer id;
+    private String id;
     private String name;
     private String email;
     private String password;
@@ -19,4 +19,8 @@ public class Customer1DTO {
     private String address;
     private String gender;
     private String telephone;
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
