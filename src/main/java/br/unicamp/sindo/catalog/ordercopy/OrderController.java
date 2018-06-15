@@ -4,6 +4,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.unicamp.sindo.catalog.external.logistics.LogisticService;
+import br.unicamp.sindo.catalog.external.logistics.dto.LogisticsPackageFromDTO;
+import br.unicamp.sindo.catalog.external.logistics.dto.LogisticsPackageInsertResultDTO;
+import br.unicamp.sindo.catalog.external.logistics.dto.LogisticsPackageToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,16 +29,22 @@ public class OrderController {
 
     @Autowired
     protected OrderRepository orderRepository;;
+	LogisticService logisticService = new LogisticService();
 
     private ObjectMapper mapper = new ObjectMapper();
     private RestTemplate restTemplate = new RestTemplate();
     
     @PostMapping
     public ResponseEntity<Void> post(@RequestBody Order order) throws JsonProcessingException {
-    	OrderEntity entity = new OrderEntity();
-    	entity.setUserId(order.getUser().getId());
+
+//		LogisticsPackageToDTO dto = new LogisticsPackageToDTO(order);
+//		LogisticsPackageInsertResultDTO resultDto = logisticService.insertPackage(dto).getBody();
+
+		OrderEntity entity = new OrderEntity();
+		entity.setUserId(order.getUser().getId());
     	entity.setOrderJson(mapper.writeValueAsString(order));
     	orderRepository.save(entity);
+
     	return new ResponseEntity<>(HttpStatus.CREATED);
     }
     

@@ -142,27 +142,29 @@ public class ProductEntity extends BaseEntity {
             }
         }
 
-        return Product.builder()
-                .id(id)
-                .name(name)
-                .additionalInfo(additionalInfo)
-                .description(description)
-                .price(price)
-                .stock(stock)
-                .brand(brand)
-                .highlight(highlight)
-                .categoryId(categoryId)
-                .status(status)
-                .tags(tagsList)
-                .createdAt(createdAt == null ? null : createdAt.getTime())
-                .updatedAt(updatedAt == null ? null : updatedAt.getTime())
-                .imageUrl(imageUrl)
-                .weight(weight)
-                .height(height)
-                .width(width)
-                .length(length)
-                .groupId(groupId)
-                .build();
+        Product product = new Product();
+
+        product.setId(id);
+        product.setName(name);
+        product.setAdditionalInfo(additionalInfo);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setStock(stock);
+        product.setBrand(brand);
+        product.setHighlight(highlight);
+        product.setCategoryId(categoryId);
+        product.setStatus(status);
+        product.setTags(tagsList);
+        product.setCreatedAt(createdAt == null ? null : createdAt.getTime());
+        product.setUpdatedAt(updatedAt == null ? null : updatedAt.getTime());
+        product.setImageUrl(imageUrl);
+        product.setWeight(weight);
+        product.setHeight(height);
+        product.setWidth(width);
+        product.setLength(length);
+        product.setGroupId(groupId);
+
+        return product;
     }
 
     @Column(name = "name", nullable = false)

@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
 public class User {
 
@@ -19,4 +18,7 @@ public class User {
 	private String email;
 	private String name;
 	private String telephone;
+
+	public User() {
+	}
 }

@@ -34,7 +34,8 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 				$scope.cart.address.state = result.uf;
 				$scope.$apply()
 			}})
-		}else if($scope.step == 2){
+		}else if($scope.step == 3){
+			console.info("step 2");
 			var order = {};
 			order.address = $scope.cart.address;
 			order.address.postalCode = $scope.varCep;

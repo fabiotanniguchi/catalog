@@ -216,7 +216,6 @@ app.service('cartService', function($rootScope) {
         var cart = this.getCart();
         qty = 0;
 		for(id in cart){
-		    console.log("getCartSize", cart[id].quantity);
 		    //if (cart[id].quantity == null) {
 		     //   qty += 1;
 		    //} else {

@@ -9,7 +9,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
 public class Payment implements Serializable {
 	
@@ -22,4 +21,7 @@ public class Payment implements Serializable {
 	private String cvv;
 	private String name;
 	private String expirationDate;
+
+	public Payment() {
+	}
 }
