@@ -29,7 +29,7 @@ app.controller('MainCtrl', function($scope, authService, cartService) {
 
 });
 
-app.controller('HeaderCtrl', function($scope, authService, cartService) {
+app.controller('HeaderCtrl', function($scope, authService, cartService, $location) {
     $scope.textSearch = "";
     $scope.isLogged = false;
     $scope.user = null;
@@ -58,9 +58,14 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
     }
 
     $scope.buscarClick = function() {
-        //$location.path("/#!/")
-        //console.log("buscarClickUrl",  $location.path())
+        if ($location.path() != "/")
+        {
+            localStorage.setItem("buscar", $scope.textSearch);
+            $location.path("/#!/")
+        }
+        console.log("buscarClickUrl",  $location.path())
         //$window.location.href = "/#!/"
+
         console.log("headerBuscarClickTxt", $scope.textSearch)
         $scope.$emit('buscarClick', $scope.textSearch);
     }

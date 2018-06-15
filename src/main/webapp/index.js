@@ -4,7 +4,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 	$scope.products = [];
 	$scope.categories = [];
 	$scope.productsResult = [];
-	$scope.categoryResult = "Destaques";
+	$scope.categoryResult = "";
 	$scope.categoryID = null;
 	$scope.categorySelected = false;
 
@@ -24,10 +24,17 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 			}
 		}
 
-		if ($scope.products.length == 0) {
-		    $scope.products = $scope.productsResult;
-		    $scope.categoryResult = "Todos";
-		}
+        if (!localStorage.getItem("buscar") || localStorage.getItem("buscar") === "undefined"){
+            if ($scope.products.length == 0) {
+                $scope.products = $scope.productsResult;
+                $scope.categoryResult = "Todos";
+            } else {
+                $scope.categoryResult = "Destaques";
+            }
+        } else {
+            $scope.searchProducts(localStorage.getItem("buscar"));
+            localStorage.removeItem("buscar");
+        }
 
 		$scope.$apply();
 	}
@@ -37,6 +44,10 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 	}
 
     $scope.$on('buscarClickRefresh', function (event, name) {
+        $scope.searchProducts(name);
+    });
+
+    $scope.searchProducts = function(name) {
         name = name.toUpperCase()
         console.log("buscarIndexTxt", name)
 
@@ -55,7 +66,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
             $scope.categoryResult = "Busca";
             $scope.products = findProducts;
         }
-    });
+    }
 
 	$scope.parseCategories = function (result) {
 		$scope.categories = [];
@@ -116,6 +127,6 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 		$.ajax({url: baseHost + "categories", success: function(result){
 			$scope.parseCategories(result);
 		}});
-	};
+	}
 
 });
