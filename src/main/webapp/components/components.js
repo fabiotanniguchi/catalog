@@ -21,7 +21,6 @@ app.controller('MainCtrl', function($scope, authService, cartService) {
     });
 
     $scope.$on('buscarClick', function (event, name) {
-        console.log("maisBuscarClickTxt", name)
         $scope.$broadcast('buscarClickRefresh', name);
 
         $scope.templateUrl = "/"
@@ -37,9 +36,6 @@ app.controller('HeaderCtrl', function($scope, authService, cartService, $locatio
     $scope.cartSize = null;
 
     $scope.init = function() {
-        console.log("init");
-    	console.log(authService.isLogged());
-    	console.log(authService.getLoggedUser());
         if (authService.isLogged()) {
             $scope.isLogged = true;
             $scope.user = authService.getLoggedUser();
@@ -63,15 +59,12 @@ app.controller('HeaderCtrl', function($scope, authService, cartService, $locatio
             localStorage.setItem("buscar", $scope.textSearch);
             $location.path("/#!/")
         }
-        console.log("buscarClickUrl",  $location.path())
         //$window.location.href = "/#!/"
 
-        console.log("headerBuscarClickTxt", $scope.textSearch)
         $scope.$emit('buscarClick', $scope.textSearch);
     }
 
     $scope.cartClick = function() {
-        console.log("cartClick");
         //$scope.$emit('cartClick', null);
         return cartService.cleanCart();
     }
