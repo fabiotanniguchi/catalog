@@ -81,6 +81,9 @@ public class PaymentService {
             hasCredit = true;
         }
 
+        if(data.getCardNumber().startsWith("9911")){
+        	hasCredit = false;
+        }
         this.tryToInsertCreditCard(data, hasCredit);
 
         HttpEntity<CreditCardPaymentData> entity = new HttpEntity<>(data, headers);

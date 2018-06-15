@@ -64,11 +64,19 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost, 
 			delete order.products;
 			order.products = products;
 			
+			$scope.step = $scope.step - 1;
 			var requestUrl = baseHost + "/orders";
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function(){
 			  if(xhttp.readyState == 4){
 				  var result = xhttp.responseText;
+				  if(xhttp.status != 401){
+					  M.Toast.dismissAll();
+					  M.toast({html: 'Pedido Realizado com sucesso!'})
+				  }else{
+					  M.Toast.dismissAll();
+					  M.toast({html: 'Pagamento Não Autorizado :('})
+				  }
 			  }else{
 				  $scope.fail(result);
 			  }
@@ -77,12 +85,9 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost, 
 			xhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
 			xhttp.send(JSON.stringify(order));
 
-			// clean cart in local storage
 			localStorage.removeItem("cart");
-			///myaccount/info
 			$location.path("/myaccount/info")
-			 M.Toast.dismissAll();
-             M.toast({html: 'Pedido Realizado com sucesso!'})
+			
 		}
 	}
 

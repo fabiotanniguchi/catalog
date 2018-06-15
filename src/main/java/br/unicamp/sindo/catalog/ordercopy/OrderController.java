@@ -54,7 +54,7 @@ public class OrderController {
     		pagamentoOk = true;
     	}else{
     		CreditCardPaymentResultData creditCardPayment = paymentService.postCreditCardPayment(order);
-    		order.setCreditCardResult(creditCardPayment);
+    		order.setCreditCardResult(creditCardPayment); //creditCardPayment.setResult("UNAUTHORIZED")
     		if("AUTHORIZED".equals(creditCardPayment.getResult())){
     			pagamentoOk = true;
     		}
