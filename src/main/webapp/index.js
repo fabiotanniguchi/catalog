@@ -5,10 +5,14 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 	$scope.categories = [];
 	$scope.productsResult = [];
 	$scope.categoryResult = "Destaques";
+	$scope.categoryID = null;
+	$scope.categorySelected = false;
 
 	$scope.parseProducts = function (result) {
 		$scope.products = [];
 		$scope.productsResult = [];
+		$scope.categoryID = null;
+		$scope.categorySelected = false;
 		//console.info(result);
 		for(var i = 0; i < result.length; i++){
 			if (result[i].price > 0 && result[i].stock > 0) {
@@ -62,8 +66,11 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 	}
 
 	$scope.parseProductsByCategory = function(id, name) {
+	    console.log("categorias", $scope.categories)
         $scope.categoryResult = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
         $scope.products = [];
+        $scope.categoryID = id;
+        $scope.categorySelected = true;
 
         for (var i = 0; i < $scope.productsResult.length; i++) {
             if ($scope.productsResult[i].categoryId != null && $scope.productsResult[i].categoryId == id) {
@@ -75,6 +82,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
             M.Toast.dismissAll();
             M.toast({html: "Nenhum produto cadastrado nesta categoria!"}, outDuration = 1000);
             $scope.showProductsHighlight();
+            $scope.categorySelected = false;
         }
     }
 
@@ -84,6 +92,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 
     $scope.showProductsHighlight = function() {
         $scope.products = [];
+        $scope.categorySelected = false;
         for (var i = 0; i < $scope.productsResult.length; i++) {
             if ($scope.productsResult[i].highlight == true) {
                 $scope.products.push($scope.productsResult[i]);
