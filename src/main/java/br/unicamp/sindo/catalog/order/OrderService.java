@@ -14,7 +14,7 @@ import java.util.UUID;
 public class OrderService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderRepositoryDeprecated orderRepository;
 
     @Autowired
     private OrderProductRepository orderProductRepository;

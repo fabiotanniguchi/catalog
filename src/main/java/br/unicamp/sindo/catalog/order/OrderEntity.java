@@ -1,10 +1,10 @@
 package br.unicamp.sindo.catalog.order;
 
-import br.unicamp.sindo.catalog.utils.repository.BaseEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import br.unicamp.sindo.catalog.utils.repository.BaseEntity;
 
 @Entity
 @Table(name = "store_order")
