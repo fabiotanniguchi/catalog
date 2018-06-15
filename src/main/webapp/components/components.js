@@ -14,14 +14,23 @@ app.component('loading', {
 
 
 app.controller('MainCtrl', function($scope, authService, cartService) {
+
+
     $scope.$on('headerClick', function (event, args) {
         $scope.$broadcast('headerClickRefresh');
+    });
+
+    $scope.$on('buscarClick', function (event, name) {
+        console.log("maisBuscarClickTxt", name)
+        $scope.$broadcast('buscarClickRefresh', name);
+
+        $scope.templateUrl = "/"
     });
 
 });
 
 app.controller('HeaderCtrl', function($scope, authService, cartService) {
-
+    $scope.textSearch = "";
     $scope.isLogged = false;
     $scope.user = null;
 
@@ -46,6 +55,14 @@ app.controller('HeaderCtrl', function($scope, authService, cartService) {
     $scope.headerClick = function() {
         $scope.$emit('headerClick', null);
         cartService.cleanCart();
+    }
+
+    $scope.buscarClick = function() {
+        //$location.path("/#!/")
+        //console.log("buscarClickUrl",  $location.path())
+        //$window.location.href = "/#!/"
+        console.log("headerBuscarClickTxt", $scope.textSearch)
+        $scope.$emit('buscarClick', $scope.textSearch);
     }
 
     $scope.cartClick = function() {
