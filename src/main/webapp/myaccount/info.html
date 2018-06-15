@@ -44,9 +44,22 @@
                 <ul class="meus-pedidos col-md-12" style="padding-left: 0;">
                     <li class="col-md-12" ng-click="openModal(order);" style="cursor: pointer;" ng-repeat="order in orders">
                         <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido {{order.id}}</div>
-                        <div class="col-md-12 pedido-status" style="padding-left: 0;">{{order.deliveryTracking.historicoRastreio[0].mensagem}}</div>
-                        <div class="col-md-6" style="padding-left: 0;">{{ order.products.length }} itens</div>
-                        <div class="col-md-6" style="text-align:right;">Total: {{ order.total | currency:'R$ ' }}</div>
+                        <div class="col-md-12 pedido-status" style="padding-left: 0; padding-top:20px;">
+                            <label>Status Envio</label>
+                            <div>{{order.deliveryTracking.historicoRastreio[0].mensagem}}</div>
+                        <div class="col-md-12" style="padding-left: 0">
+                            <label>Status Pagamento</label>
+                            <div ng-if="order.billResult != null">
+                                <span ng-show="order.billResult.result === 'AUTHORIZED'">Autorizado</span>
+                                <span ng-show="order.billResult.result != 'AUTHORIZED'">Não autorizado</span>
+                            </div>
+                            <div ng-if="order.creditCardResult != null">
+                                <span ng-show="order.creditCardResult.result === 'AUTHORIZED'">Autorizado</span>
+                                <span ng-show="order.creditCardResult.result != 'AUTHORIZED'">Não autorizado</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding-left: 0; padding-top:20px;">{{ order.products.length }} itens</div>
+                        <div class="col-md-6" style="text-align:right; padding-top:20px;">Total: {{ order.total | currency:'R$ ' }}</div>
                     </li>
                 </ul>
                 <div id="modal1" class="modal modal-fixed-footer">
