@@ -12,7 +12,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
 public class Order implements Serializable {
 
@@ -29,5 +28,7 @@ public class Order implements Serializable {
     private int expectedDays;
     private double postalFee;
     private String deliveryType;
+
+    public Order(){}
 
 }

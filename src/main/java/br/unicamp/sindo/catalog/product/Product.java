@@ -4,10 +4,7 @@ import br.unicamp.sindo.catalog.Status;
 import br.unicamp.sindo.catalog.utils.MD5;
 import br.unicamp.sindo.catalog.utils.web.VersionableDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,8 +13,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
 @ToString
+@NoArgsConstructor
 public class Product extends VersionableDTO implements Serializable {
 
     /**
@@ -46,6 +43,8 @@ public class Product extends VersionableDTO implements Serializable {
     private Double height;
 
     private String groupId;
+
+
 
     @JsonIgnore
     public String version() {

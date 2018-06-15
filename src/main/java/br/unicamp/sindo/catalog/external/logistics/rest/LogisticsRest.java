@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.external.logistics.rest;
 
+import br.unicamp.sindo.catalog.external.logistics.LogisticService;
 import br.unicamp.sindo.catalog.external.logistics.dto.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -71,21 +72,7 @@ public class LogisticsRest {
 
     @PostMapping
     public ResponseEntity<LogisticsPackageInsertResultDTO> insertPackage(@RequestBody LogisticsPackageFromDTO dto) {
-        final String uri = LOGISTICS_HOST + LOGISTICS_PACKAGE_INSERT_PATH;
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<LogisticsPackageToDTO> entity = new HttpEntity<>(LogisticsPackageToDTO.from(dto), headers);
-
-        ResponseEntity<LogisticsPackageInsertResultDTO> response = null;
-        try {
-            response = restTemplate.postForEntity(uri, entity, LogisticsPackageInsertResultDTO.class);
-        } catch (Exception e) {
-            System.err.println("[ERRO] Não foi possível inserir pacote.");
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
+        LogisticService logisticService = new LogisticService();
+        return logisticService.insertPackage(dto);
     }
 }

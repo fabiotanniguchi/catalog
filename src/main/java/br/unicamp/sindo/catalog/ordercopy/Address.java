@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
 public class Address {
 
@@ -18,4 +17,7 @@ public class Address {
 	private String number;
 	private String complement;
 	private String postalCode;
+
+	public Address() {
+	}
 }
