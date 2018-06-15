@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class CategorySpecification extends RootSpecification<CategoryEntity> {
 
-    public static Specification<CategoryEntity> buildSpec(Optional<String> name, Optional<UUID> parentId, Optional<Status> status) {
+    public static Specification<CategoryEntity> buildSpec(Optional<String> name, Optional<UUID> parentId, Optional<String> groupId, Optional<Status> status) {
         CategorySpecification specDefinition = new CategorySpecification();
         Specification<CategoryEntity> specs = Specification.where(specDefinition.init());
 
@@ -24,6 +24,10 @@ public class CategorySpecification extends RootSpecification<CategoryEntity> {
 
         if (status.isPresent()) {
             specs = specs.and(withStatus(status.get()));
+        }
+        
+        if (groupId.isPresent()) {
+        	specs = specs.and(withGroupId(groupId.get()));
         }
 
         return specs;
@@ -39,6 +43,13 @@ public class CategorySpecification extends RootSpecification<CategoryEntity> {
     private static Specification<CategoryEntity> withName(final String name) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.like(root.get("name"), name);
+            return predicate;
+        };
+    }
+    
+    private static Specification<CategoryEntity> withGroupId(final String groupId) {
+        return (root, criteriaQuery, criteriaBuilder) -> {
+            Predicate predicate = criteriaBuilder.like(root.get("groupId"), groupId);
             return predicate;
         };
     }
