@@ -1,6 +1,6 @@
 var app = angular.module('catalogProducts');
 
-app.controller('CartCtrl', function($scope, cartService, authService, baseHost) {
+app.controller('CartCtrl', function($scope, cartService, authService, baseHost, $location) {
 
 	$scope.step = 0;
 	$scope.varCep = 0;
@@ -12,6 +12,7 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 		//$scope.cart = cartService.getCart();
 		$scope.orderInfo = {};
 		$scope.orderInfo.subTotal = cartService.totalValue();
+		$scope.varCep = authService.getLoggedUser().cep;
 	}
 
 	$scope.isEmpty = function() {
@@ -75,7 +76,13 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 			xhttp.open("POST", requestUrl, true);
 			xhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
 			xhttp.send(JSON.stringify(order));
-			
+
+			// clean cart in local storage
+			localStorage.removeItem("cart");
+			///myaccount/info
+			$location.path("/myaccount/info")
+			 M.Toast.dismissAll();
+             M.toast({html: 'Pedido Realizado com sucesso!'})
 		}
 	}
 

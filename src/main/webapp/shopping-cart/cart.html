@@ -73,11 +73,11 @@
 					</label></td>
 					<td>
 						<div class="input-field">
-							<input type="text" id="cep" ng-model="cep" /> <label for="cep">Digite
+							<input type="text" id="cep" ng-model="varCep" ng-change="hasChanged = true" ng-value="varCep"/> <label for="cep" class="active | hasChanged">Digite
 								aqui o CEP</label>
 						</div>
 						<button type="button" class="btn"
-							ng-click="getPostalFee(cep, tipoEntrega)" type="button">Calcular
+							ng-click="getPostalFee(varCep, tipoEntrega)" type="button">Calcular
 							frete</button>
 					</td>
 				</tr>
@@ -156,7 +156,7 @@
 			<div class="col-md-7">
 				<div class="col-md-6">
 					<div class="input-field">
-						<input type="text" id="cepp" ng-value="varCep" disabled />
+						<input type="text" id="cepp" ng-model="varCep" value="varCep" disabled />
 					</div>
 				</div>
 				<div class="col-md-12">
@@ -205,13 +205,13 @@
 					<th>Quantidade</th>
 					<th>Preço</th>
 				</tr>
-				<tr ng-repeat="(id, data) in cart">
-					<td>{{data.product.name}}</td>
-					<td><input type="number" ng-model="data.quantity"
+				<tr  ng-repeat="(id, data) in cart">
+					<td ng-if="id != null && id != undefined && id != ''">{{data.product.name}}</td>
+					<td ng-if="id != null && id != undefined && id != ''"><input type="number" ng-model="data.quantity"
 						value="data.quantity" ng-change="onQttChange(id, data)"
 						min="0" max="cart[id].product.stock" required/>
-					<td>
-					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
+					</td >
+					<td ng-if="id != null && id != undefined && id != ''">{{data.quantity * data.product.price | currency:'R$ '}}</td>
 				</tr>
 				<tr>
 					<td></td>
@@ -241,7 +241,7 @@
 			<div class="col-md-7">
 				<div class="col-md-6">
 					<div class="input-field">
-						<input type="text" id="cep" ng-model="cart.address.cep" disabled/> 
+						<input type="text" id="cep" ng-model="cart.address.cep" value="" disabled/>
 					</div>
 				</div>
 				<div class="col-md-12">
