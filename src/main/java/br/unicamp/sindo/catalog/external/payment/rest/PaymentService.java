@@ -3,6 +3,9 @@ package br.unicamp.sindo.catalog.external.payment.rest;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.unicamp.sindo.catalog.external.customercreditclassification.dto.CustomerCreditClassificationDTO;
+import br.unicamp.sindo.catalog.external.customercreditclassification.rest.CustomerCreditClassificationRest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,6 +32,9 @@ public class PaymentService {
     private static final String SUBMIT_BOLETO_PAYMENT_PATH = "payments/bankTicket";
     private static final String BOLETO_STATUS_PATH = "payments/bankTicket/{code}/status";
     private static final String CREDIT_CARD_PATH = "creditCard";
+
+    @Autowired
+    protected CustomerCreditClassificationRest cccr;
 
     public BoletoStatusData getBoletoStatus(String code) {
         final String uri = PAYMENTS_HOST + BOLETO_STATUS_PATH;
@@ -69,7 +75,13 @@ public class PaymentService {
         data.setValue(String.valueOf(order.getTotal()));
         data.setYear(year);
 
-        this.tryToInsertCreditCard(data);
+        boolean hasCredit = false;
+        CustomerCreditClassificationDTO dto = cccr.getCreditScore(data.getCpf()).getBody();
+        if(dto.getScore() > 500){
+            hasCredit = true;
+        }
+
+        this.tryToInsertCreditCard(data, hasCredit);
 
         HttpEntity<CreditCardPaymentData> entity = new HttpEntity<>(data, headers);
 
@@ -150,13 +162,13 @@ public class PaymentService {
 //        }
 //    }
 
-    private void tryToInsertCreditCard(CreditCardPaymentData creditCardPaymentData) {
+    private void tryToInsertCreditCard(CreditCardPaymentData creditCardPaymentData, boolean hasCredit) {
         final String uri = PAYMENTS_HOST + CREDIT_CARD_PATH;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<CreditCardInsertData> entity = new HttpEntity<>(CreditCardInsertData.from(creditCardPaymentData), headers);
+        HttpEntity<CreditCardInsertData> entity = new HttpEntity<>(CreditCardInsertData.from(creditCardPaymentData, hasCredit), headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<CreditCardData> response = null;;
         try {
