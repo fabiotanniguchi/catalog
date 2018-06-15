@@ -101,8 +101,10 @@ public class OrderController {
 						o.setBillStatus(data);
     				}
     				
-    				LogisticsTrackingResultDTO deliveryTracking = logisticsService.getStatus(o);
-    				o.setDeliveryTracking(deliveryTracking);
+    				if(o.getPackageTracking() != null){
+	    				LogisticsTrackingResultDTO deliveryTracking = logisticsService.getStatus(o);
+	    				o.setDeliveryTracking(deliveryTracking);
+    				}
     				
     				return o;
     			})
