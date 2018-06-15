@@ -47,23 +47,34 @@ public class OrderController {
 
     	fillOrderValues(order);
     	
+    	boolean pagamentoOk = false;
     	if(order.getPayment() == null){
     		BoletoPaymentResultData billPayment = paymentService.postBillPayment(order);
     		order.setBillResult(billPayment);
+    		pagamentoOk = true;
     	}else{
     		CreditCardPaymentResultData creditCardPayment = paymentService.postCreditCardPayment(order);
     		order.setCreditCardResult(creditCardPayment);
+    		if("AUTHORIZED".equals(creditCardPayment.getResult())){
+    			pagamentoOk = true;
+    		}
     	}
     	
-    	LogisticsPackageInsertResultDTO packageTracking = logisticsService.insertPackage(order);
-    	order.setPackageTracking(packageTracking);
-    	
+    	//se for boleto ou carto autorizado envia pra logística
+    	if(pagamentoOk == true){
+	    	LogisticsPackageInsertResultDTO packageTracking = logisticsService.insertPackage(order);
+	    	order.setPackageTracking(packageTracking);
+    	}
     	OrderEntity entity = new OrderEntity();
     	entity.setId(UUID.randomUUID());
     	order.setId(entity.getId());
     	entity.setUserId(order.getUser().getId());
     	entity.setOrderJson(mapper.writeValueAsString(order));
     	orderRepository.save(entity);
+    	
+    	if(!pagamentoOk){
+    		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    	}
 
     	return new ResponseEntity<>(HttpStatus.CREATED);
     }
