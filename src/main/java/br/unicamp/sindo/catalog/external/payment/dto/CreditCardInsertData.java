@@ -11,10 +11,10 @@ public class CreditCardInsertData {
     private Long number;
     private Boolean hasCredit;
 
-    public static CreditCardInsertData from(CreditCardPaymentData data) {
+    public static CreditCardInsertData from(CreditCardPaymentData data, boolean hasCredit) {
         CreditCardInsertData creditCard = new CreditCardInsertData();
         creditCard.number = Long.parseLong(data.getCardNumber().trim());
-        creditCard.hasCredit = true;
+        creditCard.hasCredit = hasCredit;
         return creditCard;
     }
 }
