@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -55,15 +56,18 @@ public class PaymentService {
         headers.setContentType(MediaType.APPLICATION_JSON);
     	final String uri = PAYMENTS_HOST + EVALUATE_CREDIT_CARD_PAYMENT_PATH;
 
+    	String month = order.getPayment().getExpirationDate().split("/")[0];
+    	String year = order.getPayment().getExpirationDate().split("/")[1];
+    	
         CreditCardPaymentData data = new CreditCardPaymentData();
         data.setCardNumber(order.getPayment().getCreditCard());
         data.setClientCardName(order.getPayment().getName());
         data.setCpf(order.getUser().getCpf());
         data.setInstalments("1");
-        data.setMonth("10");
+        data.setMonth(month);
         data.setSecurityCode(order.getPayment().getCvv());
-        data.setValue("100.0");
-        data.setYear("2020");
+        data.setValue(String.valueOf(order.getTotal()));
+        data.setYear(year);
 
         this.tryToInsertCreditCard(data);
 
@@ -71,7 +75,7 @@ public class PaymentService {
 
         ResponseEntity<CreditCardPaymentResultData> response = null;
         RestTemplate restTemplate = new RestTemplate();
-        response = restTemplate.postForEntity(uri, entity, CreditCardPaymentResultData.class);
+        response = restTemplate.exchange(uri, HttpMethod.POST, entity, CreditCardPaymentResultData.class);
         return response.getBody();
     }
     
@@ -84,7 +88,7 @@ public class PaymentService {
         data.setAddress(order.getUser().getAddress());
         data.setCep(order.getAddress().getPostalCode());
         data.setCpf(order.getUser().getCpf());
-        data.setValue("100.0");
+        data.setValue(String.valueOf(order.getTotal()));
 
         HttpEntity<BoletoPaymentData> entity = new HttpEntity<>(data, headers);
 
@@ -154,8 +158,9 @@ public class PaymentService {
 
         HttpEntity<CreditCardInsertData> entity = new HttpEntity<>(CreditCardInsertData.from(creditCardPaymentData), headers);
         RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<CreditCardData> response = null;;
         try {
-            restTemplate.postForEntity(uri, entity, CreditCardData.class);
+            response = restTemplate.postForEntity(uri, entity, CreditCardData.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
