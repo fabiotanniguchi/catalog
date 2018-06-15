@@ -107,6 +107,14 @@ $scope.validateCreditCard = function(){
 		M.toast({html: "Informe o cartão de crédito"}, outDuration = 1000);
 		return;
 	}
+
+	var expirationDate = $scope.cart.payment.expirationDate;
+	var monthAndYear = expirationDate.split("/");
+	if (monthAndYear[1] < 2018 || (monthAndYear[1] == 2018 && monthAndYear[0] < 6)){
+		M.toast({html: "Cartao Expirado"}, outDuration = 1000);
+		return;	
+	}
+
 	console.info($scope.cart.payment);
 
 	var user = authService.getLoggedUser();
