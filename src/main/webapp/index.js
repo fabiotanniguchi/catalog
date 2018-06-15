@@ -4,7 +4,8 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 	$scope.products = [];
 	$scope.categories = [];
 	$scope.productsResult = [];
-	$scope.categoryResult = "";
+	$scope.categoriesResult = [];
+	$scope.categoryName = "";
 	$scope.categoryID = null;
 	$scope.categorySelected = false;
 
@@ -27,9 +28,9 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
         if (!localStorage.getItem("buscar") || localStorage.getItem("buscar") === "undefined"){
             if ($scope.products.length == 0) {
                 $scope.products = $scope.productsResult;
-                $scope.categoryResult = "Todos";
+                $scope.categoryName = "Todos";
             } else {
-                $scope.categoryResult = "Destaques";
+                $scope.categoryName = "Destaques";
             }
         } else {
             $scope.searchProducts(localStorage.getItem("buscar"));
@@ -63,7 +64,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
             M.toast({html: "Nenhum produto encontrado na busca!"}, outDuration = 1000);
             $scope.showProductsHighlight()
         } else {
-            $scope.categoryResult = "Busca";
+            $scope.categoryName = "Busca";
             $scope.products = findProducts;
         }
     }
@@ -71,14 +72,17 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 	$scope.parseCategories = function (result) {
 		$scope.categories = [];
 		for(var i = 0; i < result.length; i++){
-			$scope.categories.push(result[i]);
+		    $scope.categoriesResult.push(result[i]);
+		    if (result[i].parentId == null) {
+		        $scope.categories.push(result[i]);
+		    }
 		}
 		$scope.$apply();
 	}
 
 	$scope.parseProductsByCategory = function(id, name) {
 	    console.log("categorias", $scope.categories)
-        $scope.categoryResult = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        $scope.categoryName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
         $scope.products = [];
         $scope.categoryID = id;
         $scope.categorySelected = true;
@@ -112,14 +116,15 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 
         if ($scope.products.length == 0) {
             $scope.products = $scope.productsResult;
-            $scope.categoryResult = "Todos";
+            $scope.categoryName = "Todos";
         } else {
-            $scope.categoryResult = "Destaques";
+            $scope.categoryName = "Destaques";
         }
     }
 
 
 	$scope.onLoad = function (argument) {
+	//?group_id=products1
 		$.ajax({url:  baseHost + "products", success: function(result){
 			$scope.parseProducts(result);
 		}});
