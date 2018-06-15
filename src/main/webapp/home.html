@@ -6,6 +6,11 @@
                 {{ category.name }}
             </li>
         </ul>
+        <ul class="browser-default" id="subcategories-galery" ng-if="categorySelected">
+            <li class="" ng-if="category.parentId == categoryID" ng-repeat="category in categories" ng-click="parseProductsByCategory(category.id, category.name);">
+                {{ category.name }}
+            </li>
+        </ul>
     </div>
 
     <div class="products">
