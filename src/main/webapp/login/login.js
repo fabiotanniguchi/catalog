@@ -4,21 +4,27 @@ app.controller('LoginCtrl', function($scope, authService, baseHost) {
 
     $scope.login = function() {
 
-		$scope.loading = true;
-		$scope.message = "";
+			if (!$scope.user) {
+				M.toast({html: "Preencha todos os campos para fazer login"}, outDuration = 1000);
+				return;
+			}
 
-		var requestUrl = baseHost + "external/customers/login?email=" + $scope.user.email + "&password=" + $scope.user.password;
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function(){
-		  if(xhttp.readyState == 4){
-		      var result = xhttp.responseText;
-		      $scope.success(result);
-		  }else{
-			  $scope.fail(result);
-		  }
-		};
-		xhttp.open("GET", requestUrl, true);
-		xhttp.send();
+			$scope.loading = true;
+			$scope.message = "";
+
+			var requestUrl = baseHost + "external/customers/login?email=" + $scope.user.email + "&password=" + $scope.user.password;
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function(){
+				if(xhttp.readyState == 4){
+						var result = xhttp.responseText;
+						console.info(result)
+						$scope.success(result);
+				}else{
+					$scope.fail(result);
+				}
+			};
+			xhttp.open("GET", requestUrl, true);
+			xhttp.send();
     }
 
     $scope.success = function(result){
@@ -31,7 +37,7 @@ app.controller('LoginCtrl', function($scope, authService, baseHost) {
       }
 
       $scope.fail = function(result){
-    	$scope.loading = false;
+    		$scope.loading = false;
         console.info("fail");
       }
 });
