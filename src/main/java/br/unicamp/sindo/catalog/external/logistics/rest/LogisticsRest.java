@@ -51,28 +51,4 @@ public class LogisticsRest {
         return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
     }
 
-    @GetMapping(value = "/tracking/{code}")
-    public ResponseEntity<LogisticsTrackingResultDTO> getTrackingInfo(@PathVariable String code) {
-        final String uri = LOGISTICS_HOST + LOGISTICS_TRACKING_PATH;
-
-        Map<String, String> params = new HashMap<>();
-        params.put("apiKey", LOGISTICS_API_KEY);
-        params.put("cod_rastreio", code);
-
-        ResponseEntity<LogisticsTrackingResultDTO> response = null;
-        try {
-            response = restTemplate.getForEntity(uri, LogisticsTrackingResultDTO.class, params);
-        } catch (Exception e) {
-            System.err.println("[ERRO] Não foi possível obter dados de rastreio");
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
-    }
-
-    @PostMapping
-    public ResponseEntity<LogisticsPackageInsertResultDTO> insertPackage(@RequestBody LogisticsPackageFromDTO dto) {
-        LogisticService logisticService = new LogisticService();
-        return logisticService.insertPackage(dto);
-    }
 }

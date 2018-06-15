@@ -53,6 +53,15 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 			order.expectedDays = $scope.orderInfo.expectedDays;
 			order.deliveryType = $scope.deliveryType;
 
+			var products = [];
+			for(var key in order.products){
+				var product = order.products[key].product;
+				product.quantity = order.products[key].quantity;
+				products.push(product);
+			}
+			
+			delete order.products;
+			order.products = products;
 			
 			var requestUrl = baseHost + "/orders";
 			var xhttp = new XMLHttpRequest();
