@@ -61,6 +61,27 @@
                                 <label>Entrega em</label>
                                 <p>{{ modalOrder.expectedDays }} dias úteis</p>
                             </div>
+                            <div class="col-md-6" style="padding-left: 0">
+                                <label>Forma de Pagamento</label>
+                                <p ng-if="modalOrder.billResult != null">
+                                    Boleto
+                                </p>
+                                <p ng-if="modalOrder.creditCardResult != null">
+                                    Cartão de Crédito
+                                </p>
+                            </div>
+                            <div class="col-md-6" style="padding-left: 0">
+                                <label>Status Pagamento</label>
+                                <p ng-if="modalOrder.billResult != null">
+                                    <span ng-show="modalOrder.billResult.result === 'AUTHORIZED'">Autorizado</span>
+                                    <span ng-show="modalOrder.billResult.result != 'AUTHORIZED'">Não autorizado</span>
+                                </p>
+                                <p ng-if="modalOrder.creditCardResult != null">
+                                    <span ng-show="modalOrder.creditCardResult.result === 'AUTHORIZED'">Autorizado</span>
+                                    <span ng-show="modalOrder.creditCardResult.result != 'AUTHORIZED'">Não autorizado</span>
+                                </p>
+                            </div>
+
                             <div class="col-md-12" style="padding-left: 0; margin-top: 24px;" ng-if="modalOrder.deliveryTracking.historicoRastreio.length > 0">
                                 <label>Acompanhe sua compra</label>
                                 <table>
