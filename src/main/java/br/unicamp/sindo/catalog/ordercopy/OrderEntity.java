@@ -41,6 +41,8 @@ public class OrderEntity extends BaseEntity {
     
     public Order assemble(){
     	try {
+    		Order order = mapper.readValue(orderJson, Order.class);
+    		order.setId(id);
 			return mapper.readValue(orderJson, Order.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);

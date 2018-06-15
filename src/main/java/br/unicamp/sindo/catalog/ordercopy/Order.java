@@ -28,5 +28,6 @@ public class Order implements Serializable {
     private User user;
     private int expectedDays;
     private double postalFee;
+    private String deliveryType;
 
 }

@@ -50,13 +50,14 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 			order.orderInfo = {};
 			order.postalFee = $scope.orderInfo.postalFee;
 			order.expectedDays = $scope.orderInfo.expectedDays;
+			order.deliveryType = $scope.deliveryType;
 
 			
 			var requestUrl = baseHost + "/orders";
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function(){
 			  if(xhttp.readyState == 4){
-			      var result = xhttp.responseText;
+				  var result = xhttp.responseText;
 			  }else{
 				  $scope.fail(result);
 			  }
@@ -65,18 +66,13 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 			xhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
 			xhttp.send(JSON.stringify(order));
 			
-//			$.ajax({type: "POST"
-//				, url: baseHost + "orders"
-//				, data: order
-//				, success: function(result){
-//					console.log("bla");
-//				}});
 		}
 	}
 
 
 $scope.getPostalFee = function(cep, tipoEntrega) {
 	$scope.varCep = cep;
+	$scope.deliveryType = tipoEntrega;
 	$.ajax({url:  baseHost + "external/logistics/calc?tipoEntrega="+tipoEntrega+"&cepDestino="+cep+"&quantidade="+cartService.getCartSize(), success: function(result){
 		$scope.orderInfo.postalFee = parseFloat(result.preco);
 		$scope.orderInfo.expectedDays = parseInt(result.prazo);
@@ -90,8 +86,9 @@ $scope.selectPayment = function(value) {
 
 $scope.validateCreditCard = function(){
 	console.info("validateCreditCard");
-	if(!$scope.cart.payment){
-		alert("informe o cartão de crédito");
+	if (!$scope.cart.payment){
+		M.toast({html: "Informe o cartão de crédito"}, outDuration = 1000);
+		return;
 	}
 	console.info($scope.cart.payment);
 
@@ -115,9 +112,10 @@ $scope.success = function(result){
 	result = JSON.parse(result);
 	console.info("success", result);
 	if(result && result.score > 300){
-		alert("Cartão de crédito validado com sucesso")
+		M.toast({html: "Cartão de crédito validado com sucesso"}, outDuration = 1000);
 	}else{
-		alert("Não é possivel prosseguir com a compra com esse cartão de credito")
+		M.toast({html: "Não é possivel prosseguir com a compra com esse cartão de credito"}, outDuration = 1000);
+		return
 	}
 }
 

@@ -1,5 +1,6 @@
 package br.unicamp.sindo.catalog.ordercopy;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +26,7 @@ public class OrderController {
     protected OrderRepository orderRepository;;
 
     private ObjectMapper mapper = new ObjectMapper();
+    private RestTemplate restTemplate = new RestTemplate();
     
     @PostMapping
     public ResponseEntity<Void> post(@RequestBody Order order) throws JsonProcessingException {
@@ -39,8 +42,9 @@ public class OrderController {
     	return new ResponseEntity<List<Order>>(
     			orderRepository.findByUserId(userId)
     			.stream()
+    			.sorted(Comparator.comparing(OrderEntity::getCreatedAt).reversed())
     			.map(OrderEntity::assemble)
     			.collect(Collectors.toList()), HttpStatus.OK);
     }
-
+    
 }

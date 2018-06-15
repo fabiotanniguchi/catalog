@@ -4,12 +4,13 @@ app.controller('CreateAccountCtrl', function($scope, $location, baseHost) {
 
     $scope.createAccount = function() {
         if(!$scope.user){
-            alert("Preencha todos os campos");
+
+            M.toast({html: "Preencha todos os campos"}, outDuration = 1000);
             return;
         }
 
         if($scope.user.password != $scope.user.samePass){
-            alert("As senhas não coincidem");
+            M.toast({html: "As senhas não coincidem"}, outDuration = 1000);
             return;
         }
 
@@ -21,7 +22,7 @@ app.controller('CreateAccountCtrl', function($scope, $location, baseHost) {
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState == 4){
                 var result = xhttp.responseText;
-                alert("Conta Criada com sucesso")
+                M.toast({html: "Conta criada com sucesso!"}, outDuration = 1000);
                 $scope.loading = false;
                 $location.path("/login")
                 $scope.$apply();
