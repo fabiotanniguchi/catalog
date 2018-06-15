@@ -11,7 +11,7 @@ app.controller('EditAccountCtrl', function($scope, cartService, authService, bas
 
 	$scope.save = function(){
 		if($scope.user.password != $scope.user.samePass){
-			alert("As senhas digitadas não correspondem");
+			M.toast({html: "As senhas digitadas não correspondem"}, outDuration = 1000);
 			return;
 		}
 		console.info("save", $scope.user);
@@ -33,7 +33,8 @@ app.controller('EditAccountCtrl', function($scope, cartService, authService, bas
 	$scope.success = function(result){
 		console.info(result);
 		authService.setLoggedUser(btoa(JSON.stringify($scope.user)));
-		alert("Informações atualizadas com sucesso");
+		alert("");
+		M.toast({html: "Informações atualizadas com sucesso"}, outDuration = 1000);
 	}
 
 	$scope.fail = function(result){

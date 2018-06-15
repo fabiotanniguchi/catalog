@@ -56,7 +56,7 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function(){
 			  if(xhttp.readyState == 4){
-			      var result = xhttp.responseText;
+				  var result = xhttp.responseText;
 			  }else{
 				  $scope.fail(result);
 			  }
@@ -90,8 +90,9 @@ $scope.selectPayment = function(value) {
 
 $scope.validateCreditCard = function(){
 	console.info("validateCreditCard");
-	if(!$scope.cart.payment){
-		alert("informe o cartão de crédito");
+	if (!$scope.cart.payment){
+		M.toast({html: "Informe o cartão de crédito"}, outDuration = 1000);
+		return;
 	}
 	console.info($scope.cart.payment);
 
@@ -115,9 +116,10 @@ $scope.success = function(result){
 	result = JSON.parse(result);
 	console.info("success", result);
 	if(result && result.score > 300){
-		alert("Cartão de crédito validado com sucesso")
+		M.toast({html: "Cartão de crédito validado com sucesso"}, outDuration = 1000);
 	}else{
-		alert("Não é possivel prosseguir com a compra com esse cartão de credito")
+		M.toast({html: "Não é possivel prosseguir com a compra com esse cartão de credito"}, outDuration = 1000);
+		return
 	}
 }
 
