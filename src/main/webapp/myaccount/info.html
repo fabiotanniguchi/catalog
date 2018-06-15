@@ -38,21 +38,42 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6"> 
+            <div class="col-md-6" ng-init="init();"> 
                 <h3 class="col-md-6" style="padding-left: 0;">Meus pedidos</h3>
                 <span class="col-md-6 total-pedidos" style="text-align: right; margin: 1.9466666667rem 0 1.168rem 0;">4 pedidos</span>
                 <ul class="meus-pedidos col-md-12" style="padding-left: 0;">
-                    <li class="col-md-12">
+                    <li class="col-md-12" ng-click="openModal();" style="cursor: pointer;">
                         <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido 1024812</div>
                         <div class="col-md-12 pedido-status" style="padding-left: 0;">Entregue</div>
                         <div class="col-md-4" style="padding-left: 0;">4 itens</div>
                         <div class="col-md-4" style="text-align:center;">R$ 1200,00</div>
                         <div class="col-md-4" style="padding-right: 0; text-align:right;">02/06/2018</div>
-
+                                                   
                     </li>
                 </ul>   
+                <div id="modal1" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        <h4 style="font-size:22px;">Pedido 1024812</h4>
+                        <div class="row">
+                            <div class="col-md-12" style="padding-left: 0">
+                                <label>Número de Rastreamento</label>
+                                <p>BR1923UIFA9</p>
+                            </div>
+                            <div class="col-md-12" style="padding-left: 0">
+                                <label>Status Pagamento</label>
+                                <p>Pago em 12/06/2018</p>
+                            </div>
+                            <div class="col-md-12" style="padding-left: 0">
+                                    <label>Status Entrega</label>
+                                    <p>A caminho do destinatário</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+                    </div>
+                </div> 
             </div>
-
         </div>
     </div>
 </div>
