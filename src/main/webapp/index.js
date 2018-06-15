@@ -16,8 +16,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 		$scope.categorySelected = false;
 		//console.info(result);
 		for(var i = 0; i < result.length; i++){
-			if (result[i].price > 0 && result[i].stock > 0) {
-				result[i].name = result[i].name
+			if (result[i].price > 0) {
 				$scope.productsResult.push(result[i]);
 				if (result[i].highlight == true) {
 				    $scope.products.push(result[i]);
@@ -50,7 +49,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 
     $scope.searchProducts = function(name) {
         name = name.toUpperCase()
-        console.log("buscarIndexTxt", name)
+        //console.log("buscarIndexTxt", name)
 
         findProducts = [];
         for (var i = 0; i < $scope.productsResult.length; i++) {

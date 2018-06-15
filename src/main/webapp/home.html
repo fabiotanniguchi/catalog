@@ -23,7 +23,8 @@
                         <img ng-src='{{ product.imageUrl == null ? "nophoto.svg" : product.imageUrl }}'/>
                     </div>
                     <div class="product-name"> {{ product.name }}</div>
-                    <div class="product-price"> {{ product.price | currency:'R$ ' }}</div>
+                    <div ng-if="product.stock > 0" class="product-price"> {{ product.price | currency:'R$ ' }}</div>
+                    <div ng-if="product.stock <= 0"  class="product-esgotado"> <font color="red">ESGOTADO</font></div>
                 </a>
             </li>
         </ul>
