@@ -39,11 +39,11 @@
                 </div>
             </div>
             <div class="col-md-6" ng-init="init();"> 
-                <h3 class="col-md-6" style="padding-left: 0;">Meus pedidos</h3>
-                <span class="col-md-6 total-pedidos" style="text-align: right; margin: 1.9466666667rem 0 1.168rem 0;">4 pedidos</span>
-                <ul class="meus-pedidos col-md-12" style="padding-left: 0;">
+                <h3 class="col-md-6" style="padding-left: 0;">Meu(s) pedido(s)</h3>
+                <span class="col-md-6 total-pedidos" style="text-align: right; margin: 1.9466666667rem 0 1.168rem 0;">{{orders.length}} pedidos</span>
+                <ul class="meus-pedidos col-md-12" style="padding-left: 0;" ng-repeat="order in orders">
                     <li class="col-md-12" ng-click="openModal();" style="cursor: pointer;">
-                        <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido 1024812</div>
+                        <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido {{order.id}}</div>
                         <div class="col-md-12 pedido-status" style="padding-left: 0;">Entregue</div>
                         <div class="col-md-4" style="padding-left: 0;">4 itens</div>
                         <div class="col-md-4" style="text-align:center;">R$ 1200,00</div>

@@ -20,9 +20,10 @@ app.controller('InfoAccountCtrl', function($scope, $window, $http, cartService, 
             method: 'GET',
             url: baseHost + 'orders?userId=-LERzitEBJwXfPwqDAcg'
           }).then(function successCallback(response) {
-              console.info(response)
+              $scope.orders = response.data;
+              console.info($scope.orders);
             }, function errorCallback(response) {
-              
+                console.info(response)      
             });
 
         $('.modal').modal();
