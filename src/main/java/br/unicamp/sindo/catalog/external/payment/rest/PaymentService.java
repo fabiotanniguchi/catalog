@@ -1,25 +1,23 @@
 package br.unicamp.sindo.catalog.external.payment.rest;
 
-import br.unicamp.sindo.catalog.external.logistics.PackageType;
-import br.unicamp.sindo.catalog.external.logistics.dto.LogisticsPackageFromDTO;
-import br.unicamp.sindo.catalog.external.logistics.dto.LogisticsPackageInsertResultDTO;
-import br.unicamp.sindo.catalog.external.logistics.rest.LogisticsRest;
-import br.unicamp.sindo.catalog.external.payment.PaymentType;
-import br.unicamp.sindo.catalog.external.payment.dto.*;
-import br.unicamp.sindo.catalog.order.OrderService;
-import br.unicamp.sindo.catalog.ordercopy.Order;
-import br.unicamp.sindo.catalog.product.Product;
-import br.unicamp.sindo.catalog.product.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import br.unicamp.sindo.catalog.external.payment.dto.BoletoPaymentData;
+import br.unicamp.sindo.catalog.external.payment.dto.BoletoPaymentResultData;
+import br.unicamp.sindo.catalog.external.payment.dto.BoletoStatusData;
+import br.unicamp.sindo.catalog.external.payment.dto.CreditCardData;
+import br.unicamp.sindo.catalog.external.payment.dto.CreditCardInsertData;
+import br.unicamp.sindo.catalog.external.payment.dto.CreditCardPaymentData;
+import br.unicamp.sindo.catalog.external.payment.dto.CreditCardPaymentResultData;
+import br.unicamp.sindo.catalog.ordercopy.Order;
 
 @Service
 public class PaymentService {
@@ -29,9 +27,7 @@ public class PaymentService {
     private static final String EVALUATE_CREDIT_CARD_PAYMENT_PATH = "payments/creditCard";
     private static final String SUBMIT_BOLETO_PAYMENT_PATH = "payments/bankTicket";
     private static final String BOLETO_STATUS_PATH = "payments/bankTicket/{code}/status";
-    //private static final String INVOICE_PATH = "invoice";
     private static final String CREDIT_CARD_PATH = "creditCard";
-    //private static final String CREDIT_CARD_QUERY_PATH = "creditCard/{number}";
 
     public BoletoStatusData getBoletoStatus(String code) {
         final String uri = PAYMENTS_HOST + BOLETO_STATUS_PATH;
@@ -60,6 +56,14 @@ public class PaymentService {
     	final String uri = PAYMENTS_HOST + EVALUATE_CREDIT_CARD_PAYMENT_PATH;
 
         CreditCardPaymentData data = new CreditCardPaymentData();
+        data.setCardNumber(order.getPayment().getCreditCard());
+        data.setClientCardName(order.getPayment().getName());
+        data.setCpf(order.getUser().getCpf());
+        data.setInstalments("1");
+        data.setMonth("10");
+        data.setSecurityCode(order.getPayment().getCvv());
+        data.setValue("100.0");
+        data.setYear("2020");
 
         this.tryToInsertCreditCard(data);
 
@@ -77,6 +81,10 @@ public class PaymentService {
     	final String uri = PAYMENTS_HOST + SUBMIT_BOLETO_PAYMENT_PATH;
 
         BoletoPaymentData data = new BoletoPaymentData();
+        data.setAddress(order.getUser().getAddress());
+        data.setCep(order.getAddress().getPostalCode());
+        data.setCpf(order.getUser().getCpf());
+        data.setValue("100.0");
 
         HttpEntity<BoletoPaymentData> entity = new HttpEntity<>(data, headers);
 
@@ -86,57 +94,57 @@ public class PaymentService {
         return response.getBody();
     }
     
-    @PostMapping
-    public ResponseEntity<String> postPayment(@RequestBody WebsitePaymentData paymentData) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        if (paymentData.getPaymentType() == PaymentType.CREDIT_CARD) {
-            final String uri = PAYMENTS_HOST + EVALUATE_CREDIT_CARD_PAYMENT_PATH;
-
-            CreditCardPaymentData data = CreditCardPaymentData.from(paymentData);
-
-            this.tryToInsertCreditCard(data);
-
-            HttpEntity<CreditCardPaymentData> entity = new HttpEntity<>(data, headers);
-
-            ResponseEntity<CreditCardPaymentResultData> response = null;
-            RestTemplate restTemplate = new RestTemplate();
-            response = restTemplate.postForEntity(uri, entity, CreditCardPaymentResultData.class);
-
-            if (response.getBody() != null) {
-                if (StringUtils.isEmpty(response.getBody().getErrorMessage())) {
-//                    persistOrder(paymentData, response.getBody());
-                    return ResponseEntity.ok("");
-                } else { // error
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-                }
-            } else { // error
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-            }
-        } else { // BOLETO
-            final String uri = PAYMENTS_HOST + SUBMIT_BOLETO_PAYMENT_PATH;
-
-            BoletoPaymentData data = BoletoPaymentData.from(paymentData);
-
-            HttpEntity<BoletoPaymentData> entity = new HttpEntity<>(data, headers);
-
-            ResponseEntity<BoletoPaymentResultData> response = null;
-            RestTemplate restTemplate = new RestTemplate();
-            response = restTemplate.postForEntity(uri, entity, BoletoPaymentResultData.class);
-
-            if (response.getBody() != null) {
-                if (StringUtils.isEmpty(response.getBody().getErrorMessage())) {
-//                    persistOrder(paymentData, response.getBody());
-                    return ResponseEntity.ok("");
-                } else { // error
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-                }
-            } else { // error
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-            }
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<String> postPayment(@RequestBody WebsitePaymentData paymentData) {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//        if (paymentData.getPaymentType() == PaymentType.CREDIT_CARD) {
+//            final String uri = PAYMENTS_HOST + EVALUATE_CREDIT_CARD_PAYMENT_PATH;
+//
+//            CreditCardPaymentData data = CreditCardPaymentData.from(paymentData);
+//
+//            this.tryToInsertCreditCard(data);
+//
+//            HttpEntity<CreditCardPaymentData> entity = new HttpEntity<>(data, headers);
+//
+//            ResponseEntity<CreditCardPaymentResultData> response = null;
+//            RestTemplate restTemplate = new RestTemplate();
+//            response = restTemplate.postForEntity(uri, entity, CreditCardPaymentResultData.class);
+//
+//            if (response.getBody() != null) {
+//                if (StringUtils.isEmpty(response.getBody().getErrorMessage())) {
+////                    persistOrder(paymentData, response.getBody());
+//                    return ResponseEntity.ok("");
+//                } else { // error
+//                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+//                }
+//            } else { // error
+//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//            }
+//        } else { // BOLETO
+//            final String uri = PAYMENTS_HOST + SUBMIT_BOLETO_PAYMENT_PATH;
+//
+//            BoletoPaymentData data = BoletoPaymentData.from(paymentData);
+//
+//            HttpEntity<BoletoPaymentData> entity = new HttpEntity<>(data, headers);
+//
+//            ResponseEntity<BoletoPaymentResultData> response = null;
+//            RestTemplate restTemplate = new RestTemplate();
+//            response = restTemplate.postForEntity(uri, entity, BoletoPaymentResultData.class);
+//
+//            if (response.getBody() != null) {
+//                if (StringUtils.isEmpty(response.getBody().getErrorMessage())) {
+////                    persistOrder(paymentData, response.getBody());
+//                    return ResponseEntity.ok("");
+//                } else { // error
+//                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+//                }
+//            } else { // error
+//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//            }
+//        }
+//    }
 
     private void tryToInsertCreditCard(CreditCardPaymentData creditCardPaymentData) {
         final String uri = PAYMENTS_HOST + CREDIT_CARD_PATH;

@@ -22,9 +22,10 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<Category>> list(@RequestParam(required = false) String name
             , @RequestParam(name = "parent_category", required = false) UUID parentId
+            , @RequestParam(name = "group_id", required = false) String groupId
             , @RequestParam(defaultValue = "1") Integer page) {
         int pageSize = 50;
-        return PageableResponseEntity.ok(service.list(name, parentId, page, pageSize + 1), page, pageSize + 1);
+        return PageableResponseEntity.ok(service.list(name, parentId, groupId, page, pageSize + 1), page, pageSize + 1);
     }
 
     @GetMapping(value = "/{id}")

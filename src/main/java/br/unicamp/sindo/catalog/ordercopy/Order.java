@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
 
+import br.unicamp.sindo.catalog.external.payment.dto.BoletoPaymentResultData;
+import br.unicamp.sindo.catalog.external.payment.dto.CreditCardPaymentResultData;
 import br.unicamp.sindo.catalog.product.Product;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,6 +29,17 @@ public class Order implements Serializable {
     private int expectedDays;
     private double postalFee;
     private String deliveryType;
+    
+    private BoletoPaymentResultData billResult;
+    private CreditCardPaymentResultData creditCardResult;
+    
+    public String getPaymentType(){
+    	if(payment == null){
+    		return "BILL";
+    	}else{
+    		return "CREDIT";
+    	}
+    }
 
     public Order(){}
 
