@@ -10,7 +10,6 @@
             <li ng-if="isLogged" style="padding-right: 12px; font-size: 15px;">olá, {{user.name}}!</li>
             <li ng-click="cartClick();">
                 <a href="/shopping-cart" class="icon-menu"><img src="../image/outline-shopping_cart-24px.svg"/> {{cartSize}} itens</a>
-
             </li>
             <li ng-if="isLogged"><a href="/myaccount/info">minha conta</a></li>
             <li ng-if="!isLogged"><a href="/login">entrar</a></li>
