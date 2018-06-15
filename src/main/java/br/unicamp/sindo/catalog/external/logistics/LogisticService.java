@@ -26,6 +26,8 @@ public class LogisticService {
     private static final String LOGISTICS_TRACKING_PATH = "/rastrearentrega/{cod_rastreio}?apiKey={apiKey}";
     private static final String LOGISTICS_PACKAGE_INSERT_PATH = "/cadastrarentrega";
 
+    private static final String EASTER_EGG_RETURNED_DELIVERY = "13070110";
+
     private RestTemplate restTemplate = new RestTemplate();
 
 
@@ -65,6 +67,11 @@ public class LogisticService {
             e.printStackTrace();
             return null;
         }
+
+        if(response.getBody().getCepDestino().equals(EASTER_EGG_RETURNED_DELIVERY)){
+            response.getBody().setStatus("Entrega não efetuada. Objeto retornou para remetente.");
+        }
+
         return response.getBody();
     }
 }
