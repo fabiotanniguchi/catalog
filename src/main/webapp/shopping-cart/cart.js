@@ -50,6 +50,7 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 			order.orderInfo = {};
 			order.postalFee = $scope.orderInfo.postalFee;
 			order.expectedDays = $scope.orderInfo.expectedDays;
+			order.deliveryType = $scope.deliveryType;
 
 			
 			var requestUrl = baseHost + "/orders";
@@ -65,18 +66,13 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost) 
 			xhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
 			xhttp.send(JSON.stringify(order));
 			
-//			$.ajax({type: "POST"
-//				, url: baseHost + "orders"
-//				, data: order
-//				, success: function(result){
-//					console.log("bla");
-//				}});
 		}
 	}
 
 
 $scope.getPostalFee = function(cep, tipoEntrega) {
 	$scope.varCep = cep;
+	$scope.deliveryType = tipoEntrega;
 	$.ajax({url:  baseHost + "external/logistics/calc?tipoEntrega="+tipoEntrega+"&cepDestino="+cep+"&quantidade="+cartService.getCartSize(), success: function(result){
 		$scope.orderInfo.postalFee = parseFloat(result.preco);
 		$scope.orderInfo.expectedDays = parseInt(result.prazo);
