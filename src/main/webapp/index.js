@@ -32,6 +32,27 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 		productService.setCurrentObject(obj);
 	}
 
+    $scope.$on('buscarClickRefresh', function (event, name) {
+        name = name.toUpperCase()
+        console.log("buscarIndexTxt", name)
+
+        findProducts = [];
+        for (var i = 0; i < $scope.productsResult.length; i++) {
+            if ($scope.productsResult[i].name.toUpperCase().includes(name) == true) {
+                findProducts.push($scope.productsResult[i]);
+            }
+        }
+
+        if (findProducts.length == 0) {
+            M.Toast.dismissAll();
+            M.toast({html: "Nenhum produto encontrado na busca!"}, outDuration = 1000);
+            $scope.showProductsHighlight()
+        } else {
+            $scope.categoryResult = "Busca";
+            $scope.products = findProducts;
+        }
+    });
+
 	$scope.parseCategories = function (result) {
 		$scope.categories = [];
 		for(var i = 0; i < result.length; i++){

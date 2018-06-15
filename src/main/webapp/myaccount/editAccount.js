@@ -12,6 +12,7 @@ app.controller('EditAccountCtrl', function($scope, cartService, authService, bas
 	$scope.save = function(){
 		if($scope.user.password != $scope.user.samePass){
 			alert("As senhas digitadas não correspondem");
+			return;
 		}
 		console.info("save", $scope.user);
 		var requestUrl = baseHost + "external/customers/" + $scope.user.id
