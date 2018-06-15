@@ -4,6 +4,7 @@ app.controller('InfoAccountCtrl', function($scope, $window, $http, cartService, 
 
     $scope.user = {}
     $scope.orders = {}
+    $scope.modalOrder = undefined
 
 	var init = function (argument) {
 		$scope.user = authService.getLoggedUser();
@@ -23,13 +24,14 @@ app.controller('InfoAccountCtrl', function($scope, $window, $http, cartService, 
               $scope.orders = response.data;
               console.info($scope.orders);
             }, function errorCallback(response) {
-                console.info(response)      
+                console.info(response)
             });
 
         $('.modal').modal();
     }
 
-    $scope.openModal = function() {
+    $scope.openModal = function(order) {
+        $scope.modalOrder = order;
         $('.modal').modal('open');
     }
 

@@ -401,3 +401,9 @@ ul.meus-pedidos {
     max-height: 500px;
     overflow: scroll;
 }
+
+.infoAccount-container .modal {
+    max-height: 80%;
+    height: 80%;
+    width: 70%;
+}
