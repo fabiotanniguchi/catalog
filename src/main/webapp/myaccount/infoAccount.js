@@ -22,7 +22,7 @@ app.controller('InfoAccountCtrl', function($scope, $window, $http, cartService, 
         if (user != null) {
             $http({
                 method: 'GET',
-                url: baseHost + 'orders?userId=' + user.id
+                url: baseHost + '/orders?userId=' + user.id
               }).then(function successCallback(response) {
                   $scope.orders = response.data;
                   console.info($scope.orders);
