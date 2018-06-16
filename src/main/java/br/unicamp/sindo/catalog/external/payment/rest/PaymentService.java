@@ -110,6 +110,7 @@ public class PaymentService {
 
         ResponseEntity<BoletoPaymentResultData> response = null;
         RestTemplate restTemplate = new RestTemplate();
+        data.setCpf(data.getCpf().replace(".", "").replace(" ","").replace("-",""));
         response = restTemplate.postForEntity(uri, entity, BoletoPaymentResultData.class);
         return response.getBody();
     }
