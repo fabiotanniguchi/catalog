@@ -40,6 +40,14 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost, 
 				$scope.$apply()
 			}})
 		}else if($scope.step == 3){
+			
+			if(cartService.getCartSize() >= 15){
+				M.Toast.dismissAll();
+				M.toast({html: 'Identificamos que você está comprando muitos itens de uma vez. Para concluir sua compra entre em contato com nosso suporte.'});
+				$scope.step = $scope.step - 1;
+				return;
+			}
+			
 			console.info("step 2");
 			var order = {};
 			order.address = $scope.cart.address;
