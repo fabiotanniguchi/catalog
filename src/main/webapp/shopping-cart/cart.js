@@ -153,7 +153,7 @@ $scope.validateCreditCard = function(){
 $scope.success = function(result){
 	result = JSON.parse(result);
 	console.info("success", result);
-	if(result.cpf != null || result.score > 300){
+	if(result.cpf == null || result.score > 300){
 		M.toast({html: "Cartão de crédito validado com sucesso"}, outDuration = 1000);
 	}else{
 		M.toast({html: "Não é possivel prosseguir com a compra com esse cartão de credito"}, outDuration = 1000);
