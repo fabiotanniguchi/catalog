@@ -124,11 +124,11 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 
 	$scope.onLoad = function (argument) {
 	//?group_id=products1
-		$.ajax({url:  baseHost + "products", success: function(result){
+		$.ajax({url:  baseHost + "products/group/GRUPOPRODUTOS1", success: function(result){
 			$scope.parseProducts(result);
 		}});
 
-		$.ajax({url: baseHost + "categories", success: function(result){
+		$.ajax({url: baseHost + "categories/group/GRUPOPRODUTOS1", success: function(result){
 			$scope.parseCategories(result);
 		}});
 	}
