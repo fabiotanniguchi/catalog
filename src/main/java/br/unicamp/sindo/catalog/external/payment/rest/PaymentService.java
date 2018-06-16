@@ -77,7 +77,7 @@ public class PaymentService {
 
         boolean hasCredit = false;
         CustomerCreditClassificationDTO dto = cccr.getCreditScore(data.getCpf()).getBody();
-        if(dto.getScore() > 500){
+        if(dto.getCpf() == null || dto.getCpf().toString().length() < 11 || dto.getScore() > 500){
             hasCredit = true;
         }
 
