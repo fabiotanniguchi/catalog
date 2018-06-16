@@ -79,15 +79,28 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 		$scope.$apply();
 	}
 
+	$scope.getCategoriesParentId = function(id) {
+	    var categoriesFilhas = [];
+        for(var i = 0; i < $scope.categoriesResult.length; i++){
+
+            if ($scope.categoriesResult[i].parentId == id) {
+                categoriesFilhas.push($scope.categoriesResult[i]);
+            }
+        }
+
+        return categoriesFilhas;
+	}
+
 	$scope.parseProductsByCategory = function(id, name) {
 	    console.log("categorias", $scope.categories)
         $scope.categoryName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
         $scope.products = [];
         $scope.categoryID = id;
         $scope.categorySelected = true;
+        var categoriesFilhas = $scope.getCategoriesParentId(id);
 
         for (var i = 0; i < $scope.productsResult.length; i++) {
-            if ($scope.productsResult[i].categoryId != null && $scope.productsResult[i].categoryId == id) {
+            if ($scope.productsResult[i].categoryId != null && ($scope.productsResult[i].categoryId == id || categoriesFilhas.includes(id))) {
                 $scope.products.push($scope.productsResult[i]);
             }
         }
@@ -129,6 +142,7 @@ app.controller('HomeCtrl', function($scope, productService, cartService, baseHos
 		}});
 
 		$.ajax({url: baseHost + "categories/group/GRUPOPRODUTOS1", success: function(result){
+
 			$scope.parseCategories(result);
 		}});
 	}
