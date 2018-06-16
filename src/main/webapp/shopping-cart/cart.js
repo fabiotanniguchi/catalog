@@ -175,4 +175,11 @@ $scope.onQttChange = function (id, data) {
 		//console.info(cartService.getCart()[id]);
 	}
 }
+
+$scope.remove = function(id, data){
+    var cart = cartService.getCart();
+    cart = cartService.removeProduct(id);
+    $scope.cart[id].quantity = 0;
+}
+
 });

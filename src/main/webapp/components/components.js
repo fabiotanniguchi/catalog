@@ -93,6 +93,13 @@ app.service('productService', function(){
 app.service('cartService', function($rootScope) {
 	this.cart = {};
 
+	this.removeProduct = function(id){
+        var cart = this.getCart();
+        cart[id].quantity = 0;
+        this.persist(cart);
+        return cart;
+	}
+
 	this.addProduct = function(product, quantity){
         //console.info(product);
         var cart = this.getCart()

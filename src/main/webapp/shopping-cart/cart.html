@@ -32,13 +32,14 @@
 					<th>Quantidade</th>
 					<th>Preço</th>
 				</tr>
-				<tr ng-repeat="(id, data) in cart">
+				<tr ng-repeat="(id, data) in cart" ng-if="cart[id].quantity > 0">
 					<td>{{data.product.name}}</td>
 					<td><input type="number" ng-model="data.quantity"
 						value="{{data.quantity}}" ng-change="onQttChange(id, data)"
 						min="0" max="data.product.stock" />
 					<td>
 					<td>{{data.quantity * data.product.price | currency:'R$ '}}</td>
+                    <td><button type="button" class="btn btn-danger" ng-click="remove(id, data)">Remover</button></td>
 				</tr>
 				<tr>
 					<td></td>
