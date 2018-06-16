@@ -68,7 +68,7 @@ public class PaymentService {
         CreditCardPaymentData data = new CreditCardPaymentData();
         data.setCardNumber(order.getPayment().getCreditCard());
         data.setClientCardName(order.getPayment().getName());
-        data.setCpf(order.getUser().getCpf());
+        data.setCpf(order.getUser().getCpf().trim().replaceAll(".",""));
         data.setInstalments("1");
         data.setMonth(month);
         data.setSecurityCode(order.getPayment().getCvv());
