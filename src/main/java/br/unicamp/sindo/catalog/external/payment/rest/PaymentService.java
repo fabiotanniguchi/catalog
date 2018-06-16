@@ -68,7 +68,7 @@ public class PaymentService {
         CreditCardPaymentData data = new CreditCardPaymentData();
         data.setCardNumber(order.getPayment().getCreditCard());
         data.setClientCardName(order.getPayment().getName());
-        data.setCpf(order.getUser().getCpf().trim().replaceAll(".",""));
+        data.setCpf(order.getUser().getCpf());
         data.setInstalments("1");
         data.setMonth(month);
         data.setSecurityCode(order.getPayment().getCvv());
@@ -90,6 +90,7 @@ public class PaymentService {
 
         ResponseEntity<CreditCardPaymentResultData> response = null;
         RestTemplate restTemplate = new RestTemplate();
+        data.setCpf(data.getCpf().replace(".", "").replace(" ","").replace("-",""));
         response = restTemplate.exchange(uri, HttpMethod.POST, entity, CreditCardPaymentResultData.class);
         return response.getBody();
     }
