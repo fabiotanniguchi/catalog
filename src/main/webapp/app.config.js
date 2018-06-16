@@ -1,8 +1,8 @@
 var app = angular.module('catalogProducts', ['ngRoute']);
 
 
-app.constant("baseHost", "http://localhost:8080/");
-//app.constant("baseHost", "https://ftt-catalog.herokuapp.com/");
+//app.constant("baseHost", "http://localhost:8080/");
+app.constant("baseHost", "https://ftt-catalog.herokuapp.com/");
 
 
 app.config(['$locationProvider', '$routeProvider', '$provide',
