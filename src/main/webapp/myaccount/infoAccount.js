@@ -13,22 +13,25 @@ app.controller('InfoAccountCtrl', function($scope, $window, $http, cartService, 
     $scope.logout = function(){
         console.info("logout");
         authService.logout();
+        localStorage.clear();
         $window.location.href = baseHost;
     }
 
     $scope.init = function() {
         var user = authService.getLoggedUser();
-        $http({
-            method: 'GET',
-            url: baseHost + 'orders?userId=' + user.id
-          }).then(function successCallback(response) {
-              $scope.orders = response.data;
-              console.info($scope.orders);
-            }, function errorCallback(response) {
-                console.info(response)
-            });
+        if (user != null) {
+            $http({
+                method: 'GET',
+                url: baseHost + 'orders?userId=' + user.id
+              }).then(function successCallback(response) {
+                  $scope.orders = response.data;
+                  console.info($scope.orders);
+                }, function errorCallback(response) {
+                    console.info(response)
+                });
 
-        $('.modal').modal();
+            $('.modal').modal();
+        }
     }
 
     $scope.openModal = function(order) {

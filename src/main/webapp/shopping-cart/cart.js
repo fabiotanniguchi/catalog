@@ -3,7 +3,7 @@ var app = angular.module('catalogProducts');
 app.controller('CartCtrl', function($scope, cartService, authService, baseHost, $location) {
 
 	$scope.step = 0;
-	$scope.varCep = 0;
+	$scope.varCep = null;
 	$scope.validateCredit = false;
 
 	$scope.show = function() {
@@ -12,7 +12,11 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost, 
 		//$scope.cart = cartService.getCart();
 		$scope.orderInfo = {};
 		$scope.orderInfo.subTotal = cartService.totalValue();
-		$scope.varCep = authService.getLoggedUser().cep;
+		if (authService.getLoggedUser() != null) {
+		    $scope.varCep = authService.getLoggedUser().cep;
+		} else {
+		    $scope.varCep = null
+		}
 	}
 
 	$scope.isEmpty = function() {
@@ -36,6 +40,14 @@ app.controller('CartCtrl', function($scope, cartService, authService, baseHost, 
 				$scope.$apply()
 			}})
 		}else if($scope.step == 3){
+			
+			if(cartService.getCartSize() >= 15){
+				M.Toast.dismissAll();
+				M.toast({html: 'Identificamos que você está comprando muitos itens de uma vez. Para concluir sua compra entre em contato com nosso suporte.'});
+				$scope.step = $scope.step - 1;
+				return;
+			}
+			
 			console.info("step 2");
 			var order = {};
 			order.address = $scope.cart.address;

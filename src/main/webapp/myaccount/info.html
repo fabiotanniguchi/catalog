@@ -40,8 +40,9 @@
             </div>
             <div class="col-md-6" ng-init="init();">
                 <h3 class="col-md-6" style="padding-left: 0;">Meu(s) pedido(s)</h3>
-                <span class="col-md-6 total-pedidos" style="text-align: right; margin: 1.9466666667rem 0 1.168rem 0;">{{orders.length}} pedidos</span>
-                <ul class="meus-pedidos col-md-12" style="padding-left: 0;">
+                <loading style="margin-top: 6rem; display: block;" ng-hide="orders.length > 0"></loading>
+                <span class="col-md-6 total-pedidos" ng-if="orders.length > 0" style="text-align: right; margin: 1.9466666667rem 0 1.168rem 0;">{{orders.length}} pedidos</span>
+                <ul class="meus-pedidos col-md-12" style="padding-left: 0;" ng-if="orders.length > 0" >
                     <li class="col-md-12" ng-click="openModal(order);" style="cursor: pointer;" ng-repeat="order in orders">
                         <div class="col-md-12 pedido-id" style="padding-left: 0;">Pedido {{order.id}}</div>
                         <div class="col-md-12 pedido-status" style="padding-left: 0; padding-top:20px;">

@@ -14,7 +14,7 @@
     </div>
 
     <div class="products">
-        <h2>{{categoryResult}}</h2>
+        <h2>{{categoryName}}</h2>
         <loading ng-if="products.length == 0"></loading>
         <ul class="row" ng-if="products.length > 0">
             <li class='col-md-3' ng-repeat="product in products">
